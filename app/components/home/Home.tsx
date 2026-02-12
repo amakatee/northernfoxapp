@@ -1,4 +1,5 @@
 import React from 'react'
+import WhyChooseUs from '../sections/WhyChooseUs'
 import {Slider} from  "../slider"
 
 const slides =[
@@ -32,6 +33,7 @@ function Home() {
        <NorthernFoxNavbar /> */}
 
         <Slider slides={slides} />
+        <WhyChooseUs />
        
        
        

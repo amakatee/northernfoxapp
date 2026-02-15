@@ -1,7 +1,7 @@
+// BenefitCard.tsx
 'use client';
 
 import { forwardRef } from 'react';
-import { Benefit } from './constants/benefits';
 
 interface BenefitCardProps {
   title: string;
@@ -19,12 +19,23 @@ export const BenefitCard = forwardRef<HTMLDivElement, BenefitCardProps>(
       >
         <div className="absolute inset-0 rounded-3xl group-hover:blur-2xl transition-all duration-500" />
         <div className="relative p-7 rounded-3xl group-hover:border-white/30 transition-all duration-500">
-          <h3 className="text-2xl md:text-2xl font-bold text-white mb-4 leading-tight tracking-tight">
-            {title}
-          </h3>
-          <p className="text-white/80 text-lg leading-relaxed font-light">
-            {description}
-          </p>
+          {/* Title with slide-up effect */}
+          <div className="overflow-hidden mb-4">
+            <div className="benefit-title translate-y-full will-change-transform">
+              <h3 className="text-2xl md:text-2xl font-bold text-white leading-tight tracking-tight">
+                {title}
+              </h3>
+            </div>
+          </div>
+
+          {/* Description with slide-up effect */}
+          <div className="overflow-hidden">
+            <div className="benefit-description translate-y-full will-change-transform">
+              <p className="text-white/80 text-lg leading-relaxed font-light">
+                {description}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     );

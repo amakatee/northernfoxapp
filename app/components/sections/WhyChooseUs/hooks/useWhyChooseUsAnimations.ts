@@ -62,50 +62,49 @@ export const useWhyChooseUsAnimations = ({
       }
 
       // Cards animations
-      cardsRef.current.forEach((card, index) => {
-        if (!card) return;
-        
-        gsap.from(card, {
-          y: 40,
-          opacity: 0,
-          duration: 0.8,
-          delay: index * 0.15,
-          ease: 'back.out(1.2)',
-          scrollTrigger: {
-            trigger: card,
-            start: 'top 90%',
-            toggleActions: 'play none none reverse',
-          }
-        });
+    // Inside useWhyChooseUsAnimations.ts, after the card animations loop
 
-        // Hover animations
-        const handleMouseEnter = () => {
-          gsap.to(card, {
-            y: -8,
-            scale: 1.02,
-            duration: 0.3,
-            ease: 'power2.out'
-          });
-        };
+// Animate title and description for each card
+cardsRef.current.forEach((card, index) => {
+  if (!card) return;
 
-        const handleMouseLeave = () => {
-          gsap.to(card, {
-            y: 0,
-            scale: 1,
-            duration: 0.3,
-            ease: 'power2.out'
-          });
-        };
+  const titleEl = card.querySelector<HTMLElement>('.benefit-title');
+  const descEl = card.querySelector<HTMLElement>('.benefit-description');
 
-        card.addEventListener('mouseenter', handleMouseEnter);
-        card.addEventListener('mouseleave', handleMouseLeave);
+  if (titleEl) {
+    gsap.fromTo(titleEl,
+      { y: '100%' },
+      {
+        y: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+        delay: index * 0.15, // stagger between cards
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        }
+      }
+    );
+  }
 
-        // Cleanup function for this card
-        return () => {
-          card.removeEventListener('mouseenter', handleMouseEnter);
-          card.removeEventListener('mouseleave', handleMouseLeave);
-        };
-      });
+  if (descEl) {
+    gsap.fromTo(descEl,
+      { y: '100%' },
+      {
+        y: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+        delay: index * 0.15 + 0.1, // description appears slightly after title
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        }
+      }
+    );
+  }
+});
 
       // Image animation
       if (imageRef.current) {

@@ -3,14 +3,12 @@ import gsap from "gsap";
 
 export const createSlideTimeline = (
   titleEl: HTMLElement | null, 
-  descEl: HTMLElement | null, 
-  imgEl: HTMLElement | null, 
   reduced: boolean
 ) => {
-  if(!titleEl || !descEl) return null;
+  if(!titleEl) return null;
   
   if(reduced) { 
-    gsap.set([titleEl, descEl], {
+    gsap.set(titleEl, {
       opacity: 1,
       y: 0
     }); 
@@ -18,7 +16,7 @@ export const createSlideTimeline = (
   }
 
   // Set initial positions - start from bottom (outside the container)
-  gsap.set([titleEl, descEl], { 
+  gsap.set(titleEl, { 
     y: "100%",           // Start from bottom (outside)
     opacity: 0,
     visibility: 'visible'
@@ -30,17 +28,12 @@ export const createSlideTimeline = (
     }
   });
   
-  // Animate from bottom to top with stagger
+  // Animate title from bottom to top
   tl.to(titleEl, {
     y: 0,
     opacity: 1,
     duration: 0.6
-  }, 0)
-  .to(descEl, {
-    y: 0,
-    opacity: 1,
-    duration: 0.6
-  }, 0.2);
+  }, 0);
   
   return tl;
 }

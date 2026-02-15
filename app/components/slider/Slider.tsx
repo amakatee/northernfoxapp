@@ -8,7 +8,7 @@ import { useSwipe } from './hooks/useSwipe'
 import { useKeyboard } from './hooks/useKeyboard'
 import { useCallback } from 'react'
 
-export default function Slider({slides,autoPlayInterval=5000,enableAutoPlay=true,className=''}:SliderProps){
+export default function Slider({slides,autoPlayInterval=2500,enableAutoPlay=true,className=''}:SliderProps){
  if(!slides?.length){return <div className='w-full h-[40vh] md:h-[60vh] flex items-center justify-center'>No slides</div>}
  
  const { index, next, prev, goTo, paused, setPaused } = useSlider(slides.length, true)
@@ -21,12 +21,8 @@ export default function Slider({slides,autoPlayInterval=5000,enableAutoPlay=true
  
  return (
   <section 
-   className={`relative w-full overflow-hidden h-[40vh] md:h-[60vh] ${className} bg-[linear-gradient(145deg,#8894A4_0%,#8B94A5_40%,#878F9C_100%)]
-   bg-[radial-gradient(circle_at_10%_30%,rgba(188,152,120,0.15)_0%,transparent_35%),
-         radial-gradient(circle_at_95%_70%,rgba(195,171,165,0.18)_0%,transparent_40%),
-         radial-gradient(circle_at_40%_80%,rgba(139,148,165,0.12)_0%,transparent_50%),
-         radial-gradient(circle_at_70%_15%,rgba(135,143,156,0.1)_0%,transparent_45%)]
-   bg-blend-overlay`}
+   className={`relative w-full overflow-hidden h-[35vh] md:h-[60vh] ${className} bg-black
+  `}
    style={{ overflow: 'hidden' }}
    role='region' 
    aria-roledescription='carousel' 
@@ -41,7 +37,7 @@ export default function Slider({slides,autoPlayInterval=5000,enableAutoPlay=true
     {slides.map((s,i)=>(
       <SliderSlide key={s.id} slide={s} active={i===index} priority={i===0}/>
     ))}
-    <SliderControls count={slides.length} active={index} onDot={goTo} onPrev={prev} onNext={next}/>
+    {/* <SliderControls count={slides.length} active={index} onDot={goTo} onPrev={prev} onNext={next}/> */}
   </section>
  )
 }

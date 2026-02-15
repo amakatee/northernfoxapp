@@ -27,12 +27,12 @@ body {
 
 /* Add padding to the main content to account for fixed navbars */
 body {
-  padding-top: calc(56px + 80px); /* UpperNav height (56px) + BottomNav height (80px) */
+  padding-top: calc(30px + 10px); /* UpperNav height (56px) + BottomNav height (80px) */
 }
 
 @media (max-width: 768px) {
   body {
-    padding-top: calc(56px + 64px); /* Slightly smaller on mobile */
+    padding-top: calc(56px + 10px); /* Slightly smaller on mobile */
   }
 }
 

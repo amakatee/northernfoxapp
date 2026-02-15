@@ -30,7 +30,7 @@ export default function HeroSection() {
   }, [])
 
   return (
-    <section className="relative w-full bg-white mt-[-30] px-4 py-10 md:py-18 lg:py-18 overflow-hidden">
+    <section className="relative w-full bg-white  px-4 py-10 md:py-18 lg:py-18 overflow-hidden">
       <div className="mx-auto max-w-7xl">
         {/* Line 1 */}
         <div ref={line1Ref} className="overflow-hidden">
@@ -41,9 +41,10 @@ export default function HeroSection() {
 
         {/* Line 2 */}
         <div ref={line2Ref} className="mt-3 overflow-hidden md:mt-8">
-          <p className="max-w-3xl text-lg text-gray-600 sm:text-xl md:text-2xl">
-          Полный цикл логистики из Китая 
-          </p>
+          <p className="max-w-3xl text-lg  sm:text-xl md:text-2xl text-[#050b1e] text-lg md:text-xl leading-relaxed font-medium tracking-normal">
+          Экспертный подбор поставщиков с полным due diligence, юридическое сопровождение контрактов, 
+ страхование груза на 100% стоимости, легальное таможенное оформление и доставка 
+ с end-to-end контролем.          </p>
         </div>
 
         {/* Button */}

@@ -1,6 +1,8 @@
 import React from 'react'
 import WhyChooseUs from '../sections/WhyChooseUs'
 import {Slider} from  "../slider"
+import HeroSection from '../Hero'
+
 
 const slides =[
   {
@@ -26,12 +28,17 @@ const slides =[
   },
 ]
 
+
+
 function Home() {
   return (
     <div className=' antialiased font-feature-settings letter-spacing: -0.05em text-[#08162F]'>
+     
+
+        <HeroSection />
 {/*       
        <NorthernFoxNavbar /> */}
-
+      
         <Slider slides={slides} />
         <WhyChooseUs />
        

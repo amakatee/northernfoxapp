@@ -7,6 +7,7 @@ import { BenefitCard } from './BenefitCard';
 import { SectionTitle } from './SectionTitle';
 import { DecorativeBackground } from './DecorativeBackground';
 import { ImageSection } from './ImageSection';
+import Image from 'next/image';
 
 export const WhyChooseUs = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -24,9 +25,11 @@ export const WhyChooseUs = () => {
 
   return (
     <section ref={sectionRef} className="relative w-full overflow-hidden">
+       
       <DecorativeBackground />
-      <SectionTitle titleRef={titleRef} underlineRef={underlineRef} />
       
+      <SectionTitle titleRef={titleRef} underlineRef={underlineRef} />
+     {/* #5584A1 */}
       <div className="relative max-w-[100vw] bg-gradient-to-br from-[#003f7f] via-[#0050a0] to-[#0066cc] z-10">
         
         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-12 lg:gap-20">

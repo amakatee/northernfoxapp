@@ -1,11 +1,39 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import localFont from 'next/font/local'
+import Navbar from "./components/navbar";
 import "./globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
+const helveticaNeue = localFont({
+  src:[
+    {
+      path: '/fonts/HelveticaNeue-Light.otf',
+      weight: '200',
+      style: 'light',
+    },
+    {
+      path: '/fonts/HelveticaNeue-Regular.otf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '/fonts/HelveticaNeue-Medium.otf',
+      weight: '600',
+      style: 'medium',
+    },
+    {
+      path: '/fonts/HelveticaNeue-Bold.otf',
+      weight: '800',
+      style: 'medium',
+    },
+  ],
+  display: 'swap',
+  variable: '--font-helvetica-neue',
+})
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -25,8 +53,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${helveticaNeue.className} ${geistMono.variable} antialiased`}
       >
+        <Navbar 
+          logoText="Northern Fox"
+          showSignIn={true}
+          showDemo={true}
+        />
         {children}
       </body>
     </html>

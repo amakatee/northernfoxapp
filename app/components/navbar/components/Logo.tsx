@@ -40,9 +40,9 @@ const Logo: React.FC<LogoProps> = ({
           "hover:rotate-0 hover:scale-105",
           
         )}
-      >  <Image className="text-2xl text-[#7f6e5f] ml-1 transition-transform duration-300 group-hover:rotate-12" src="/images/foxvector.png" alt="fox logo" width="50" height="50" />
+      >  <Image className="text-2xl text-[#7f6e5f]  transition-transform duration-300 group-hover:rotate-12" src="/images/fox2.png" alt="fox logo" width="50" height="50" />
 
-        <div className="hidden sm:block text-black text-xl font-semibold tracking-tight">
+        <div className="hidden sm:block text-[#0b2249] ml-[-4] mt-1 text-xl font-semibold tracking-tight">
           
           {text}
         </div>

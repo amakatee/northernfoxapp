@@ -18,6 +18,10 @@ export const ImageSection = ({ imageRef }: ImageSectionProps) => {
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="object-cover group-hover:scale-105 transition-transform duration-700"
           priority
+          // style={{
+          //   maskImage: 'radial-gradient(circle, black 50%, transparent 90%)',
+          //   WebkitMaskImage: 'radial-gradient(circle, black 50%, transparent 90%)',
+          // }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0066cc]/15 to-gray-950" />
       </div>

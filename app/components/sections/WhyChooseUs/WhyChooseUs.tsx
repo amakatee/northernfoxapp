@@ -28,9 +28,9 @@ export const WhyChooseUs = () => {
        
       <DecorativeBackground />
       
-      {/* <SectionTitle titleRef={titleRef} underlineRef={underlineRef} /> */}
+      <SectionTitle titleRef={titleRef} underlineRef={underlineRef} />
      {/* #5584A1 */}
-      <div className="relative max-w-[100vw] bg-gradient-to-b from-black via-[#0050a0] to-[#0066cc] z-10">
+      <div className="relative max-w-[100vw] bg-gradient-to-b from-[#0b2249]  via-[#0050a0] to-[#0066cc] z-10">
       {/* bg-gradient-to-b from-zinc-900 to-sky-500 */}
       {/* bg-gradient-to-br from-[#003f7f] via-[#0050a0] to-[#0066cc] */}
         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-12 lg:gap-20">

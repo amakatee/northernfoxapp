@@ -49,7 +49,7 @@ function Home() {
     <div className=' antialiased font-feature-settings letter-spacing: -0.05em text-[#08162F]'>
      
 
-        <HeroSection />
+        {/* <HeroSection /> */}
 {/*       
        <NorthernFoxNavbar /> */}
       

@@ -66,19 +66,19 @@ const NavLinks: React.FC<NavLinksProps> = ({
           <Link
             href={item.href}
             className={cn(
-              "text-[#3a3a3a] font-medium text-sm",
+              "text-[#0b2249] font-normal text-sm",
               "transition-colors duration-200",
               "hover:text-black relative",
               "after:content-[''] after:absolute after:bottom-[-2px]",
               "after:left-0 after:w-[var(--underline-width,0%)] after:h-[2px]",
-              "after:bg-[#b7a99a] after:transition-all after:duration-300"
+              "after:bg-[#0b2249] after:transition-all after:duration-300"
             )}
             target={item.target}
           >
             <span className="flex items-center gap-1">
               {item.label}
               {item.badge && (
-                <span className="text-xs bg-[#b7a99a] text-white px-1.5 py-0.5 rounded-full ml-1">
+                <span className="text-xs bg-[#0b2249] text-white px-1.5 py-0.5 rounded-full ml-1">
                   {item.badge}
                 </span>
               )}
@@ -110,11 +110,11 @@ const NavLinks: React.FC<NavLinksProps> = ({
                       )}
                       <div>
                         <div className="flex items-center gap-2">
-                          <span className="text-sm font-medium text-gray-900">
+                          <span className="text-sm font-medium text-[#0b2249]">
                             {dropdownItem.label}
                           </span>
                           {dropdownItem.badge && (
-                            <span className="text-xs bg-[#b7a99a] text-white px-1.5 py-0.5 rounded-full">
+                            <span className="text-xs bg-[#0b2249] text-white px-1.5 py-0.5 rounded-full">
                               {dropdownItem.badge}
                             </span>
                           )}

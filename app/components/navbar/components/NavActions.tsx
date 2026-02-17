@@ -69,9 +69,9 @@ const NavActions: React.FC<NavActionsProps> = ({
             onMouseEnter={() => handleDemoHover(true)}
             onMouseLeave={() => handleDemoHover(false)}
             className={cn(
-              "demo-button bg-[#1e1e1e] text-white",
+              "demo-button bg-[#0b2249] text-white",
               "px-4 py-2 rounded-lg",
-              "text-sm font-medium border border-[#1e1e1e]",
+              "text-sm font-medium border border-[#0b2249]",
               "shadow-md hover:shadow-lg",
               "transition-all duration-300",
               "whitespace-nowrap",
@@ -94,12 +94,12 @@ const NavActions: React.FC<NavActionsProps> = ({
           href={signInHref}
           onClick={handleSignIn}
           className={cn(
-            "text-[#2a2a2a] font-medium text-sm",
-            "hover:text-[#7f6e5f] transition-colors duration-200",
+            "text-[#0b2249] font-medium text-sm",
+            "hover:text-[] transition-colors duration-200",
             "hidden sm:inline-block"
           )}
         >
-          +79847738223
+          Cвязаться
         </Link>
       )}
       
@@ -111,9 +111,9 @@ const NavActions: React.FC<NavActionsProps> = ({
           onMouseEnter={() => handleDemoHover(true)}
           onMouseLeave={() => handleDemoHover(false)}
           className={cn(
-            "demo-button bg-[#1e1e1e] text-white",
+            "demo-button bg-[#0b2249] text-white",
             "px-4 py-2 sm:px-6 sm:py-2.5 rounded-full",
-            "text-sm font-medium border border-[#1e1e1e]",
+            "text-sm font-medium border border-[#0b2249]",
             "shadow-md hover:shadow-lg",
             "transition-all duration-300",
             "whitespace-nowrap",

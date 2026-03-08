@@ -73,7 +73,7 @@ cardsRef.current.forEach((card, index) => {
 
   if (titleEl) {
     gsap.fromTo(titleEl,
-      { y: '100%' },
+      { y: '100%'},
       {
         y: 0,
         duration: 0.8,
@@ -90,10 +90,10 @@ cardsRef.current.forEach((card, index) => {
 
   if (descEl) {
     gsap.fromTo(descEl,
-      { y: '100%' },
+      { y: '100%', opacity:0 },
       {
-        y: 0,
-        duration: 0.8,
+        y: 0,opacity:1,
+        duration: .8,
         ease: 'power3.out',
         delay: index * 0.15 + 0.1, // description appears slightly after title
         scrollTrigger: {
@@ -109,7 +109,7 @@ cardsRef.current.forEach((card, index) => {
       // Image animation
       if (imageRef.current) {
         gsap.from(imageRef.current, {
-          x: 60,
+          x: -80,
           opacity: 0,
           duration: 1.2,
           ease: 'power3.out',

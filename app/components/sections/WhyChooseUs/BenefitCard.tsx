@@ -18,11 +18,11 @@ export const BenefitCard = forwardRef<HTMLDivElement, BenefitCardProps>(
         className="relative group cursor-pointer"
       >
         <div className="absolute inset-0 rounded-3xl group-hover:blur-2xl transition-all duration-500" />
-        <div className="relative p-7 rounded-3xl group-hover:border-white/30 transition-all duration-500">
+        <div className="relative p-8 rounded-3xl group-hover:border-white/30 transition-all duration-500">
           {/* Title with slide-up effect */}
-          <div className="overflow-hidden mb-4">
+          <div className="overflow-hidden mb-2">
             <div className="benefit-title translate-y-full will-change-transform">
-              <h3 className="text-2xl md:text-2xl font-bold text-white leading-tight tracking-tight">
+              <h3 className="text-[1.3rem] md:text-2xl font-normal  text-white leading-tight tracking-wide">
                 {title}
               </h3>
             </div>
@@ -31,7 +31,7 @@ export const BenefitCard = forwardRef<HTMLDivElement, BenefitCardProps>(
           {/* Description with slide-up effect */}
           <div className="overflow-hidden">
             <div className="benefit-description translate-y-full will-change-transform">
-              <p className="text-white/80 text-lg leading-relaxed font-light">
+              <p className="text-white/80 text-base tracking-wide  font-light max-w-prose leading-relaxed ">
                 {description}
               </p>
             </div>

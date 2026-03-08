@@ -70,12 +70,12 @@ const NavActions: React.FC<NavActionsProps> = ({
             onMouseLeave={() => handleDemoHover(false)}
             className={cn(
               "demo-button bg-[#0b2249] text-white",
-              "px-4 py-2 rounded-lg",
+              "px-4 py-2 rounded-3xl",
               "text-sm font-medium border border-[#0b2249]",
               "shadow-md hover:shadow-lg",
               "transition-all duration-300",
               "whitespace-nowrap",
-              "inline-flex items-center justify-center",
+              "inline-flex items-center tracking-wide font-normal  justify-center",
               "ml-2" // Added margin to separate from hamburger
             )}
           >

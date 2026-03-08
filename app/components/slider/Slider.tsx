@@ -8,7 +8,7 @@ import { useSwipe } from './hooks/useSwipe'
 import { useKeyboard } from './hooks/useKeyboard'
 import { useCallback } from 'react'
 
-export default function Slider({slides,autoPlayInterval=5000,enableAutoPlay=true,className=''}:SliderProps){
+export default function Slider({slides,autoPlayInterval=2100,enableAutoPlay=true,className=''}:SliderProps){
  if(!slides?.length){return <div className='w-full h-[40vh] md:h-[60vh] flex items-center justify-center'>No slides</div>}
  
  const { index, next, prev, goTo, paused, setPaused } = useSlider(slides.length, true)
@@ -21,7 +21,7 @@ export default function Slider({slides,autoPlayInterval=5000,enableAutoPlay=true
  
  return (
   <section 
-   className={`relative w-full overflow-hidden h-[40vh] md:h-[60vh] ${className} bg-[#0b2249]
+   className={`relative w-full overflow-hidden h-[40vh] md:h-[60vh] ${className}  
   `}
    style={{ overflow: 'hidden' }}
    role='region' 

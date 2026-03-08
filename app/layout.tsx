@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import localFont from 'next/font/local'
 import Navbar from "./components/navbar";
+import UpperNavbar from "./components/navbar/UpperNavbar";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -55,6 +56,7 @@ export default function RootLayout({
       <body
         className={`${helveticaNeue.className} ${geistMono.variable} antialiased`}
       >
+        {/* <UpperNavbar /> */}
         <Navbar 
           logoText="Northern Fox"
           showSignIn={true}

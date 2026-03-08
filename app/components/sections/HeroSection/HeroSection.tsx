@@ -170,7 +170,7 @@ export default function NorthernFoxHeroAnimated() {
           <div className="overflow-hidden">
             <h2
               ref={headingRef}
-              className="text-2xl md:text-4xl lg:text-5xl font-normal text-[#0b2249] mb-5 leading-[1.1] tracking-normal flex flex-wrap"
+              className="text-2xl md:text-4xl lg:text-5xl font-semibold text-[#0b2249] mb-5 leading-[1.1] tracking-normal flex flex-wrap"
             >
               {headingWords.map((word, idx) => (
                 <div

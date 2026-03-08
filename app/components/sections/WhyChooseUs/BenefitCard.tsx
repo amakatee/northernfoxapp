@@ -15,7 +15,7 @@ export const BenefitCard = forwardRef<HTMLDivElement, BenefitCardProps>(
     return (
       <div
         ref={setCardRef(index)}
-        className="relative group cursor-pointer"
+        className="relative group cursor-pointer z-500"
       >
         <div className="absolute inset-0 rounded-3xl group-hover:blur-2xl transition-all duration-500" />
         <div className="relative p-8 rounded-3xl group-hover:border-white/30 transition-all duration-500">

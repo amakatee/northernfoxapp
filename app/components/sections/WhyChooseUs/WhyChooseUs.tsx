@@ -37,7 +37,7 @@ export const WhyChooseUs = () => {
           {/* Benefits Grid */}
           
           <div className="w-full lg:w-2/3">
-            <div className="grid grid-cols-1 md:grid-cols-2 pt-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 pt-5 ">
               {benefits.map((benefit, index) => (
                 <BenefitCard
                   key={index}

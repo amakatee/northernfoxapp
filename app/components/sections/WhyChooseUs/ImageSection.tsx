@@ -9,10 +9,10 @@ interface ImageSectionProps {
 
 export const ImageSection = ({ imageRef }: ImageSectionProps) => {
   return (
-    <div ref={imageRef} className="w-full lg:w-1/3  ">
+    <div ref={imageRef} className="w-full lg:w-1/3 mt-[-135px] md:hidden lg:hidden ">
       <div className="relative h-[500px] md:h-[550px] w-full overflow-hidden  group backdrop-blur-3xl  ">
         <Image
-          src="/images/air2.png"
+          src="/images/air.png"
           alt="Логистика и доставка грузов"
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"

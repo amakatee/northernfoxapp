@@ -216,7 +216,7 @@ const ServicesSection: React.FC = () => {
   ];
 
   return (
-    <section ref={sectionRef} className="relative  mt-[-3] bg-gradient-to-b from-gray-950 to-blue-950 text-white py-3 px-4">
+    <section ref={sectionRef} className="relative  mt-[-3] bg-gradient-to-b from-gray-950 to-blue-950 text-white pt-10 py-3 px-4">
       {/* Simple background with subtle vertical lines */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 flex justify-around px-8 lg:px-32">

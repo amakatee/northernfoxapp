@@ -4,6 +4,7 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Image from 'next/image';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -100,14 +101,16 @@ const ComparisonItem: React.FC<ComparisonItemProps> = ({
   return (
     <div 
       ref={itemRef}
-      className="flex items-start gap-3 px-2 py-5 rounded-lg bg-blue-900/9  border-blue-800/39  hover:bg-blue-900/20 transition-colors duration-300"
+      className="flex items-start gap-3 px-4 py-5 rounded-lg bg-blue-900/9  border-blue-800/39  hover:bg-blue-900/20 transition-colors duration-300"
     >
       {/* <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-cyan-600 to-blue-600 rounded-lg flex items-center justify-center">
         <span className="text-white">{icon}</span>
       </div> */}
-      <div>
-        <h4 className="text-[1.3rem] md:text-2xl font-normal tracking-wide text-white mb-3 leading-6 tracking-wide">{title}</h4>
-        <p className="text-white/80 text-base tracking-wide text-1rem leading-5 font-medium">{description}</p>
+      <div className=''>
+    
+                  <h4 className="text-[1.3rem] md:text-2xl font-light tracking-normal text-white mb-3 leading-6 ">{title}</h4>
+
+        <p className="text-white/80 text-base tracking-wide text-1rem leading-6 font-light">{description}</p>
       </div>
     </div>
   );
@@ -216,14 +219,36 @@ const ServicesSection: React.FC = () => {
   ];
 
   return (
+    <>
+   
+    <div className="relative mt-[-2rem] z-10 h-[310px] md:h-[550px]  w-full overflow-hidden  group rounded-t-4xl ">
+        <Image
+          src="/images/at2t.jpg"
+          alt="Логистика и доставка грузов"
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="object-cover group-hover:scale-105 transition-transform  duration-700"
+          priority
+          // style={{
+          //   maskImage: 'radial-gradient(circle, black 50%, transparent 90%)',
+          //   WebkitMaskImage: 'radial-gradient(circle, black 50%, transparent 90%)',
+          // }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0066cc]/0 to-gray-950" />
+        
+      </div>
     <section ref={sectionRef} className="relative  mt-[-3] bg-gradient-to-b from-gray-950 to-blue-950 text-white pt-10 py-3 px-4">
+     
+
+
+
       {/* Simple background with subtle vertical lines */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 flex justify-around px-8 lg:px-32">
           {[...Array(7)].map((_, i) => (
             <div 
               key={i}
-              className="w-px h-full bg-gradient-to-b from-transparent via-blue-600/10 to-transparent"
+              className="w-px h-full bg-gradient-to-b from-transparent via-white/3 to-transparent"
             />
           ))}
         </div>
@@ -234,7 +259,7 @@ const ServicesSection: React.FC = () => {
         <div className="text-center mb-10">
           <h1 
             ref={titleRef}
-            className="text-3xl sm:mt-[-4vh]  md:text-4xl font-light text-start leading-8 tracking-wide mb-4"
+            className="text-3xl  md:text-4xl font-light text-start leading-8 tracking-wide mb-4"
           >
             Комплексные решения для вашего бизнеса
           </h1>
@@ -254,12 +279,14 @@ const ServicesSection: React.FC = () => {
             {/* Left column - Our Responsibility */}
             <div>
               <div className="px-2 py-6  rounded-xl ">
-                <div className="flex items-center gap-2 mb-6">
-                  <div >
+                <div className="flex items-center  mb-6">
+                  <div  className='md:hidden flex flex-col items-center gap-2 justify-center w-10 h-10 rounded-lg hover:bg-gray-100 transition-colors focus:outline-none   z-50'>
                     {/* <ShieldIcon /> */}
-                    <div className='w-2 h-2 bg-[#0050a0] mb-1'></div>
+                    <span className={`w-4 h-[1.7px] bg-[#00389e]  transition-all translate-y-[10px] rotate-40 duration-300 ease-in-out`}></span>
+                    <span className={`w-5 h-[1.7px] bg-[#00389e]  transition-all rotate-90 duration-300 ease-in-out `}></span>
+                    <span className={`w-4 h-[1.7px] bg-[#00389e]  transition-all translate-y-[-10px] rotate-140  duration-300 ease-in-out`}></span>
                   </div>
-                  <h3 className="text-xl font-normal  tracking-wide text-white">
+                  <h3 className="text-xl font-light  tracking-normal text-white">
                     Наша зона ответственности
                   </h3>
                 </div>
@@ -280,12 +307,17 @@ const ServicesSection: React.FC = () => {
             {/* Right column - Your Benefits */}
             <div>
               <div className="p-3  rounded-xl ">
-                <div className="flex items-center gap-3 mb-6">
+                <div className="flex items-center  mb-6">
                 <div >
                     {/* <ShieldIcon /> */}
-                    <div className='w-2 h-2 bg-[#0050a0] mb-1'></div>
+                    <div  className='md:hidden flex flex-col items-center gap-2 justify-center w-10 h-10 rounded-lg hover:bg-gray-100 transition-colors focus:outline-none   z-50'>
+                    {/* <ShieldIcon /> */}
+                    <span className={`w-4 h-[1.7px] bg-[#00389e]  transition-all translate-y-[10px] rotate-40 duration-300 ease-in-out`}></span>
+                    <span className={`w-5 h-[1.7px] bg-[#00389e]  transition-all rotate-90 duration-300 ease-in-out `}></span>
+                    <span className={`w-4 h-[1.7px] bg-[#00389e]  transition-all translate-y-[-10px] rotate-140  duration-300 ease-in-out`}></span>
                   </div>
-                  <h3 className="text-xl font-normal  tracking-wide text-white">
+                  </div>
+                  <h3 className="text-xl font-light  tracking-normal text-white">
                     Ваша выгода и результат
                   </h3>
                 </div>
@@ -336,6 +368,7 @@ const ServicesSection: React.FC = () => {
         </div> */}
       </div>
     </section>
+    </>
   );
 };
 

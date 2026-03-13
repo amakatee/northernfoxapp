@@ -5,6 +5,7 @@ import ServicesSection from '../ServicesPage'
 import HeroSection from "../sections/HeroSection/HeroSection"
 import ShippingMethodsPage from '../sections/ShippingMethods'
 import DeliveryForm from '../sections/DelieveryForm'
+import LogisticsSteps from '../sections/delievery/LogisticsSteps'
 
 // const slides =[
 //   {
@@ -102,7 +103,8 @@ function Home() {
         <WhyChooseUs />
         <ServicesSection />
         <ShippingMethodsPage />
-        <DeliveryForm />
+        <LogisticsSteps />
+        {/* <DeliveryForm /> */}
        
        
        

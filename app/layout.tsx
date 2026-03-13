@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import localFont from 'next/font/local'
+import AIWidgetIcon from "./components/helpers/AIWidgetIcon";
 import Navbar from "./components/navbar";
 import UpperNavbar from "./components/navbar/UpperNavbar";
 import "./globals.css";
@@ -62,6 +63,7 @@ export default function RootLayout({
           showSignIn={true}
           showDemo={true}
         />
+        <AIWidgetIcon />
         {children}
       </body>
     </html>

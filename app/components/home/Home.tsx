@@ -6,6 +6,7 @@ import HeroSection from "../sections/HeroSection/HeroSection"
 import ShippingMethodsPage from '../sections/ShippingMethods'
 import DeliveryForm from '../sections/DelieveryForm'
 import LogisticsSteps from '../sections/delievery/LogisticsSteps'
+import ServiceQAPage from '../sections/ServiceQAPage'
 
 // const slides =[
 //   {
@@ -101,6 +102,7 @@ function Home() {
         {/* <Slider slides={slides} /> */}
         
         <WhyChooseUs />
+       <ServiceQAPage />
         <ServicesSection />
         {/* <ShippingMethodsPage /> */}
         {/* <LogisticsSteps /> */}

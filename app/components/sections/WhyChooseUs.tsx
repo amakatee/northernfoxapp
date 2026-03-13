@@ -159,17 +159,17 @@ export default function WhyChooseUs() {
     <section ref={sectionRef} className="relative w-full   overflow-hidden">
       {/* Декоративные элементы фона */}
      
-      <h2 ref={titleRef} className="text-3xl pl-7 lg:pt-10 md:text-2xl  lg:text-5xl  font-bold text-[#003f7f] mb-4 mt-8 md:mt-15 md:mb-8 tracking-tighter">
+      <h2 ref={titleRef} className="text-3xl  pl-7 lg:pt-10 md:text-2xl  lg:text-5xl  font-semibold text-[#003f7f] mb-4 mt-8 md:mt-15 md:mb-8 tracking-tighter">
             Почему выбирают нас
           </h2>
-      <div className="floating-bg-2 absolute -bottom-20 -right-20 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
+      <div className="floating-bg-2 absolute  -bottom-20 -right-20 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
       
       <div className="relative max-w-[100vw]  bg-gradient-to-br from-[#003f7f] via-[#0050a0] to-[#0066cc]  z-10">
         {/* Заголовок секции */}
         <div className="flex flex-col  lg:flex-row items-center lg:items-start gap-12 lg:gap-20">
           {/* Левая часть: Преимущества */}
           <div className="w-full lg:w-2/3">
-             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-5">
+             <div className="grid pb-20  grid-cols-1 md:grid-cols-2 gap-6 pt-5">
               {benefits.map((item, index) => (
                 <div
                   key={index}
@@ -178,7 +178,7 @@ export default function WhyChooseUs() {
                 >
                   <div className="absolute inset-0 rounded-3xl group-hover:blur-2xl transition-all duration-500" />
                    <div className="relative p-7 rounded-3xl sgroup-hover:border-white/30 transition-all duration-500">
-                   <h3 className="text-2xl md:text-2xl font-bold text-white mb-4 leading-tight tracking-tight">
+                   <h3 className="text-2xl md:text-2xl  fomt-bold text-white mb-4 leading-tight tracking-tight">
                       {item.title}
                     </h3>
                     
@@ -193,22 +193,7 @@ export default function WhyChooseUs() {
             </div>
           </div>
 
-          {/* Правая часть: Изображение */}
-          <div ref={imageRef} className="w-full lg:w-1/3 ">
-            <div className="relative h-[500px] md:h-[550px] w-full  overflow-hidden shadow-2xl group">
-              <Image
-                src="/images/air.JPG"
-                alt="Логистика и доставка грузов"
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                className="object-cover group-hover:scale-105 transition-transform duration-700"
-                priority
-              />
-               <div className="absolute inset-0 bg-gradient-to-b from-[#0066cc]/15 to-gray-950" />
-              
-           
-            </div>
-          </div>
+        
         </div>
 
        

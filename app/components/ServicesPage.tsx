@@ -101,7 +101,7 @@ const ComparisonItem: React.FC<ComparisonItemProps> = ({
   return (
     <div 
       ref={itemRef}
-      className="flex items-start gap-3 px-4 py-5 rounded-lg bg-blue-900/9  border-blue-800/39  hover:bg-blue-900/20 transition-colors duration-300"
+      className="flex  items-start gap-3 px-4 py-5 rounded-lg bg-blue-900/9  border-blue-800/39  hover:bg-blue-900/20 transition-colors duration-300"
     >
       {/* <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-cyan-600 to-blue-600 rounded-lg flex items-center justify-center">
         <span className="text-white">{icon}</span>
@@ -221,7 +221,7 @@ const ServicesSection: React.FC = () => {
   return (
     <>
    
-    <div className="relative mt-[-2rem] z-10 h-[310px] md:h-[550px]  w-full overflow-hidden  group rounded-t-4xl ">
+    <div className="relative w-full mt-[-50] z-10 h-[180px]  md:h-[550px]   overflow-hidden   group rounded-t-4xl ">
         <Image
           src="/images/at2t.jpg"
           alt="Логистика и доставка грузов"

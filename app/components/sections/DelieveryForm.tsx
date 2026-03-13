@@ -2,13 +2,10 @@
 
 import { useRef, useEffect, useState } from "react"
 import gsap from "gsap"
+import { Button } from "../helpers/LetsTalkButton"
 
-interface LogisticsFormProps {
-  onClose?: () => void
-}
-
-export default function LogisticsForm({ onClose }: LogisticsFormProps) {
-  const modalRef = useRef<HTMLDivElement>(null)
+export default function LogisticsFormSection() {
+  const sectionRef = useRef<HTMLElement>(null)
 
   const [form, setForm] = useState({
     name: "",
@@ -23,16 +20,12 @@ export default function LogisticsForm({ onClose }: LogisticsFormProps) {
 
   const [files, setFiles] = useState<File[]>([])
 
-  const handleClose = () => {
-    if (onClose) onClose()
-    else console.log("close modal")
-  }
-
   useEffect(() => {
+    // Optional entrance animation – you can also replace with a scroll-triggered animation
     gsap.fromTo(
-      modalRef.current,
-      { y: 200, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }
+      sectionRef.current,
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
     )
   }, [])
 
@@ -90,7 +83,6 @@ export default function LogisticsForm({ onClose }: LogisticsFormProps) {
   const submit = (e: React.FormEvent) => {
     e.preventDefault()
 
-    // Updated regex for +7 (XXX) XXX XX XX
     const phoneRegex = /^\+7 \(\d{3}\) \d{3} \d{2} \d{2}$/
 
     if (!phoneRegex.test(form.phone)) {
@@ -103,129 +95,119 @@ export default function LogisticsForm({ onClose }: LogisticsFormProps) {
   }
 
   return (
-    <div className="fixed inset-0 bg-black/80 flex items-end justify-center z-50">
-      <div
-        ref={modalRef}
-        className="bg-white w-full max-w-xl rounded-t-3xl p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto"
-      >
-        <button
-          onClick={handleClose}
-          className="sticky top-0 left-1/2 -translate-x-1/2 bg-gray-200 w-12 h-12 rounded-full text-2xl hover:bg-gray-300 transition mb-2"
-          aria-label="Закрыть"
-        >
-          ×
-        </button>
+    <section
+      ref={sectionRef}
+      className="bg-white w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 rounded-3xl shadow-lg"
+    >
+      <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900">
+        Есть идея? <span className="font-bold">Мы доставим решение.</span>
+      </h2>
 
-        <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900">
-          Есть идея? <span className="font-bold">Мы доставим решение.</span>
-        </h2>
+      <p className="text-gray-500 mt-2 mb-6 text-sm sm:text-base">
+        Расскажите нам о вашем грузе и задаче
+      </p>
 
-        <p className="text-gray-500 mt-2 mb-6 text-sm sm:text-base">
-          Расскажите нам о вашем грузе и задаче
-        </p>
+      <form onSubmit={submit} className="space-y-5 sm:space-y-6">
+        <input
+          name="name"
+          placeholder="Ваше имя"
+          value={form.name}
+          onChange={handleNameChange}
+          className="w-full border-b border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base"
+          required
+        />
 
-        <form onSubmit={submit} className="space-y-5 sm:space-y-6">
+        <input
+          name="phone"
+          type="tel"
+          placeholder="+7 (___) ___ __ __"
+          value={form.phone}
+          onChange={handlePhoneChange}
+          className="w-full border-b border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base"
+          required
+        />
+
+        <input
+          name="email"
+          type="email"
+          placeholder="Ваш email"
+          value={form.email}
+          onChange={handleChange}
+          className="w-full border-b border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base"
+          required
+        />
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <input
-            name="name"
-            placeholder="Ваше имя"
-            value={form.name}
-            onChange={handleNameChange}
+            name="weight"
+            placeholder="Вес (кг)"
+            value={form.weight}
+            onChange={handleNumericChange}
+            inputMode="numeric"
             className="w-full border-b border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base"
-            required
           />
 
-          <input
-            name="phone"
-            type="tel"
-            placeholder="+7 (___) ___ __ __"
-            value={form.phone}
-            onChange={handlePhoneChange}
-            className="w-full border-b border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base"
-            required
-          />
-
-          <input
-            name="email"
-            type="email"
-            placeholder="Ваш email"
-            value={form.email}
-            onChange={handleChange}
-            className="w-full border-b border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base"
-            required
-          />
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-3 gap-2">
             <input
-              name="weight"
-              placeholder="Вес (кг)"
-              value={form.weight}
+              name="length"
+              placeholder="Длина"
+              value={form.length}
               onChange={handleNumericChange}
               inputMode="numeric"
-              className="w-full border-b border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base"
+              className="border-b border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base"
             />
-
-            <div className="grid grid-cols-3 gap-2">
-              <input
-                name="length"
-                placeholder="Длина"
-                value={form.length}
-                onChange={handleNumericChange}
-                inputMode="numeric"
-                className="border-b border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base"
-              />
-              <input
-                name="width"
-                placeholder="Ширина"
-                value={form.width}
-                onChange={handleNumericChange}
-                inputMode="numeric"
-                className="border-b border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base"
-              />
-              <input
-                name="height"
-                placeholder="Высота"
-                value={form.height}
-                onChange={handleNumericChange}
-                inputMode="numeric"
-                className="border-b border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base"
-              />
-            </div>
-          </div>
-
-          <textarea
-            name="message"
-            placeholder="Опишите ваш груз или задачу..."
-            rows={3}
-            value={form.message}
-            onChange={handleChange}
-            className="w-full border-b border-gray-300 py-3 outline-none resize-none focus:border-blue-500 transition text-base"
-          />
-
-          <div className="border-2 border-dashed border-gray-300 rounded-xl p-4 sm:p-6 text-center hover:border-blue-400 transition">
-            <p className="text-gray-500 mb-3 text-sm sm:text-base">
-              Прикрепить файлы (инвойсы, фото, документы)
-            </p>
             <input
-              type="file"
-              multiple
-              onChange={handleFile}
-              className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+              name="width"
+              placeholder="Ширина"
+              value={form.width}
+              onChange={handleNumericChange}
+              inputMode="numeric"
+              className="border-b border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base"
             />
-            {files.length > 0 && (
-              <p className="text-sm mt-2 text-gray-600">
-                Файлов выбрано: {files.length}
-              </p>
-            )}
+            <input
+              name="height"
+              placeholder="Высота"
+              value={form.height}
+              onChange={handleNumericChange}
+              inputMode="numeric"
+              className="border-b border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base"
+            />
           </div>
+        </div>
 
-          <button
-            type="submit"
-            className="w-full py-4 rounded-full text-white font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 transition text-base"
-          >
-            ОТПРАВИТЬ ЗАЯВКУ
-          </button>
-        </form>
-      </div>
-    </div>
+        <textarea
+          name="message"
+          placeholder="Опишите ваш груз или задачу..."
+          rows={3}
+          value={form.message}
+          onChange={handleChange}
+          className="w-full border-b border-gray-300 py-3 outline-none resize-none focus:border-blue-500 transition text-base"
+        />
+
+        <div className="border-2 border-dashed border-gray-300 rounded-xl p-4 sm:p-6 text-center hover:border-blue-400 transition">
+          <p className="text-gray-500 mb-3 text-sm sm:text-base">
+            Прикрепить файлы (инвойсы, фото, документы)
+          </p>
+          <input
+            type="file"
+            multiple
+            onChange={handleFile}
+            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+          />
+          {files.length > 0 && (
+            <p className="text-sm mt-2 text-gray-600">
+              Файлов выбрано: {files.length}
+            </p>
+          )}
+        </div>
+ 
+        <button
+          type="submit"
+          className="w-full py-4 rounded-full text-white font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 transition text-base"
+        >
+          ОТПРАВИТЬ ЗАЯВКУ
+        </button>
+      </form>
+    </section>
   )
 }

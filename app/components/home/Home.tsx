@@ -102,9 +102,9 @@ function Home() {
         
         <WhyChooseUs />
         <ServicesSection />
-        <ShippingMethodsPage />
-        <LogisticsSteps />
-        {/* <DeliveryForm /> */}
+        {/* <ShippingMethodsPage /> */}
+        {/* <LogisticsSteps /> */}
+        <DeliveryForm />
        
        
        

@@ -15,7 +15,7 @@ const ProblemSolutionCard: FC<CardProps> = ({
   const gradient =
     mode === 'question'
       ? 'from-[#0a0e1f] via-[#0f162e] to-[#131a38]'           // очень тёмный, глубокий navy-indigo, матовый
-      : 'from-[#1e40af] via-[#3b82f6] to-[#60a5fa]';          // чистый, плавный, уверенный blue-indigo, светлее и живее
+      : 'from-[#1e40af]  to-[#3b82f6]';          // чистый, плавный, уверенный blue-indigo, светлее и живее
 
   // Тонкий световой налёт (glass-like, но минималистичный)
   const lightOverlay = mode === 'question' ? '0.03' : '0.07';

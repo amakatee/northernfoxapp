@@ -73,7 +73,7 @@ export default function Home() {
             <div
               key={index}
               ref={addToRefs}
-              className="grid grid-cols-2 gap-3 md:gap-6"
+              className="grid grid-cols-2 gap-4 md:gap-6"
               style={{ minHeight: "25vh" }} // each row is ~30vh tall
             >
               {/* Left cell – question */}

@@ -229,10 +229,7 @@ const ServicesSection: React.FC = () => {
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="object-cover group-hover:scale-105 transition-transform  duration-700"
           priority
-          // style={{
-          //   maskImage: 'radial-gradient(circle, black 50%, transparent 90%)',
-          //   WebkitMaskImage: 'radial-gradient(circle, black 50%, transparent 90%)',
-          // }}
+         
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0066cc]/0 to-gray-950" />
         
@@ -242,17 +239,7 @@ const ServicesSection: React.FC = () => {
 
 
 
-      {/* Simple background with subtle vertical lines */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 flex justify-around px-8 lg:px-32">
-          {[...Array(7)].map((_, i) => (
-            <div 
-              key={i}
-              className="w-px h-full bg-gradient-to-b from-transparent via-white/3 to-transparent"
-            />
-          ))}
-        </div>
-      </div>
+    
 
       <div className="relative max-w-7xl mt-[-2] mx-auto">
         {/* Header */}

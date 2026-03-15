@@ -1,1 +1,0 @@
-export { WhyChooseUs as default } from './WhyChooseUs';

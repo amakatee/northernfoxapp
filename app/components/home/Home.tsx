@@ -103,8 +103,8 @@ function Home() {
         
         <WhyChooseUs />
        <ServiceQAPage />
-        <ServicesSection />
-        {/* <ShippingMethodsPage /> */}
+        {/* <ServicesSection /> */}
+        <ShippingMethodsPage />
         {/* <LogisticsSteps /> */}
         <DeliveryForm />
        

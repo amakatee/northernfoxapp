@@ -98,10 +98,7 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Footer with domain */}
-        <footer className="text-center text-gray-400 text-xs uppercase tracking-[0.3em] pt-12 mt-8 border-t border-gray-200">
-          northernfox.ru
-        </footer>
+      
       </div>
     </main>
   );

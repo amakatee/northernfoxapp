@@ -3,6 +3,7 @@
 import { useRef, useEffect, useState } from "react"
 import gsap from "gsap"
 import { Button } from "../helpers/LetsTalkButton"
+import LetsTalkButton from "../helpers/MainButton"
 
 export default function LogisticsFormSection() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -200,13 +201,13 @@ export default function LogisticsFormSection() {
             </p>
           )}
         </div>
- 
-        <button
+        <LetsTalkButton children="ОТПРАВИТЬ ЗАЯВКУ" />
+        {/* <button
           type="submit"
           className="w-full py-4 rounded-full text-white font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 transition text-base"
         >
           ОТПРАВИТЬ ЗАЯВКУ
-        </button>
+        </button> */}
       </form>
     </section>
   )

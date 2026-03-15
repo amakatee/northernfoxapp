@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import AnimatedBorder from "../helpers/AnimatedBorder";
+import ProblemSolutionCard from "../helpers/SolutionCard"
 
 // ---------- Types ----------
 interface QAItem {
@@ -76,14 +77,14 @@ export default function Home() {
               style={{ minHeight: "25vh" }} // each row is ~30vh tall
             >
               {/* Left cell – question */}
-              <div className="bg-[#004eda]/25 text-white w-[155px] rounded-xl shadow-xl text-base p-4 flex items-star justify-center text-start font-normal leading-[1.2]  md:text-2xl">
+              {/* <div className="bg-[#004eda]/25 text-white  rounded-xl shadow-xl text-base p-4 flex items-star justify-center text-start font-normal leading-[1.2]  md:text-2xl">
                 {item.question}
-              </div>
-
-              {/* Right cell – answer */}
-              {/* <div className="bg-black  text-white rounded-xl shadow-xl p-4 flex items-start justify-center text-start text-base leading-[1.2] md:text-lg text-blue-100">
-                {item.answer}
               </div> */}
+              <ProblemSolutionCard content={item.question} author = ""
+  variant = 'blue'
+  mode='question' />
+
+              
               <AnimatedBorder
   width={155}
   height={200}

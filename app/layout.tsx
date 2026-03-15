@@ -5,6 +5,12 @@ import AIWidgetIcon from "./components/helpers/AIWidgetIcon";
 import Navbar from "./components/navbar";
 import UpperNavbar from "./components/navbar/UpperNavbar";
 import "./globals.css";
+import { Manrope } from "next/font/google";
+
+export const manrope = Manrope({
+  subsets: ["latin","cyrillic"],
+  weight: ["400","500","600","700"],
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -52,10 +58,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en">
       <body
-        className={`${helveticaNeue.className} ${geistMono.variable} antialiased`}
+        className={`${manrope.className} ${geistMono.variable} antialiased`}
       >
         {/* <UpperNavbar /> */}
         <Navbar 

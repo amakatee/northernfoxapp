@@ -1,0 +1,18 @@
+/** @type {import('tailwindcss').Config} */
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./app/**/*.{js,ts,jsx,tsx}",
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      boxShadow: {
+        'glow-blue': '0 10px 30px -10px rgba(32,73,233,0.5), 0 0 40px -15px rgba(43,1,212,0.4)',
+        'glow-blue-hover': '0 20px 50px -15px rgba(32,73,233,0.7), 0 0 60px -10px rgba(43,1,212,0.6)',
+      },
+    },
+  },
+  plugins: [],
+}

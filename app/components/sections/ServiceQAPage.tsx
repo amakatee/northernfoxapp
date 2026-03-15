@@ -80,11 +80,34 @@ export default function Home() {
               {/* <div className="bg-[#004eda]/25 text-white  rounded-xl shadow-xl text-base p-4 flex items-star justify-center text-start font-normal leading-[1.2]  md:text-2xl">
                 {item.question}
               </div> */}
-              <ProblemSolutionCard content={item.question} author = ""
-  variant = 'blue'
-  mode='question' />
+              <ProblemSolutionCard 
+              content={item.question} 
+              author = ""
+              mode='question' />
+  
+              <ProblemSolutionCard 
+              content={item.answer} 
+              author = "北狐 Northern Fox"
+              mode='solution' />
 
-              
+
+
+
+
+            </div>
+          ))}
+        </div>
+
+        {/* Footer with domain */}
+        <footer className="text-center text-gray-400 text-xs uppercase tracking-[0.3em] pt-12 mt-8 border-t border-gray-200">
+          northernfox.ru
+        </footer>
+      </div>
+    </main>
+  );
+}
+
+{/*               
               <AnimatedBorder
   width={155}
   height={200}
@@ -101,18 +124,4 @@ export default function Home() {
 >
   <p className="text-white">{item.answer}</p>
 </AnimatedBorder>
-      
-
-
-            </div>
-          ))}
-        </div>
-
-        {/* Footer with domain */}
-        <footer className="text-center text-gray-400 text-xs uppercase tracking-[0.3em] pt-12 mt-8 border-t border-gray-200">
-          northernfox.ru
-        </footer>
-      </div>
-    </main>
-  );
-}
+       */}

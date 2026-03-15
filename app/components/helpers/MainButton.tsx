@@ -19,7 +19,7 @@ const LetsTalkButton = forwardRef<HTMLButtonElement, LetsTalkButtonProps>(
 
           // responsive size
           "w-full max-w-[420px]",
-          "h-[50px] sm:h-[64px] md:h-[72px]",
+          "h-[55px] sm:h-[64px] md:h-[72px]",
           "px-6 sm:px-8 md:px-10",
 
           "rounded-full overflow-hidden select-none",

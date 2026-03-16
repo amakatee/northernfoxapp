@@ -89,6 +89,63 @@ const slides = [
     description: 'Самый низкий тариф при перевозке больших объёмов.',
   },
 ];
+const gradients = [
+  "bg-gradient-to-br from-purple-900/80 to-blue-900/80",
+  "bg-gradient-to-br from-teal-900/70 to-cyan-900/70",
+  "bg-gradient-to-br from-amber-900/70 to-orange-900/70",
+  "bg-gradient-to-br from-emerald-900/70 to-green-900/70",
+];
+
+const shippingMethods = [
+  {
+    id: 1,
+    icon: <></>,                    // empty icon
+    title: "Авиаперевозки",
+    subtitle: "Самый быстрый способ",
+    duration: "3-7 дн.",
+    suitableFor: ["Образцы", "Электроника", "Мед. товары", "Документы"],
+    cost: "Высокая" as const,
+    reliability: 5,
+    features: ["Скорость доставки", "Безопасность", "Трекинг", "Таможня"],
+    imageSrc: "/images/airpng.png",
+  },
+  {
+    id: 2,
+    icon: <></>,
+    title: "Железнодорожные",
+    subtitle: "Баланс цены и скорости",
+    duration: "18-40 дн.",
+    suitableFor: ["Контейнеры FCL", "Сборные грузы LCL", "Оборудование", "Стройматериалы"],
+    cost: "Средняя" as const,
+    reliability: 4,
+    features: ["Оптимальная стоимость", "Надежность", "Контейнерные", "Сборные грузы"],
+    imageSrc: "/images/train.jpg",
+  },
+  {
+    id: 3,
+    icon: <></>,
+    title: "Автомобильные",
+    subtitle: "Гибкий и универсальный",
+    duration: "14-25 дн.",
+    suitableFor: ["Региональные", "Междугородные", "Температура", "Частичные загрузки"],
+    cost: "Средняя" as const,
+    reliability: 4,
+    features: ["Гибкость маршрутов", "Дверь-дверь", "Экспедирование", "Мультимодальные"],
+    imageSrc: "/images/truck-cargo.jpg",
+  },
+  {
+    id: 4,
+    icon: <></>,
+    title: "Морские контейнерные",
+    subtitle: "Самый экономичный",
+    duration: "30-60 дн.",
+    suitableFor: ["Международные", "Консолидация", "Крупногабаритные", "Сырье"],
+    cost: "Низкая" as const,
+    reliability: 3,
+    features: ["Низкая стоимость", "Большие объёмы", "Международные", "Контейнеры"],
+    imageSrc: "/images/cargo.jpg",
+  },
+];
 
 function Home() {
   return (
@@ -104,7 +161,7 @@ function Home() {
         <WhyChooseUs />
        <ServiceQAPage />
         {/* <ServicesSection /> */}
-        <ShippingMethodsPage />
+        <ShippingMethodsPage   />
         {/* <LogisticsSteps /> */}
         <DeliveryForm />
        

@@ -1,222 +1,182 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import DeliveryMethodCard from "../helpers/ShippingCard";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
-
-// Array of gradient classes for each card
-const gradients = [
-  "bg-gradient-to-br from-purple-900/80 to-blue-900/80",
-  "bg-gradient-to-br from-teal-900/70 to-cyan-900/70",
-  "bg-gradient-to-br from-amber-900/70 to-orange-900/70",
-  "bg-gradient-to-br from-emerald-900/70 to-green-900/70",
-];
-
-const shippingMethods = [
-  {
-    id: 1,
-    icon: <></>,                    // empty icon
-    title: "Авиаперевозки",
-    subtitle: "Самый быстрый способ",
-    duration: "3-7 дн.",
-    suitableFor: ["Образцы", "Электроника", "Мед. товары", "Документы"],
-    cost: "Высокая" as const,
-    reliability: 5,
-    features: ["Скорость доставки", "Безопасность", "Трекинг", "Таможня"],
-    imageSrc: "/images/airpng.png",
-  },
-  {
-    id: 2,
-    icon: <></>,
-    title: "Железнодорожные",
-    subtitle: "Баланс цены и скорости",
-    duration: "18-40 дн.",
-    suitableFor: ["Контейнеры FCL", "Сборные грузы LCL", "Оборудование", "Стройматериалы"],
-    cost: "Средняя" as const,
-    reliability: 4,
-    features: ["Оптимальная стоимость", "Надежность", "Контейнерные", "Сборные грузы"],
-    imageSrc: "/images/train.jpg",
-  },
-  {
-    id: 3,
-    icon: <></>,
-    title: "Автомобильные",
-    subtitle: "Гибкий и универсальный",
-    duration: "14-25 дн.",
-    suitableFor: ["Региональные", "Междугородные", "Температура", "Частичные загрузки"],
-    cost: "Средняя" as const,
-    reliability: 4,
-    features: ["Гибкость маршрутов", "Дверь-дверь", "Экспедирование", "Мультимодальные"],
-    imageSrc: "/images/truck-cargo.jpg",
-  },
-  {
-    id: 4,
-    icon: <></>,
-    title: "Морские контейнерные",
-    subtitle: "Самый экономичный",
-    duration: "30-60 дн.",
-    suitableFor: ["Международные", "Консолидация", "Крупногабаритные", "Сырье"],
-    cost: "Низкая" as const,
-    reliability: 3,
-    features: ["Низкая стоимость", "Большие объёмы", "Международные", "Контейнеры"],
-    imageSrc: "/images/cargo.jpg",
-  },
-];
+gsap.registerPlugin(ScrollTrigger);
 
 export default function ShippingMethodsPage() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const sectionRef = useRef(null);
+  const cardsRef = useRef<HTMLDivElement[]>([]);
+  const gradients = [
+    // 1. Авиаперевозки — лёгкий blue-indigo bias (самый "воздушный", техно-синий, как верхние карточки)
+    "bg-gradient-to-br from-slate-950/94 via-indigo-950/44 via-blue-950/38 to-slate-900/82",
+  
+    // 2. Железнодорожные — muted teal-cyan с лёгким purple shift (баланс, промышленный, спокойный)
+    "bg-gradient-to-br from-slate-950/94 via-cyan-950/42 via-teal-950/36 to-indigo-950/40",
+        // 4. Морские — deepest purple-violet + blue-reddish undertone (экономика, объём, глубина)
+        "bg-gradient-to-br from-slate-950/94 via-violet-950/45 via-purple-950/39 to-fuchsia-950/42",
+// 3. Автомобильные — более заметный reddish-purple / rose bias
+     "bg-gradient-to-br from-slate-950/94 via-purple-950/42 via-rose-950/38 to-fuchsia-950/45",
+  
+
+  ];
+  const shippingMethods = [
+    // ... (your shipping methods data remains the same) ...
+    {
+      id: 1,
+      icon: <></>,
+      title: "Авиаперевозки",
+      subtitle: "Самый быстрый способ",
+      duration: "3-7 дн.",
+      suitableFor: ["Образцы", "Электроника", "Мед. товары", "Документы"],
+      cost: "Высокая" as const,
+      reliability: 5,
+      features: ["Скорость доставки", "Безопасность", "Трекинг", "Таможня"],
+      imageSrc: "/images/airpng.png",
+    },
+    {
+      id: 2,
+      icon: <></>,
+      title: "Железнодорожные",
+      subtitle: "Баланс цены и скорости",
+      duration: "18-40 дн.",
+      suitableFor: ["Контейнеры FCL", "Сборные грузы LCL", "Оборудование", "Стройматериалы"],
+      cost: "Средняя" as const,
+      reliability: 4,
+      features: ["Оптимальная стоимость", "Надежность", "Контейнерные", "Сборные грузы"],
+      imageSrc: "/images/train.jpg",
+    },
+    {
+      id: 3,
+      icon: <></>,
+      title: "Автомобильные",
+      subtitle: "Гибкий и универсальный",
+      duration: "14-25 дн.",
+      suitableFor: ["Региональные", "Междугородные", "Температура", "Частичные загрузки"],
+      cost: "Средняя" as const,
+      reliability: 4,
+      features: ["Гибкость маршрутов", "Дверь-дверь", "Экспедирование", "Мультимодальные"],
+      imageSrc: "/images/truck-cargo.jpg",
+    },
+    {
+      id: 4,
+      icon: <></>,
+      title: "Морские контейнерные",
+      subtitle: "Самый экономичный",
+      duration: "30-60 дн.",
+      suitableFor: ["Международные", "Консолидация", "Крупногабаритные", "Сырье"],
+      cost: "Низкая" as const,
+      reliability: 3,
+      features: ["Низкая стоимость", "Большие объёмы", "Международные", "Контейнеры"],
+      imageSrc: "/images/cargo.jpg",
+    },
+  ];
 
   useEffect(() => {
-    const cards = cardsRef.current.filter(Boolean) as HTMLDivElement[];
-    if (!cards.length || !containerRef.current) return;
-
-    const totalCards = cards.length;
-    const container = containerRef.current;
-
-    // Set container height to create scroll distance (100vh per card)
-    container.style.height = `${totalCards * 100}vh`;
+    const cards = cardsRef.current;
+    if (!cards.length) return;
 
     const ctx = gsap.context(() => {
+      // --- 1. SET INITIAL STAGGERED POSITIONS (More Space Between Cards) ---
+      // Position cards with a vertical gap. The exact value (e.g., 40) depends on your card's height.
+      // You can adjust this to get the perfect "stacked with space" look.
+      cards.forEach((card, index) => {
+        if (index === 0) return; // First card stays at top: 0
+        gsap.set(card, {
+          y: index * 80, // <-- Increase this value for more initial space
+          scale: 1,   // <-- Optional: Slightly scale down deeper cards for perspective
+        });
+      });
+
+      // --- 2. CREATE THE SCROLL-TRIGGERED ANIMATION TIMELINE ---
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: container,
+          trigger: sectionRef.current,
           start: "top top",
-          end: `+=${totalCards * 100}vh`,
-          scrub: 0.8,                // smooth, speed‑dependent
-          invalidateOnRefresh: true,
-        },
-        defaults: { ease: "power2.out" },
+          end: `+=${cards.length * 100}%`, // Increased end for smoother animation over more scroll distance
+          scrub: 1.2, // Slightly increased scrub for a silkier feel
+          pin: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true, // Ensures markers/pins recalc on resize
+        }
       });
 
-      // Animate each card (except the first) to its final stacked position
-      cards.slice(1).forEach((card, idx) => {
-        // Final top: 10vh, 20vh, 30vh … (leaves 10% of previous card visible)
-        const finalTop = 10 + idx * 10; // vh
+      // Animate each card to create the "90% cover" effect
+      cards.forEach((card, i) => {
+        if (i === 0) return; // Skip first card as the starting point
 
-        // Each card moves during its own scroll segment
-        tl.to(
+        // Animate the current card moving up to cover the previous one
+        tl.fromTo(
           card,
+          { y: i * 320, scale: 1 }, // Start from its initial staggered position
           {
-            top: `${finalTop}vh`,
-            duration: 1 / (totalCards - 1), // one segment per card
+            y: 0,                     // End at the top, covering the previous card
+            scale: 1,                  // Scale back to full size
+            ease: "power1.out",        // Smooth easing
+            duration: 1.5
           },
-          idx / (totalCards - 1) // start at proportional progress
+          i * 0.8 // Stagger the start times
+        );
+
+        // Simultaneously, slightly move the previous card(s) out of the way
+        // and apply a subtle scale down to create the "stack" effect.
+        // This targets the card directly above (i-1) to settle at a 90% cover position.
+        tl.to(
+          cards[i - 1],
+          {
+            y: 0,          // <-- KEY: Moves the previous card up slightly.
+                             // A negative value like -20 means its top edge moves up,
+                             // leaving about 20px of its bottom part visible beneath the new card.
+            scale: 1,     // Keep a subtle scale difference
+            ease: "power1.inOut",
+            duration: 1.5
+          },
+          i * 0.8 // Same stagger time as the incoming card's animation
         );
       });
-    }, container);
+
+      // Optional: Add a final touch for the last card to ensure it settles perfectly
+      tl.to({}, { duration: 0.2 }); // A small pause at the end
+
+    }, sectionRef);
 
     return () => ctx.revert();
   }, []);
 
   const setCardRef = (el: HTMLDivElement | null, index: number) => {
-    cardsRef.current[index] = el;
-  };
-
-  const handleCalculate = (id: number) => {
-    const method = shippingMethods.find((m) => m.id === id);
-    alert(`Запрос стоимости для ${method?.title} отправлен.`);
+    if (el) cardsRef.current[index] = el;
   };
 
   return (
-    <section ref={sectionRef} className="relative bg-blue-950 text-white pt-16 pb-40 px-4 md:px-6">
-      <div className="max-w-7xl mx-auto">
-        {/* Заголовок */}
-        <div className="text-center md:text-left mb-12 md:mb-20">
-          <h2 className="text-3xl md:text-5xl font-light tracking-wide mb-4">
-            Способы доставки из Китая в Россию
-          </h2>
-          <p className="text-white/70 text-lg md:text-xl max-w-3xl">
-            Надёжные, быстрые и экономичные варианты под ваш груз и сроки
-          </p>
-        </div>
+    <section
+      ref={sectionRef}
+      className="relative bg-blue-950 text-white overflow-hidden" // Added overflow-hidden to contain animations
+    >
+      <div className="max-w-6xl px-4 mx-auto h-screen flex items-center justify-center">
+        <div className="relative w-full h-[550px]"> {/* Slightly increased height for better spacing */}
 
-        {/* Контейнер с динамической высотой (устанавливается через style) */}
-        <div ref={containerRef} className="relative w-full">
-          {/* Sticky wrapper – держит все карточки в области видимости */}
-          <div className="sticky top-30 h-screen overflow-hidden">
-            {shippingMethods.map((method, index) => (
-              <div
-                key={method.id}
-                ref={(el) => setCardRef(el, index)}
-                className="absolute left-1/2 -translate-x-1/2 w-full max-w-5xl will-change-[top]"
-                style={{ top: `${index * 100}vh` }} // начальное положение — стопкой вертикально
-              >
-                <DeliveryMethodCard
-                  id={method.id}
-                  icon={method.icon}
-                  title={method.title}
-                  subtitle={method.subtitle}
-                  duration={method.duration}
-                  suitableFor={method.suitableFor}
-                  cost={method.cost}
-                  reliability={method.reliability}
-                  features={method.features}
-                  imageSrc={method.imageSrc}
-                  onCalculate={handleCalculate}
-                  bgGradient={gradients[index % gradients.length]} // apply per‑card gradient
-                />
-              </div>
-            ))}
-          </div>
+          {shippingMethods.map((method, index) => (
+            <div
+              key={method.id}
+              ref={(el) => setCardRef(el, index)}
+              className="absolute w-full will-change-transform left-0 top-0" // Ensure all cards start from top:0
+              style={{
+                zIndex: index + 1,
+                // Initial transform is now handled by gsap.set in useEffect
+              }}
+            >
+              <DeliveryMethodCard
+                {...method}
+                bgGradient={gradients[index % gradients.length]}
+              />
+            </div>
+          ))}
+
         </div>
       </div>
     </section>
   );
 }
-// const shippingMethods = [
-//   {
-//     id: 1,
-//     icon: <></>,                    // empty icon
-//     title: 'Авиаперевозки',
-//     subtitle: 'Самый быстрый способ',
-//     duration: '3-7 дн.',
-//     suitableFor: ['Образцы', 'Электроника', 'Мед. товары', 'Документы'],
-//     cost: 'Высокая' as const,
-//     reliability: 5,
-//     features: ['Скорость доставки', 'Безопасность', 'Трекинг', 'Таможня'],
-//     imageSrc: '/images/airpng.png',
-//   },
-//   {
-//     id: 2,
-//     icon: <></>,
-//     title: 'Железнодорожные',
-//     subtitle: 'Баланс цены и скорости',
-//     duration: '18-40 дн.',
-//     suitableFor: ['Контейнеры FCL', 'Сборные грузы LCL', 'Оборудование', 'Стройматериалы'],
-//     cost: 'Средняя' as const,
-//     reliability: 4,
-//     features: ['Оптимальная стоимость', 'Надежность', 'Контейнерные', 'Сборные грузы'],
-//     imageSrc: '/images/train-cargo.jpg',
-//   },
-//   {
-//     id: 3,
-//     icon: <></>,
-//     title: 'Автомобильные',
-//     subtitle: 'Гибкий и универсальный',
-//     duration: '14-25 дн.',
-//     suitableFor: ['Региональные', 'Междугородные', 'Температура', 'Частичные загрузки'],
-//     cost: 'Средняя' as const,
-//     reliability: 4,
-//     features: ['Гибкость маршрутов', 'Дверь-дверь', 'Экспедирование', 'Мультимодальные'],
-//     imageSrc: '/images/truck-cargo.jpg',
-//   },
-//   {
-//     id: 4,
-//     icon: <></>,
-//     title: 'Морские контейнерные',
-//     subtitle: 'Самый экономичный',
-//     duration: '30-60 дн.',
-//     suitableFor: ['Международные', 'Консолидация', 'Крупногабаритные', 'Сырье'],
-//     cost: 'Низкая' as const,
-//     reliability: 3,
-//     features: ['Низкая стоимость', 'Большие объёмы', 'Международные', 'Контейнеры'],
-//     imageSrc: '/images/sea-container.jpg',
-//   },
-// ];

@@ -65,7 +65,9 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen  bg-gradient-to-b from-gray-950 to-blue-950 py-20 px-4 flex flex-col items-center">
+    <main
+    
+     className="min-h-screen   py-20 px-4 flex flex-col items-center">
       <div className="max-w-5xl w-full">
         {/* Grid of rows – each row contains two cells (question & answer) */}
         <div className="flex flex-col gap-3 md:gap-6">

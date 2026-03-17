@@ -3,7 +3,8 @@
 import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import DeliveryMethodCard from "../helpers/ShippingCard";
+import DeliveryMethodCard from "../helpers/DeliveryMethodCard";
+import LetsTalkButton from "../helpers/MainButton";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,10 +13,17 @@ export default function ShippingMethodsPage() {
   const cardsRef = useRef<HTMLDivElement[]>([]);
 
   const gradients = [
-    "bg-gradient-to-br from-slate-950/94 via-indigo-950/44 via-blue-950/38 to-slate-900/82",
-    "bg-gradient-to-br from-slate-950/94 via-cyan-950/42 via-teal-950/36 to-indigo-950/40",
-    "bg-gradient-to-br from-slate-950/94 via-violet-950/45 via-purple-950/39 to-fuchsia-950/42",
-    "bg-gradient-to-br from-slate-950/94 via-purple-950/42 via-rose-950/38 to-fuchsia-950/45",
+    // 1. Авиаперевозки — самый "воздушный", лёгкий blue-indigo с намёком на cyan glow
+    "bg-gradient-to-br from-slate-950/95 via-indigo-950/50 via-blue-950/40  to-slate-950/92",
+  
+    // 2. Железнодорожные — спокойный teal-cyan-industrial, глубокий и сбалансированный
+    "bg-gradient-to-br from-slate-950/96 via-teal-950/48 via-cyan-950/34 via-indigo-950/22 to-slate-950/90",
+  
+    // 3. Автомобильные — более тёплый purple-rose shift, но всё ещё холодный и глубокий
+    "bg-gradient-to-br from-slate-950/96 via-fuchisa-950/40 via-rose-950/30 via-fuchsia-950/20 to-slate-950/91",
+  
+    // 4. Морские — самый "глубокий", violet-purple с намёком на magenta/fuchsia глубину
+    "bg-gradient-to-br from-slate-950/96 via-violet-950/54 via-purple-950/50 via-violet-950/40 to-slate-950/89",
   ];
 
   const shippingMethods = [
@@ -127,9 +135,24 @@ export default function ShippingMethodsPage() {
 
   return (
     <section
+    
+  
+  // остальные классы
       ref={sectionRef}
-      className="relative bg-blue-950 text-white overflow-hidden"
+      className="relative  text-white overflow-hidden"
     >
+       <div className="text-center w-full px-6 mb-[-75]">
+          <h1 
+            className="text-3xl  md:text-4xl font-light text-start leading-8 tracking-wide mb-4"
+          >
+            Комплексные решения для вашего бизнеса
+          </h1>
+          <p 
+            className="text-white/85 text-[.9rem] max-w-2xl text-start font-light tracking-wide leading-5 mx-auto"
+          >
+            Полный спектр услуг по логистике, таможенному оформлению и налоговой оптимизации
+          </p>
+        </div>
       <div className="max-w-6xl px-4 mx-auto h-screen flex items-center justify-center">
         <div className="relative w-full h-[550px]">
           {shippingMethods.map((method, index) => (
@@ -145,7 +168,12 @@ export default function ShippingMethodsPage() {
             </div>
           ))}
         </div>
+       
+     
+        
       </div>
+     
+     
     </section>
   );
 }

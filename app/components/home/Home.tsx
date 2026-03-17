@@ -157,8 +157,8 @@ function Home() {
        <NorthernFoxNavbar /> */}
         <HeroSection />
         {/* <Slider slides={slides} /> */}
-        
         <WhyChooseUs />
+    
        
         <div
   
@@ -171,7 +171,7 @@ function Home() {
     `,
   }}
 >
-
+     
       <ServiceQAPage />
       <ShippingMethodsPage   />
 

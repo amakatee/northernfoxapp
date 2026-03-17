@@ -25,18 +25,18 @@ const qaItems: QAItem[] = [
       question: "Боитесь ошибок в таможенных документах?",
       answer: "Мы подготовим все документы: от инвойсов до сертификатов.",
     },
-    {
-      question: "Как ввозить товары без риска для бизнеса?",
-      answer: "Полное юридическое сопровождение без претензий от органов.",
-    },
+    // {
+    //   question: "Как ввозить товары без риска для бизнеса?",
+    //   answer: "Полное юридическое сопровождение без претензий от органов.",
+    // },
     {
       question: "Хотите вернуть НДС 20–22%?",
       answer: "Законная экономия: возврат НДС из бюджета или его зачет.",
     },
-    {
-      question: "Нужно снизить себестоимость товаров?",
-      answer: "Снижайте стоимость за счет грамотных налоговых решений.",
-    },
+    // {
+    //   question: "Нужно снизить себестоимость товаров?",
+    //   answer: "Снижайте стоимость за счет грамотных налоговых решений.",
+    // },
   ];
 
 // ---------- Component ----------
@@ -67,8 +67,8 @@ export default function Home() {
   return (
     <main
     
-     className="min-h-screen   py-20 px-4 flex flex-col items-center">
-        <div className="text-center w-full px-2 pb-10 ">
+     className="min-h-screen   pt-20 px-4 flex flex-col items-center">
+        <div className="text-center w-full px-2 pb-25 ">
           <h1 
             className="text-3xl text-white  md:text-4xl font-light text-start leading-8 tracking-wide mb-4"
           >

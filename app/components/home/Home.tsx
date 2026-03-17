@@ -8,6 +8,7 @@ import DeliveryForm from '../sections/DelieveryForm'
 import LogisticsSteps from '../sections/delievery/LogisticsSteps'
 import ServiceQAPage from '../sections/ServiceQAPage'
 import NeonSection from '../helpers/NeonSection'
+import WhyUs from '../sections/WhyUs'
 
 // const slides =[
 //   {
@@ -169,6 +170,7 @@ function Home() {
      
       <ServiceQAPage />
       <ShippingMethodsPage   />
+      <WhyUs />
       </NeonSection>
 
      

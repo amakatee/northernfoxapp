@@ -200,7 +200,7 @@ export default function NorthernFoxHeroAnimated() {
 
           {/* button */}
 
-          <div ref={buttonRef} className="mt-10">
+          <div ref={buttonRef} className="mt-10 mb-5">
             <LetsTalkButton>
               Получить консультацию
             </LetsTalkButton>

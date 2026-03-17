@@ -42,7 +42,7 @@ const ProblemSolutionCard: FC<CardProps> = ({
         `}
       />
 
-      <div className="relative z-10 px-3 py-3 md:px-8 md:py-9 h-full flex flex-col">
+      <div className="relative  z-10 px-3 py-3 md:px-8 md:py-9 h-full flex flex-col">
         <p
           className={`
             mb-auto text-white/95 font-normal

@@ -8,23 +8,17 @@ import DeliveryMethodCard from "../helpers/ShippingCard";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function ShippingMethodsPage() {
-  const sectionRef = useRef(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<HTMLDivElement[]>([]);
-  const gradients = [
-    // 1. Авиаперевозки — лёгкий blue-indigo bias (самый "воздушный", техно-синий, как верхние карточки)
-    "bg-gradient-to-br from-slate-950/94 via-indigo-950/44 via-blue-950/38 to-slate-900/82",
-  
-    // 2. Железнодорожные — muted teal-cyan с лёгким purple shift (баланс, промышленный, спокойный)
-    "bg-gradient-to-br from-slate-950/94 via-cyan-950/42 via-teal-950/36 to-indigo-950/40",
-        // 4. Морские — deepest purple-violet + blue-reddish undertone (экономика, объём, глубина)
-        "bg-gradient-to-br from-slate-950/94 via-violet-950/45 via-purple-950/39 to-fuchsia-950/42",
-// 3. Автомобильные — более заметный reddish-purple / rose bias
-     "bg-gradient-to-br from-slate-950/94 via-purple-950/42 via-rose-950/38 to-fuchsia-950/45",
-  
 
+  const gradients = [
+    "bg-gradient-to-br from-slate-950/94 via-indigo-950/44 via-blue-950/38 to-slate-900/82",
+    "bg-gradient-to-br from-slate-950/94 via-cyan-950/42 via-teal-950/36 to-indigo-950/40",
+    "bg-gradient-to-br from-slate-950/94 via-violet-950/45 via-purple-950/39 to-fuchsia-950/42",
+    "bg-gradient-to-br from-slate-950/94 via-purple-950/42 via-rose-950/38 to-fuchsia-950/45",
   ];
+
   const shippingMethods = [
-    // ... (your shipping methods data remains the same) ...
     {
       id: 1,
       icon: <></>,
@@ -77,70 +71,51 @@ export default function ShippingMethodsPage() {
 
   useEffect(() => {
     const cards = cardsRef.current;
-    if (!cards.length) return;
+    if (cards.length !== 4) return;
 
     const ctx = gsap.context(() => {
-      // --- 1. SET INITIAL STAGGERED POSITIONS (More Space Between Cards) ---
-      // Position cards with a vertical gap. The exact value (e.g., 40) depends on your card's height.
-      // You can adjust this to get the perfect "stacked with space" look.
+      const PEEK_VH = 10;           // 10vh видимой полоски предыдущей карточки (по ТЗ)
+      const INITIAL_GAP_VH = 35;    // начальный равный зазор (подстрой под скриншот IMG_1964 — "small gaps")
+      const DELTA_VH = INITIAL_GAP_VH - PEEK_VH; // сколько сдвигается вся группа за одну фазу
+
+      // === 1. INITIAL STATE: равные зазоры + z-index (поздние карточки сверху) ===
       cards.forEach((card, index) => {
-        if (index === 0) return; // First card stays at top: 0
         gsap.set(card, {
-          y: index * 80, // <-- Increase this value for more initial space
-          scale: 1,   // <-- Optional: Slightly scale down deeper cards for perspective
+          y: `${index * INITIAL_GAP_VH}vh`,
+          zIndex: index + 1,
+          scale: 1,
         });
       });
 
-      // --- 2. CREATE THE SCROLL-TRIGGERED ANIMATION TIMELINE ---
+      // === 2. MASTER TIMELINE + SCROLLTRIGGER (pin + 1:1 scrub) ===
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
-          end: `+=${cards.length * 100}%`, // Increased end for smoother animation over more scroll distance
-          scrub: 1.2, // Slightly increased scrub for a silkier feel
+          end: `+=${(cards.length - 1) * 100}vh`, // 3 фазы × 100vh = идеально под прямой скролл
+          scrub: true,
           pin: true,
           anticipatePin: 1,
-          invalidateOnRefresh: true, // Ensures markers/pins recalc on resize
-        }
+          invalidateOnRefresh: true,
+          // markers: true, // раскомментировать для отладки позиций
+        },
       });
 
-      // Animate each card to create the "90% cover" effect
-      cards.forEach((card, i) => {
-        if (i === 0) return; // Skip first card as the starting point
+      // === 3. CASCADE АНИМАЦИЯ: в каждой фазе двигается ГРУППА (ведущая + все ниже) ===
+      // Это сохраняет равные зазоры внутри группы до остановки ведущей карточки
+      for (let phase = 1; phase < cards.length; phase++) {
+        const group = cards.slice(phase); // ведущая + все ниже
 
-        // Animate the current card moving up to cover the previous one
-        tl.fromTo(
-          card,
-          { y: i * 320, scale: 1 }, // Start from its initial staggered position
-          {
-            y: 0,                     // End at the top, covering the previous card
-            scale: 1,                  // Scale back to full size
-            ease: "power1.out",        // Smooth easing
-            duration: 1.5
-          },
-          i * 0.8 // Stagger the start times
-        );
-
-        // Simultaneously, slightly move the previous card(s) out of the way
-        // and apply a subtle scale down to create the "stack" effect.
-        // This targets the card directly above (i-1) to settle at a 90% cover position.
         tl.to(
-          cards[i - 1],
+          group,
           {
-            y: 0,          // <-- KEY: Moves the previous card up slightly.
-                             // A negative value like -20 means its top edge moves up,
-                             // leaving about 20px of its bottom part visible beneath the new card.
-            scale: 1,     // Keep a subtle scale difference
-            ease: "power1.inOut",
-            duration: 1.5
+            y: `-=${DELTA_VH}vh`,   // все в группе сдвигаются НА ОДНО И ТО ЖЕ расстояние
+            ease: "none",           // линейно = 100% контроль скролла
+            duration: 1,            // 1 единица таймлайна = 100vh скролла
           },
-          i * 0.8 // Same stagger time as the incoming card's animation
+          phase - 1                 // фазы идут строго последовательно (без пересечения)
         );
-      });
-
-      // Optional: Add a final touch for the last card to ensure it settles perfectly
-      tl.to({}, { duration: 0.2 }); // A small pause at the end
-
+      }
     }, sectionRef);
 
     return () => ctx.revert();
@@ -153,20 +128,15 @@ export default function ShippingMethodsPage() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-blue-950 text-white overflow-hidden" // Added overflow-hidden to contain animations
+      className="relative bg-blue-950 text-white overflow-hidden"
     >
       <div className="max-w-6xl px-4 mx-auto h-screen flex items-center justify-center">
-        <div className="relative w-full h-[550px]"> {/* Slightly increased height for better spacing */}
-
+        <div className="relative w-full h-[550px]">
           {shippingMethods.map((method, index) => (
             <div
               key={method.id}
               ref={(el) => setCardRef(el, index)}
-              className="absolute w-full will-change-transform left-0 top-0" // Ensure all cards start from top:0
-              style={{
-                zIndex: index + 1,
-                // Initial transform is now handled by gsap.set in useEffect
-              }}
+              className="absolute w-full will-change-transform left-0 top-0"
             >
               <DeliveryMethodCard
                 {...method}
@@ -174,7 +144,6 @@ export default function ShippingMethodsPage() {
               />
             </div>
           ))}
-
         </div>
       </div>
     </section>

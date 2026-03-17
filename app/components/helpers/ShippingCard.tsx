@@ -41,7 +41,7 @@ const DeliveryMethodCard: FC<DeliveryMethodCardProps> = ({
   return (
     <div
       className={`
-        group relative h-full w-full
+        group relative h-[30vh] w-full
         ${bgGradient}
         backdrop-blur-2xl bg-opacity-65
         rounded-3xl md:rounded-[2.5rem]

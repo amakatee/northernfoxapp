@@ -141,18 +141,7 @@ export default function ShippingMethodsPage() {
       ref={sectionRef}
       className="relative  text-white overflow-hidden"
     >
-       <div className="text-center w-full px-6 mb-[-75]">
-          <h1 
-            className="text-3xl  md:text-4xl font-light text-start leading-8 tracking-wide mb-4"
-          >
-            Комплексные решения для вашего бизнеса
-          </h1>
-          <p 
-            className="text-white/85 text-[.9rem] max-w-2xl text-start font-light tracking-wide leading-5 mx-auto"
-          >
-            Полный спектр услуг по логистике, таможенному оформлению и налоговой оптимизации
-          </p>
-        </div>
+      
       <div className="max-w-6xl px-4 mx-auto h-screen flex items-center justify-center">
         <div className="relative w-full h-[550px]">
           {shippingMethods.map((method, index) => (

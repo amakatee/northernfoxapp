@@ -22,6 +22,7 @@ const ProblemSolutionCard: FC<CardProps> = ({
 
   return (
     <div
+    
       className={`
         group relative rounded-3xl overflow-hidden
         border border-white/[0.06]

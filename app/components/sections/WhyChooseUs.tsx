@@ -164,7 +164,7 @@ export default function WhyChooseUs() {
           </h2>
       <div className="floating-bg-2 absolute  -bottom-20 -right-20 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
       
-      <div className="relative max-w-[100vw]  bg-gradient-to-br from-[#003f7f] via-[#0050a0] to-[#0066cc]  z-10">
+      <div  className="relative max-w-[100vw]  bg-gradient-to-br from-[#003f7f] via-[#0050a0] to-[#0066cc]  z-10">
         {/* Заголовок секции */}
         <div className="flex flex-col  lg:flex-row items-center lg:items-start gap-12 lg:gap-20">
           {/* Левая часть: Преимущества */}

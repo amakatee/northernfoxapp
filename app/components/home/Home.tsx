@@ -7,6 +7,7 @@ import ShippingMethodsPage from '../sections/ShippingMethods'
 import DeliveryForm from '../sections/DelieveryForm'
 import LogisticsSteps from '../sections/delievery/LogisticsSteps'
 import ServiceQAPage from '../sections/ServiceQAPage'
+import NeonSection from '../helpers/NeonSection'
 
 // const slides =[
 //   {
@@ -157,25 +158,20 @@ function Home() {
        <NorthernFoxNavbar /> */}
         <HeroSection />
         {/* <Slider slides={slides} /> */}
-        <WhyChooseUs />
+       
     
        
-        <div
-  
-  style={{
-    background: `
-      radial-gradient(ellipse at top left, rgba(59, 130, 246, 0.09) 0%, transparent 50%),
-      radial-gradient(ellipse at bottom right, rgba(139, 92, 246, 0.07) 0%, transparent 60%),
-      radial-gradient(ellipse at 20% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 45%),
-      linear-gradient(to bottom, #0f172a 0%, #0b1425 100%)
-    `,
-  }}
->
+        
+
+        {/* <WhyChooseUs /> */}
+
+     <NeonSection>
      
       <ServiceQAPage />
       <ShippingMethodsPage   />
+      </NeonSection>
 
-       </div>
+     
         {/* <ServicesSection /> */}
      
         {/* <LogisticsSteps /> */}
@@ -189,3 +185,14 @@ function Home() {
 }
 
 export default Home
+
+
+// style={{
+  //   background: `
+  //     radial-gradient(ellipse at top left, rgba(59, 130, 246, 0.09) 0%, transparent 50%),
+  //     radial-gradient(ellipse at bottom right, rgba(139, 92, 246, 0.07) 0%, transparent 60%),
+  //     radial-gradient(ellipse at 20% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 45%),
+  //     linear-gradient(to bottom, #0f172a 0%, #0b1425 100%)
+  //   `,
+  // }}
+  

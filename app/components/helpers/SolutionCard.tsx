@@ -11,47 +11,65 @@ const ProblemSolutionCard: FC<CardProps> = ({
   author = '',
   mode,
 }) => {
-  // Darly-inspired gradients – semi-transparent for blur to show through
-  const gradient =
-    mode === 'question'
-      ? 'from-[#0a0e1fcc] via-[#0f162ecc] to-[#131a38cc]/30' // deep navy with opacity
-      : 'from-[#1e40afcc] to-[#3b82f6cc]';                 // vibrant blue with opacity
+  const isQuestion = mode === 'question';
 
-  // Softer, more refined light overlay
-  const lightOverlay = mode === 'question' ? 'white/[0.02]' : 'white/[0.05]';
+  // ──────────────────────────────────────────────
+  // Вопрос → остаётся тёмным и плотным
+  // Решение → максимально прозрачное стекло
+  // ──────────────────────────────────────────────
+
+  const bgOpacity = isQuestion 
+    ? 'bg-[#0a0c18]/78' 
+    : 'bg-[#0f1629]/18';           // было /35 → теперь /18 → почти прозрачно
+
+  const blurStrength = isQuestion 
+    ? 'backdrop-blur-xl backdrop-saturate-50' 
+    : 'backdrop-blur-3xl backdrop-saturate-90';   // очень сильный и чистый blur
+
+  const borderOpacity = isQuestion 
+    ? 'border-white/[0.10] hover:border-white/[0.18]' 
+    : 'border-white/[0.16] hover:border-white/[0.32]';
+
+  const textOpacity = isQuestion 
+    ? 'text-white/92' 
+    : 'text-white/97';
+
+  const hoverAccent = isQuestion
+    ? 'hover:shadow-[0_8px_32px_rgba(0,0,0,0.38)]'
+    : 'hover:shadow-[0_16px_48px_rgba(80,140,255,0.10)] hover:ring-1 hover:ring-blue-300/15';
 
   return (
     <div
       className={`
         group relative rounded-3xl overflow-hidden
-        border border-white/[0.08]
-        opacity-80
-        bg-gradient-to-br ${gradient}
-        backdrop-blur-xl backdrop-saturate-150
-        shadow-xl shadow-black/30
-        transition-all duration-500 ease-out
-        hover:scale-[1.015] hover:shadow-2xl hover:shadow-indigo-900/30
-        hover:border-white/[0.15]
+        ${bgOpacity}
+        ${blurStrength}
+        ${borderOpacity}
+        shadow-2xl shadow-black/30
+        transition-all duration-800 ease-out
+        hover:scale-[1.008] hover:-translate-y-0.5
+        ${hoverAccent}
       `}
     >
-      {/* Subtle animated light sweep – inspired by Darly's signature glow */}
+      {/* Очень-очень лёгкая световая полоса */}
       <div
         className={`
-        
           absolute inset-0 pointer-events-none
-          bg-gradient-to-t from-transparent via-${lightOverlay} to-transparent
-          group-hover:opacity-100
-          transition-opacity duration-1000
+          bg-gradient-to-r from-transparent via-white/[${isQuestion ? '0.025' : '0.07'}] to-transparent
+          opacity-0 group-hover:opacity-100
+          transition-all duration-2000 ease-in-out
+          -translate-x-full group-hover:translate-x-full
+          skew-x-[10deg]
         `}
       />
 
-      <div className="relative z-10 px-3 py-3 md:px-8 md:py-9 h-full flex backdrop-blur-2xl  flex-col">
+      <div className="relative z-10 px-6 py-8 md:px-12 md:py-14 h-full flex flex-col">
         <p
           className={`
-       
-            mb-auto text-white/95 font-light
-            text-sm leading-relaxed tracking-wide
-            md:text-xl md:leading-relaxed
+            mb-auto ${textOpacity} font-light
+            text-[15px] leading-relaxed tracking-wide
+            md:text-lg md:leading-[1.65]
+            drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]
           `}
         >
           {content}
@@ -60,8 +78,9 @@ const ProblemSolutionCard: FC<CardProps> = ({
         {author && (
           <p
             className={`
-              mt-6 text-xs md:text-base font-medium tracking-wide
-              ${mode === 'solution' ? 'text-blue-200/90' : 'text-slate-400/80'}
+              mt-8 text-xs md:text-sm font-medium tracking-widest uppercase
+              ${isQuestion ? 'text-slate-300/75' : 'text-blue-200/70'}
+              opacity-80 group-hover:opacity-100 transition-opacity duration-500
             `}
           >
             {author}
@@ -69,8 +88,14 @@ const ProblemSolutionCard: FC<CardProps> = ({
         )}
       </div>
 
-      {/* Optional: subtle noise texture for extra depth (comment if not desired) */}
-      <div className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-5 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJmIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc0IiBudW1PY3RhdmVzPSIzIiAvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNmKSIgb3BhY2l0eT0iMC4xIiAvPjwvc3ZnPg==')]" />
+      {/* Noise почти незаметен на решении */}
+      <div
+        className={`
+          absolute inset-0 pointer-events-none mix-blend-overlay
+          opacity-[${isQuestion ? '0.04' : '0.015'}]
+          bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJmIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjg1IiBudW1PY3RhdmVzPSIxLjUiIC8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI2YpIiBvcGFjaXR5PSIwLjA2IiAvPjwvc3ZnPg==')]
+        `}
+      />
     </div>
   );
 };

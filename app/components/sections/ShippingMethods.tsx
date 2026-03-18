@@ -83,7 +83,7 @@ export default function ShippingMethodsPage() {
 
     const ctx = gsap.context(() => {
       const PEEK_VH = 10;           // 10vh видимой полоски предыдущей карточки (по ТЗ)
-      const INITIAL_GAP_VH = 35;    // начальный равный зазор (подстрой под скриншот IMG_1964 — "small gaps")
+      const INITIAL_GAP_VH = 36;    // начальный равный зазор (подстрой под скриншот IMG_1964 — "small gaps")
       const DELTA_VH = INITIAL_GAP_VH - PEEK_VH; // сколько сдвигается вся группа за одну фазу
 
       // === 1. INITIAL STATE: равные зазоры + z-index (поздние карточки сверху) ===
@@ -100,7 +100,7 @@ export default function ShippingMethodsPage() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
-          end: `+=${(cards.length - 1) * 100}vh`, // 3 фазы × 100vh = идеально под прямой скролл
+          end: `+=${(cards.length - 1) * 150}vh`, // 3 фазы × 100vh = идеально под прямой скролл
           scrub: true,
           pin: true,
           anticipatePin: 1,

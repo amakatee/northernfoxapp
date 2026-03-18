@@ -11,43 +11,46 @@ const ProblemSolutionCard: FC<CardProps> = ({
   author = '',
   mode,
 }) => {
-  // Премиум гладкие градиенты 2026 стиля
+  // Darly-inspired gradients – semi-transparent for blur to show through
   const gradient =
     mode === 'question'
-      ? 'from-[#0a0e1f] via-[#0f162e] to-[#131a38]'           // очень тёмный, глубокий navy-indigo, матовый
-      : 'from-[#1e40af]  to-[#3b82f6]';          // чистый, плавный, уверенный blue-indigo, светлее и живее
+      ? 'from-[#0a0e1fcc] via-[#0f162ecc] to-[#131a38cc]/30' // deep navy with opacity
+      : 'from-[#1e40afcc] to-[#3b82f6cc]';                 // vibrant blue with opacity
 
-  // Тонкий световой налёт (glass-like, но минималистичный)
-  const lightOverlay = mode === 'question' ? '0.03' : '0.07';
+  // Softer, more refined light overlay
+  const lightOverlay = mode === 'question' ? 'white/[0.02]' : 'white/[0.05]';
 
   return (
     <div
-    
       className={`
         group relative rounded-3xl overflow-hidden
-        border border-white/[0.06]
+        border border-white/[0.08]
+        opacity-80
         bg-gradient-to-br ${gradient}
-        shadow-xl shadow-black/50
+        backdrop-blur-xl backdrop-saturate-150
+        shadow-xl shadow-black/30
         transition-all duration-500 ease-out
-        hover:scale-[1.012] hover:shadow-2xl hover:shadow-indigo-950/20
-        hover:border-white/[0.10]
+        hover:scale-[1.015] hover:shadow-2xl hover:shadow-indigo-900/30
+        hover:border-white/[0.15]
       `}
     >
-      {/* Очень тонкий, дорогой световой оверлей (без шума, чисто) */}
+      {/* Subtle animated light sweep – inspired by Darly's signature glow */}
       <div
         className={`
+        
           absolute inset-0 pointer-events-none
-          bg-gradient-to-t from-transparent via-white/[${lightOverlay}] to-transparent
-          opacity-60 group-hover:opacity-80
-          transition-opacity duration-700
+          bg-gradient-to-t from-transparent via-${lightOverlay} to-transparent
+          group-hover:opacity-100
+          transition-opacity duration-1000
         `}
       />
 
-      <div className="relative  z-10 px-3 py-3 md:px-8 md:py-9 h-full flex flex-col">
+      <div className="relative z-10 px-3 py-3 md:px-8 md:py-9 h-full flex backdrop-blur-2xl  flex-col">
         <p
           className={`
-            mb-auto text-white/95 font-normal
-            text-[.8rem] leading-relaxed tracking-wider
+       
+            mb-auto text-white/95 font-light
+            text-sm leading-relaxed tracking-wide
             md:text-xl md:leading-relaxed
           `}
         >
@@ -57,14 +60,17 @@ const ProblemSolutionCard: FC<CardProps> = ({
         {author && (
           <p
             className={`
-              mt-6 text-[.6rem] md:text-base font-medium tracking-wide
-              ${mode === 'solution' ? 'text-blue-200/80' : 'text-slate-400/70'}
+              mt-6 text-xs md:text-base font-medium tracking-wide
+              ${mode === 'solution' ? 'text-blue-200/90' : 'text-slate-400/80'}
             `}
           >
             {author}
           </p>
         )}
       </div>
+
+      {/* Optional: subtle noise texture for extra depth (comment if not desired) */}
+      <div className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-5 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJmIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc0IiBudW1PY3RhdmVzPSIzIiAvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNmKSIgb3BhY2l0eT0iMC4xIiAvPjwvc3ZnPg==')]" />
     </div>
   );
 };

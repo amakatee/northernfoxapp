@@ -13,18 +13,13 @@ const ProblemSolutionCard: FC<CardProps> = ({
 }) => {
   const isQuestion = mode === 'question';
 
-  // ──────────────────────────────────────────────
-  // Вопрос → остаётся тёмным и плотным
-  // Решение → максимально прозрачное стекло
-  // ──────────────────────────────────────────────
-
   const bgOpacity = isQuestion 
     ? 'bg-[#0a0c18]/78' 
-    : 'bg-[#0f1629]/18';           // было /35 → теперь /18 → почти прозрачно
+    : 'bg-[#0f1629]/18';
 
   const blurStrength = isQuestion 
     ? 'backdrop-blur-xl backdrop-saturate-50' 
-    : 'backdrop-blur-3xl backdrop-saturate-90';   // очень сильный и чистый blur
+    : 'backdrop-blur-3xl backdrop-saturate-90';
 
   const borderOpacity = isQuestion 
     ? 'border-white/[0.10] hover:border-white/[0.18]' 
@@ -49,9 +44,10 @@ const ProblemSolutionCard: FC<CardProps> = ({
         transition-all duration-800 ease-out
         hover:scale-[1.008] hover:-translate-y-0.5
         ${hoverAccent}
+        /* Улучшаем рендеринг для карточек с backdrop‑filter */
+        ${!isQuestion ? 'backface-visibility-hidden transform-gpu will-change-[backdrop-filter]' : ''}
       `}
     >
-      {/* Очень-очень лёгкая световая полоса */}
       <div
         className={`
           absolute inset-0 pointer-events-none
@@ -88,7 +84,6 @@ const ProblemSolutionCard: FC<CardProps> = ({
         )}
       </div>
 
-      {/* Noise почти незаметен на решении */}
       <div
         className={`
           absolute inset-0 pointer-events-none mix-blend-overlay

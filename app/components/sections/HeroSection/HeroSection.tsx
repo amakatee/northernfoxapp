@@ -7,8 +7,12 @@ import {
 } from 'react';
 
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
 import LetsTalkButton from '../../helpers/MainButton';
+
+// Регистрируем плагин ScrollTrigger для работы с параллаксом
+gsap.registerPlugin(ScrollTrigger);
 
 // ----------------------------------------------------------------------
 
@@ -19,6 +23,7 @@ export default function NorthernFoxHeroAnimated() {
   const paragraphRef = useRef<HTMLParagraphElement>(null);
   const overlayWordsRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLDivElement>(null);
+  const overlayContainerRef = useRef<HTMLDivElement>(null); // реф для контейнера оверлейного текста
 
   // ----------------------------------------------------------------------
 
@@ -100,6 +105,21 @@ export default function NorthernFoxHeroAnimated() {
           1.4
         );
       }
+
+      // ------------------------------------------------------------------
+      // Параллакс-эффект для оверлейного текста "Northern Fox Co."
+      if (overlayContainerRef.current) {
+        gsap.to(overlayContainerRef.current, {
+          y: 30,                   // смещение вверх при скролле
+          ease: 'none',
+          scrollTrigger: {
+            trigger: overlayContainerRef.current,
+            start: 'top bottom',   // начинаем движение, когда верх элемента достигает низа вьюпорта
+            end: 'bottom top',     // заканчиваем, когда низ элемента достигает верха вьюпорта
+            scrub: 0.5,            // плавное следование за скроллом
+          }
+        });
+      }
     });
 
     return () => ctx.revert();
@@ -126,7 +146,10 @@ export default function NorthernFoxHeroAnimated() {
 
         {/* overlay text */}
 
-        <div className="absolute bottom-2 left-0 flex items-center justify-center pl-8">
+        <div
+          ref={overlayContainerRef}
+          className="absolute bottom-4 left-0 flex items-center justify-center pl-8"
+        >
           <div className="text-3xl md:text-4xl font-semibold bg-black/25 tracking-wide text-white drop-shadow-xl rounded-sm inline-block py-2 px-1">
             <div
               ref={overlayWordsRef}
@@ -164,17 +187,14 @@ export default function NorthernFoxHeroAnimated() {
               return (
                 <div
                   key={i}
-                  className={`
-                    word-wrapper overflow-hidden mr-2
-                    ${italic ? 'pr-[0.15em] -mr-[0.15em]' : ''}
-                  `}
+                  className="word-wrapper overflow-hidden mr-2"
                 >
                   <span
                     className={`
                       heading-word inline-block will-change-transform
                       ${
                         italic
-                          ? 'italic font-semibold translate-x-[0.03em]'
+                          ? 'italic font-semibold translate-x-[0.03em] pr-[0.2em]'
                           : 'font-light'
                       }
                     `}

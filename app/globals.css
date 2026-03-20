@@ -74,7 +74,9 @@ html {
 
 
 
-
+.heading-word {
+  text-rendering: geometricPrecision;
+}
 
 /* app/globals.css - add these mobile menu styles */
 
@@ -206,3 +208,56 @@ body.menu-open {
 .menu-item-animate:nth-child(4) { animation-delay: 0.25s; }
 .menu-item-animate:nth-child(5) { animation-delay: 0.3s; }
 .menu-item-animate:nth-child(6) { animation-delay: 0.35s; }
+
+
+
+
+
+
+
+@layer utilities {
+  @keyframes breathe-slow {
+    0%, 100% {
+      transform: translate3d(0, 0, 0) scale(1);
+      opacity: 0.9;
+    }
+    50% {
+      transform: translate3d(40px, -30px, 0) scale(1.1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes breathe-medium {
+    0%, 100% {
+      transform: translate3d(0, 0, 0) scale(1);
+      opacity: 0.7;
+    }
+    50% {
+      transform: translate3d(-30px, 20px, 0) scale(1.08);
+      opacity: 0.9;
+    }
+  }
+
+  @keyframes breathe-fast {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.6;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+  }
+
+  .animate-breathe-slow {
+    animation: breathe-slow 12s ease-in-out infinite;
+  }
+
+  .animate-breathe-medium {
+    animation: breathe-medium 10s ease-in-out infinite;
+  }
+
+  .animate-breathe-fast {
+    animation: breathe-fast 6s ease-in-out infinite;
+  }
+}

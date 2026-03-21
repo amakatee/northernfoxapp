@@ -50,13 +50,13 @@ export default function WhiteVsGrayDelivery() {
   return (
     <section
       ref={sectionRef}
-      className="bg-black rounded-t-[20px] text-white py-2 md:py-24 px-6 md:px-12 font-sans"
+      className="bg-black px-3 rounded-t-[20px] text-white py-6 md:py-24 px-6 md:px-12 font-sans"
     >
       <div className="max-w-6xl mx-auto">
         {/* Заголовок */}
         <h1 className="text-xl md:text-5xl lg:text-6xl font-bold leading-tight mb-12 md:mb-16 animate-on-scroll opacity-0">
           Белая доставка из Китая  
-          <span className="text-blue-400"> vs Серая доставка</span>
+          <span className="text-gray-400"> vs Серая доставка</span>
         </h1>
 
         {/* Две колонки с сравнениями */}

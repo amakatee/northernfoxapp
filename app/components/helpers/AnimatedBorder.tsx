@@ -11,7 +11,7 @@ interface FinchStyleBorderCardProps {
 
 const FinchStyleBorderCard: React.FC<FinchStyleBorderCardProps> = ({
   children,
-  borderColor = '0, 100%, 40%',
+  borderColor = '177, 100%, 50%',
   glowIntensity = 3,
   animationDuration = 7,
   borderRadius = 20,
@@ -27,7 +27,7 @@ const FinchStyleBorderCard: React.FC<FinchStyleBorderCardProps> = ({
     >
       {/* CONTENT CONTAINER */}
       <div
-        className="relative z-10"
+        className="relative z-10 "
         style={{ 
           borderRadius,
           background: 'inherit',
@@ -39,7 +39,7 @@ const FinchStyleBorderCard: React.FC<FinchStyleBorderCardProps> = ({
 
       {/* BORDER CONTAINER */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none "
         style={{
           borderRadius,
           padding: '1px',
@@ -48,7 +48,7 @@ const FinchStyleBorderCard: React.FC<FinchStyleBorderCardProps> = ({
       >
         {/* ANIMATED GRADIENT BORDER */}
         <div
-          className="w-full h-full"
+          className="w-full h-full "
           style={{
             borderRadius,
             background: `

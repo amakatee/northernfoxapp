@@ -23,7 +23,7 @@ const SolutionCard: FC<CardProps> = ({
   const isQuestion = mode === 'question';
 
   // Разная амплитуда параллакса в зависимости от типа карточки
-  const parallaxY = isQuestion ? 60 : 65;
+  const parallaxY = isQuestion ? 30 : 35;
 
   useEffect(() => {
     if (!cardRef.current) return;

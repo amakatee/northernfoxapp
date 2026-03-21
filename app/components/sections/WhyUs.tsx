@@ -5,13 +5,13 @@ import WhiteVsGrayDelivery from '../helpers/WhiteVsGrey'
 
 const WhyUs = () => {
   return (
-    <div className='flex flex-col md:flex-row items-stretch gap-15 p-4 px-6 md:p-10'>
-    {/* Finch Card - на мобильных сверху, на десктопе слева */}
-    <div className='w-full md:w-1/2 lg:w-1/2'>
-      <FinchStyleBorderCard>
-        <WhiteVsGrayDelivery />
-      </FinchStyleBorderCard>
-    </div>
+    <div className='flex flex-col md:flex-row items-stretch gap-6 p-4 md:p-10'>
+  {/* Finch Card - на мобильных сверху, на десктопе слева */}
+  <div className='w-full md:w-1/2 lg:w-1/2'>
+    <FinchStyleBorderCard borderRadius={20}>
+      <WhiteVsGrayDelivery />
+    </FinchStyleBorderCard>
+  </div>
   
     {/* Колонка с маленькими карточками - на мобильных снизу, на десктопе справа */}
     <div className='flex flex-col gap-6 w-full md:w-1/2 lg:w-1/2'>

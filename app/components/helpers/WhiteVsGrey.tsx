@@ -54,8 +54,9 @@ export default function WhiteVsGrayDelivery() {
     >
       <div className="max-w-6xl mx-auto">
         {/* Заголовок */}
-        <h1 className="text-xl md:text-xl lg:text-xl font-bold leading-tight mb-12 md:mb-16 animate-on-scroll opacity-0">
-          Белая доставка из Китая vs Серая доставка
+        <h1 className="text-xl md:text-5xl lg:text-6xl font-bold leading-tight mb-12 md:mb-16 animate-on-scroll opacity-0">
+          Белая доставка из Китая  
+          <span className="text-blue-400"> vs Серая доставка</span>
         </h1>
 
         {/* Две колонки с сравнениями */}

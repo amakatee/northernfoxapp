@@ -14,16 +14,16 @@ export default function ShippingMethodsPage() {
 
   const gradients = [
     // 1. Авиаперевозки — самый "воздушный", лёгкий blue-indigo с намёком на cyan glow
-    "bg-gradient-to-br from-slate-950/95 via-indigo-950/50 via-blue-950/40  to-slate-950/92",
+    "bg-gradient-to-br from-[#0a0a0f]/95 via-indigo-950/60 via-blue-900/40 via-cyan-900/30 to-[#0b0b12]/95",
   
     // 2. Железнодорожные — спокойный teal-cyan-industrial, глубокий и сбалансированный
-    "bg-gradient-to-br from-slate-950/96 via-teal-950/48 via-cyan-950/34 via-indigo-950/22 to-slate-950/90",
+    "bg-gradient-to-br from-[#0a0a0f]/96 via-teal-950/60 via-cyan-900/45 via-emerald-900/30 to-[#0b0b13]/94",
   
     // 3. Автомобильные — более тёплый purple-rose shift, но всё ещё холодный и глубокий
-    "bg-gradient-to-br from-slate-950/96 via-fuchisa-950/40 via-rose-950/30 via-fuchsia-950/20 to-slate-950/91",
+    "bg-gradient-to-r from-[#0a0a0f]/96 via-slate-900/60 via-zinc-800/40 via-blue-900/30 to-[#0c0c13]/92",
   
     // 4. Морские — самый "глубокий", violet-purple с намёком на magenta/fuchsia глубину
-    "bg-gradient-to-br from-slate-950/96 via-violet-950/54 via-purple-950/50 via-violet-950/40 to-slate-950/89",
+    "bg-gradient-to-tr from-[#0a0a0f]/95 via-fuchsia-950bg-gradient-to-br from-[#0a0a0f]/96 via-indigo-950/55 via-sky-900/45 via-cyan-800/35 to-[#0c0c14]/92/55 via-purple-900/45 via-indigo-900/35 to-[#0c0c15]/92",
   ];
 
   const shippingMethods = [

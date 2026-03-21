@@ -1,144 +1,114 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
-interface AnimatedBorderWithGlowProps {
+interface FinchStyleBorderCardProps {
   children: React.ReactNode;
-  width?: number;
-  height?: number;
-  borderWidth?: number;
-  color?: string;
-  glowColor?: string;
-  topBottomGlowBlur?: number;
-  leftRightGlowBlur?: number;
-  topBottomGlowSpread?: number;
-  leftRightGlowSpread?: number;
-  duration?: number;
-  segmentLength?: number;
+  borderColor?: string;
+  glowIntensity?: number;
+  animationDuration?: number;
   borderRadius?: number;
   className?: string;
-  edgeFade?: number; // интенсивность затухания краёв (0-10)
 }
 
-const AnimatedBorderWithGlow: React.FC<AnimatedBorderWithGlowProps> = ({
+const FinchStyleBorderCard: React.FC<FinchStyleBorderCardProps> = ({
   children,
-  width = 350,
-  height = 580,
-  borderWidth = 1,
-  color = '#3b82f6',
-  glowColor = 'rgba(59, 130, 246, 0.1)',
-  topBottomGlowBlur = 8,
-  leftRightGlowBlur = 10,
-  topBottomGlowSpread = 1,
-  leftRightGlowSpread = 1,
-  duration = 7,
-  segmentLength = 550,
-  borderRadius = 8,
+  borderColor = '177, 100%, 59%',
+  glowIntensity = 2,
+  animationDuration = 7,
+  borderRadius = 20,
   className = '',
-  edgeFade = 3, // интенсивность размытия краёв (0 - нет размытия, 5 - сильное)
 }) => {
-  const rx = Math.min(borderRadius, width / 2, height / 2);
-  const perimeter = 2 * ((width - borderWidth) + (height - borderWidth));
-  const safeSegment = Math.min(segmentLength, perimeter - 1);
-  const gap = perimeter - safeSegment;
-  const dashArray = `${safeSegment} ${gap}`;
-
-  // Уникальные идентификаторы
-  const filterId = `edgeFade-${color.replace(/[^a-zA-Z0-9]/g, '')}`;
-  const glowFilterId = `glow-${color.replace(/[^a-zA-Z0-9]/g, '')}`;
-
-  const glowStyle = useMemo(
-    () => ({
-      boxShadow: `
-        0 -${topBottomGlowBlur}px ${topBottomGlowBlur}px ${topBottomGlowSpread}px ${glowColor},
-        0 ${topBottomGlowBlur}px ${topBottomGlowBlur}px ${topBottomGlowSpread}px ${glowColor},
-        -${leftRightGlowBlur}px 0 ${leftRightGlowBlur}px ${leftRightGlowSpread}px ${glowColor},
-        ${leftRightGlowBlur}px 0 ${leftRightGlowBlur}px ${leftRightGlowSpread}px ${glowColor}
-      `,
-      borderRadius: rx,
-    }),
-    [topBottomGlowBlur, leftRightGlowBlur, topBottomGlowSpread, leftRightGlowSpread, glowColor, rx],
-  );
-
   return (
-    <div className={`relative inline-block ${className}`} style={{ width, height }}>
-      <div className="absolute inset-0 pointer-events-none" style={glowStyle} />
-      <div className="absolute inset-0 text-white rounded-lg p-4">{children}</div>
-
-      <svg
-        className="absolute top-0 left-0 w-full h-full pointer-events-none"
-        viewBox={`0 0 ${width} ${height}`}
-        preserveAspectRatio="none"
+    <div
+      className={`relative ${className}`}
+      style={{ 
+        borderRadius,
+        background: 'transparent'
+      }}
+    >
+      {/* CONTENT CONTAINER */}
+      <div
+        className="relative z-10"
+        style={{ 
+          borderRadius,
+          background: 'inherit',
+          overflow: 'hidden'
+        }}
       >
-        <defs>
-          {/* Фильтр для размытия краёв сегмента */}
-          <filter id={filterId} x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur in="SourceAlpha" stdDeviation={edgeFade} result="blur" />
-            <feComponentTransfer in="blur" result="alpha">
-              <feFuncA type="linear" slope="1" intercept="0" />
-            </feComponentTransfer>
-            <feComposite in="SourceGraphic" in2="alpha" operator="in" />
-          </filter>
+        {children}
+      </div>
 
-          {/* Фильтр для дополнительного свечения */}
-          <filter id={glowFilterId} x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur in="SourceAlpha" stdDeviation={3} result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-        </defs>
-
-        <rect
-          x={borderWidth / 2}
-          y={borderWidth / 2}
-          width={width - borderWidth}
-          height={height - borderWidth}
-          rx={rx}
-          ry={rx}
-          fill="none"
-          stroke={color}
-          strokeWidth={borderWidth}
-          strokeDasharray={dashArray}
-          strokeLinecap="round"
-          strokeDashoffset={0}
-          filter={edgeFade > 0 ? `url(#${filterId})` : undefined}
-          style={
-            {
-              animation: `dashMove ${duration}s linear infinite`,
-              '--perimeter': `-${perimeter}px`,
-            } as React.CSSProperties
-          }
+      {/* BORDER CONTAINER */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          borderRadius,
+          padding: '1px',
+          background: 'transparent',
+        }}
+      >
+        {/* ANIMATED GRADIENT BORDER */}
+        <div
+          className="w-full h-full"
+          style={{
+            borderRadius,
+            background: `
+              conic-gradient(
+                from var(--angle),
+                transparent 0%,
+                hsla(${borderColor}, 0.2) 20%,
+                hsla(${borderColor}, 1) 50%,
+                hsla(${borderColor}, 0.2) 80%,
+                transparent 100%
+              )
+            `,
+            animation: `spin ${animationDuration}s linear infinite`,
+          }}
         />
+      </div>
 
-        {/* Дополнительный слой для свечения (опционально) */}
-        {edgeFade > 0 && (
-          <rect
-            x={borderWidth / 2}
-            y={borderWidth / 2}
-            width={width - borderWidth}
-            height={height - borderWidth}
-            rx={rx}
-            ry={rx}
-            fill="none"
-            stroke={color}
-            strokeWidth={borderWidth * 1.5}
-            strokeDasharray={dashArray}
-            strokeLinecap="round"
-            strokeDashoffset={0}
-            filter={`url(#${glowFilterId})`}
-            opacity={0.3}
-            style={{
-              animation: `dashMove ${duration}s linear infinite`,
-              '--perimeter': `-${perimeter}px`,
-            } as React.CSSProperties}
-          />
-        )}
-      </svg>
+      {/* GLOW LAYER */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          borderRadius,
+          padding: '2px',
+          background: 'transparent',
+        }}
+      >
+        <div
+          className="w-full h-full"
+          style={{
+            borderRadius,
+            background: `
+              conic-gradient(
+                from var(--angle),
+                transparent 0%,
+                hsla(${borderColor}, 0.1) 15%,
+                hsla(${borderColor}, 0.8) 50%,
+                hsla(${borderColor}, 0.1) 85%,
+                transparent 100%
+              )
+            `,
+            filter: `blur(${4 * glowIntensity}px)`,
+            opacity: 0.8 * glowIntensity,
+            animation: `spin ${animationDuration}s linear infinite`,
+          }}
+        />
+      </div>
 
       <style jsx>{`
-        @keyframes dashMove {
+        @property --angle {
+          syntax: "<angle>";
+          initial-value: 0deg;
+          inherits: false;
+        }
+
+        @keyframes spin {
+          from {
+            --angle: 0deg;
+          }
           to {
-            stroke-dashoffset: var(--perimeter, -${perimeter}px);
+            --angle: 360deg;
           }
         }
       `}</style>
@@ -146,4 +116,4 @@ const AnimatedBorderWithGlow: React.FC<AnimatedBorderWithGlowProps> = ({
   );
 };
 
-export default AnimatedBorderWithGlow;
+export default FinchStyleBorderCard;

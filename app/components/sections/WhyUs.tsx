@@ -5,7 +5,7 @@ import WhiteVsGrayDelivery from '../helpers/WhiteVsGrey'
 
 const WhyUs = () => {
   return (
-      <div className='flex iems-center p-10'>
+      <div className='flex rounded-t-[20px] iems-center p-10'>
     <FinchStyleBorderCard><WhiteVsGrayDelivery /></FinchStyleBorderCard>
     </div>
   )

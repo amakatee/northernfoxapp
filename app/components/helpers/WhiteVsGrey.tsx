@@ -50,7 +50,7 @@ export default function WhiteVsGrayDelivery() {
   return (
     <section
       ref={sectionRef}
-      className="bg-black text-white py-2 md:py-24 px-6 md:px-12 font-sans"
+      className="bg-black border-radius-20 text-white py-2 md:py-24 px-6 md:px-12 font-sans"
     >
       <div className="max-w-6xl mx-auto">
         {/* Заголовок */}

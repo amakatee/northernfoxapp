@@ -11,8 +11,8 @@ interface FinchStyleBorderCardProps {
 
 const FinchStyleBorderCard: React.FC<FinchStyleBorderCardProps> = ({
   children,
-  borderColor = '177, 100%, 59%',
-  glowIntensity = 2,
+  borderColor = '0, 100%, 40%',
+  glowIntensity = 3,
   animationDuration = 7,
   borderRadius = 20,
   className = '',

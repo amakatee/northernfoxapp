@@ -49,9 +49,9 @@ export default function NeonSection({ children }: { children: React.ReactNode })
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden border-radius-20">
+    <section ref={sectionRef} className="relative overflow-hidden ">
       {/* Base gradient layer (no solid background needed, it's covered by the gradient div) */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#020617] via-[#020617] to-black" />
+      <div className="absolute  rounded-t-3xl inset-0 bg-gradient-to-b from-[#020617] via-[#020617] to-black" />
 
       {/* CYAN GLOW */}
       <div

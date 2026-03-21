@@ -89,7 +89,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen pt-20 px-4 flex flex-col items-center">
-      <div className="text-center w-full px-2 pb-25">
+      <div className="text-center w-full px-2 pb-25 ">
         <h1
           
           className="text-3xl text-white md:text-4xl font-light text-start leading-8 tracking-wide mb-4"

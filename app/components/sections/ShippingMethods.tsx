@@ -25,7 +25,6 @@ export default function ShippingMethodsPage() {
     // 4. Морские — самый "глубокий", violet-purple с намёком на magenta/fuchsia глубину
     "bg-gradient-to-tr from-[#0a0a0f]/95 via-fuchsia-950bg-gradient-to-br from-[#0a0a0f]/96 via-indigo-950/55 via-sky-900/45 via-cyan-800/35 to-[#0c0c14]/92/55 via-purple-900/45 via-indigo-900/35 to-[#0c0c15]/92",
   ];
-
   const shippingMethods = [
     {
       id: 1,
@@ -166,3 +165,55 @@ export default function ShippingMethodsPage() {
     </section>
   );
 }
+
+
+const shippingMethods = [
+  {
+    id: 1,
+    icon: <></>,
+    title: "Авиаперевозки",
+    subtitle: "Самый быстрый способ",
+    duration: "3-7 дн.",
+    suitableFor: ["Образцы", "Электроника", "Мед. товары", "Документы"],
+    cost: "Высокая" as const,
+    reliability: 5,
+    features: ["Скорость доставки", "Безопасность", "Трекинг", "Таможня"],
+    imageSrc: "/images/airpng.png",
+  },
+  {
+    id: 2,
+    icon: <></>,
+    title: "Железнодорожные",
+    subtitle: "Баланс цены и скорости",
+    duration: "18-40 дн.",
+    suitableFor: ["Контейнеры FCL", "Сборные грузы LCL", "Оборудование", "Стройматериалы"],
+    cost: "Средняя" as const,
+    reliability: 4,
+    features: ["Оптимальная стоимость", "Надежность", "Контейнерные", "Сборные грузы"],
+    imageSrc: "/images/train.jpg",
+  },
+  {
+    id: 3,
+    icon: <></>,
+    title: "Автомобильные",
+    subtitle: "Гибкий и универсальный",
+    duration: "14-25 дн.",
+    suitableFor: ["Региональные", "Междугородные", "Температура", "Частичные загрузки"],
+    cost: "Средняя" as const,
+    reliability: 4,
+    features: ["Гибкость маршрутов", "Дверь-дверь", "Экспедирование", "Мультимодальные"],
+    imageSrc: "/images/truck-cargo.jpg",
+  },
+  {
+    id: 4,
+    icon: <></>,
+    title: "Морские контейнерные",
+    subtitle: "Самый экономичный",
+    duration: "30-60 дн.",
+    suitableFor: ["Международные", "Консолидация", "Крупногабаритные", "Сырье"],
+    cost: "Низкая" as const,
+    reliability: 3,
+    features: ["Низкая стоимость", "Большие объёмы", "Международные", "Контейнеры"],
+    imageSrc: "/images/cargo.jpg",
+  },
+];

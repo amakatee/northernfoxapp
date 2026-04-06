@@ -13,10 +13,6 @@ export default function ShippingMethodsPage() {
 
   const gradients = [
     "bg-black","bg-black","bg-black","bg-black"
-    // "bg-[radial-gradient(circle_at_25%_75%,rgba(103,232,249,0.18)_0%,transparent_45%),radial-gradient(circle_at_75%_25%,rgba(165,243,252,0.22)_0%,transparent_55%),radial-gradient(ellipse_at_center,rgba(15,23,42,0.95)_0%,#0a0a0f_70%)]",
-    // "bg-[radial-gradient(circle_at_20%_80%,rgba(45,212,191,0.20)_0%,transparent_50%),radial-gradient(circle_at_80%_20%,rgba(103,232,249,0.25)_0%,transparent_60%),radial-gradient(ellipse_at_center,rgba(15,23,42,0.96)_0%,#0a0a0f_72%)]",
-    // "bg-[radial-gradient(circle_at_28%_78%,rgba(192,132,252,0.18)_0%,transparent_48%),radial-gradient(circle_at_72%_22%,rgba(236,72,153,0.20)_0%,transparent_55%),radial-gradient(ellipse_at_center,rgba(15,23,42,0.95)_0%,#0a0a0f_70%)]",
-    // "bg-[radial-gradient(circle_at_22%_82%,rgba(192,38,211,0.22)_0%,transparent_50%),radial-gradient(circle_at_78%_18%,rgba(168,85,247,0.25)_0%,transparent_58%),radial-gradient(ellipse_at_center,rgba(15,23,42,0.96)_0%,#0a0a0f_71%)]",
   ];
 
   const shippingMethods = [
@@ -27,7 +23,7 @@ export default function ShippingMethodsPage() {
       subtitle: "Самый быстрый способ",
       duration: "3-7 дн.",
       suitableFor: ["Образцы", "Электроника", "Мед. товары", "Документы"],
-      cost: "Высокая" as const,
+      cost: "Высокая" as const,  // 👈 add as const
       reliability: 5,
       features: ["Скорость доставки", "Безопасность", "Трекинг", "Таможня"],
       imageSrc: "/images/airpng.png",
@@ -39,7 +35,7 @@ export default function ShippingMethodsPage() {
       subtitle: "Баланс цены и скорости",
       duration: "18-40 дн.",
       suitableFor: ["Контейнеры FCL", "Сборные грузы LCL", "Оборудование", "Стройматериалы"],
-      cost: "Средняя" as const,
+      cost: "Средняя" as const,  // 👈 add as const
       reliability: 4,
       features: ["Оптимальная стоимость", "Надежность", "Контейнерные", "Сборные грузы"],
       imageSrc: "/images/train.jpg",
@@ -51,7 +47,7 @@ export default function ShippingMethodsPage() {
       subtitle: "Гибкий и универсальный",
       duration: "14-25 дн.",
       suitableFor: ["Региональные", "Междугородные", "Температура", "Частичные загрузки"],
-      cost: "Средняя" as const,
+      cost: "Средняя" as const,  // 👈 add as const
       reliability: 4,
       features: ["Гибкость маршрутов", "Дверь-дверь", "Экспедирование", "Мультимодальные"],
       imageSrc: "/images/truck-cargo.jpg",
@@ -63,7 +59,7 @@ export default function ShippingMethodsPage() {
       subtitle: "Самый экономичный",
       duration: "30-60 дн.",
       suitableFor: ["Международные", "Консолидация", "Крупногабаритные", "Сырье"],
-      cost: "Низкая" as const,
+      cost: "Низкая" as const,  // 👈 add as const
       reliability: 3,
       features: ["Низкая стоимость", "Большие объёмы", "Международные", "Контейнеры"],
       imageSrc: "/images/cargo.jpg",
@@ -71,49 +67,50 @@ export default function ShippingMethodsPage() {
   ];
 
   useEffect(() => {
-    const cards = cardsRef.current;
-    if (!sectionRef.current || cards.length !== 4) return;
-
-    const isMobile = window.innerWidth < 768;
-
-    // 👉 measure ONCE in pixels
-    // const GAP = isMobile ? 120 : 160;
-     const GAP = isMobile ? 300 : 310;
-
-    // 👉 set initial stack in px (no vh)
-    cards.forEach((card, i) => {
-      gsap.set(card, {
-        y: i * GAP,
-        zIndex: i + 1,
+    const ctx = gsap.context(() => {
+      const cards = cardsRef.current;
+      if (!sectionRef.current || cards.length !== 4) return;
+  
+      const isMobile = window.innerWidth < 768;
+      const GAP = isMobile ? 300 : 310;
+  
+      // Set initial positions
+      cards.forEach((card, i) => {
+        gsap.set(card, { y: i * GAP, zIndex: i + 1 });
       });
-    });
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top top",
-        end: `+=${(cards.length - 1) * GAP * 2}`,
-        scrub: true,
-        pin: true,
-        anticipatePin: 1,
-      },
-      defaults: { ease: "none" },
-    });
-
-    // 👉 simple cascade — pure transform only
-    for (let phase = 1; phase < cards.length; phase++) {
-      tl.to(
-        cards.slice(phase),
-        {
-          y: `-=${GAP - 50}`,
+  
+      const totalScrollDistance = (cards.length - 1) * GAP;
+  
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: `+=${totalScrollDistance}`,
+          scrub: true,
+          pin: true,
+          anticipatePin: 1,
+          // Optional: add another parameter for smoother update
+          invalidateOnRefresh: true,
         },
-        phase - 1
-      );
-    }
-
+        defaults: { ease: "none" }, // Important for follow finger movement
+      });
+  
+      // Animate cascade
+      for (let phase = 1; phase < cards.length; phase++) {
+        tl.to(
+          cards.slice(phase),
+          { y: `-=${GAP - 40}` },
+          phase - 1
+        );
+      }
+  
+      return () => {
+        ctx.revert();
+      };
+    });
+  
     return () => {
-      ScrollTrigger.getAll().forEach((st) => st.kill());
-      tl.kill();
+      ScrollTrigger.getAll().forEach(st => st.kill());
     };
   }, []);
 
@@ -127,7 +124,7 @@ export default function ShippingMethodsPage() {
       className="relative text-white overflow-hidden"
     >
       <div className="max-w-6xl px-4 mx-auto h-screen flex items-center justify-center">
-        {/* 👉 ONLY this layer is promoted */}
+        {/* Only this layer is animated */}
         <div className="relative w-full h-[550px] will-change-transform">
           {shippingMethods.map((method, index) => (
             <div

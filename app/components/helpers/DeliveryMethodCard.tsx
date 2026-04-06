@@ -29,7 +29,7 @@ const DeliveryMethodCard: FC<DeliveryMethodCardProps> = ({
   features,
   imageSrc,
   onCalculate,
-  bgGradient = "bg-gradient-to-br from-gray-950/90 to-gray-900/90",
+  bgGradient = "",
 }) => {
   const costStyles = {
     Низкая: "text-emerald-400/90",

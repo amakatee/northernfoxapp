@@ -11,20 +11,15 @@ gsap.registerPlugin(ScrollTrigger);
 export default function ShippingMethodsPage() {
   const sectionRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<HTMLDivElement[]>([]);
+  const timelineRef = useRef<GSAPTimeline | null>(null);
 
   const gradients = [
-    // 1. Авиаперевозки — самый "воздушный", лёгкий blue-indigo с намёком на cyan glow
-    "bg-gradient-to-br from-[#0a0a0f]/95 via-indigo-950/60 via-blue-900/40 via-cyan-900/30 to-[#0b0b12]/95",
-  
-    // 2. Железнодорожные — спокойный teal-cyan-industrial, глубокий и сбалансированный
-    "bg-gradient-to-br from-[#0a0a0f]/96 via-teal-950/60 via-cyan-900/45 via-emerald-900/30 to-[#0b0b13]/94",
-  
-    // 3. Автомобильные — более тёплый purple-rose shift, но всё ещё холодный и глубокий
-    "bg-gradient-to-r from-[#0a0a0f]/96 via-slate-900/60 via-zinc-800/40 via-blue-900/30 to-[#0c0c13]/92",
-  
-    // 4. Морские — самый "глубокий", violet-purple с намёком на magenta/fuchsia глубину
-    "bg-gradient-to-tr from-[#0a0a0f]/95 via-fuchsia-950bg-gradient-to-br from-[#0a0a0f]/96 via-indigo-950/55 via-sky-900/45 via-cyan-800/35 to-[#0c0c14]/92/55 via-purple-900/45 via-indigo-900/35 to-[#0c0c15]/92",
+    "bg-[radial-gradient(circle_at_25%_75%,rgba(103,232,249,0.18)_0%,transparent_45%),radial-gradient(circle_at_75%_25%,rgba(165,243,252,0.22)_0%,transparent_55%),radial-gradient(ellipse_at_center,rgba(15,23,42,0.95)_0%,#0a0a0f_70%)]",
+    "bg-[radial-gradient(circle_at_20%_80%,rgba(45,212,191,0.20)_0%,transparent_50%),radial-gradient(circle_at_80%_20%,rgba(103,232,249,0.25)_0%,transparent_60%),radial-gradient(ellipse_at_center,rgba(15,23,42,0.96)_0%,#0a0a0f_72%)]",
+    "bg-[radial-gradient(circle_at_28%_78%,rgba(192,132,252,0.18)_0%,transparent_48%),radial-gradient(circle_at_72%_22%,rgba(236,72,153,0.20)_0%,transparent_55%),radial-gradient(ellipse_at_center,rgba(15,23,42,0.95)_0%,#0a0a0f_70%)]",
+    "bg-[radial-gradient(circle_at_22%_82%,rgba(192,38,211,0.22)_0%,transparent_50%),radial-gradient(circle_at_78%_18%,rgba(168,85,247,0.25)_0%,transparent_58%),radial-gradient(ellipse_at_center,rgba(15,23,42,0.96)_0%,#0a0a0f_71%)]",
   ];
+
   const shippingMethods = [
     {
       id: 1,
@@ -77,55 +72,114 @@ export default function ShippingMethodsPage() {
   ];
 
   useEffect(() => {
+    // Prevent scroll chaining and optimize touch events
+    const section = sectionRef.current;
+    if (section) {
+      section.style.touchAction = "pan-y";
+    }
+
+    // Check if we're on mobile
+    const isMobile = window.innerWidth < 768;
+    
+    // Adjust animation parameters for mobile
+    const INITIAL_GAP = isMobile ? 28 : 36; // Smaller gap on mobile
+    const DELTA = INITIAL_GAP - 10;
+    
+    // Use requestAnimationFrame for smoother updates
+    let rafId: number;
+    
     const cards = cardsRef.current;
     if (cards.length !== 4) return;
 
-    const ctx = gsap.context(() => {
-      const PEEK_VH = 10;           // 10vh видимой полоски предыдущей карточки (по ТЗ)
-      const INITIAL_GAP_VH = 36;    // начальный равный зазор (подстрой под скриншот IMG_1964 — "small gaps")
-      const DELTA_VH = INITIAL_GAP_VH - PEEK_VH; // сколько сдвигается вся группа за одну фазу
+    // Kill any existing ScrollTriggers and timelines
+    if (timelineRef.current) {
+      timelineRef.current.kill();
+    }
+    ScrollTrigger.getAll().forEach(st => {
+      if (st.vars.trigger === sectionRef.current) st.kill();
+    });
 
-      // === 1. INITIAL STATE: равные зазоры + z-index (поздние карточки сверху) ===
-      cards.forEach((card, index) => {
-        gsap.set(card, {
-          y: `${index * INITIAL_GAP_VH}vh`,
-          zIndex: index + 1,
-          scale: 1,
-        });
+    // Pre-optimize cards for better performance
+    cards.forEach((card, index) => {
+      gsap.set(card, {
+        y: `${index * INITIAL_GAP}vh`,
+        zIndex: index + 1,
+        willChange: isMobile ? "transform" : "transform, opacity",
+        force3D: true, // Enable GPU acceleration
+        transformStyle: "preserve-3d",
+        backfaceVisibility: "hidden",
       });
+    });
 
-      // === 2. MASTER TIMELINE + SCROLLTRIGGER (pin + 1:1 scrub) ===
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: `+=${(cards.length - 1) * 150}vh`, // 3 фазы × 100vh = идеально под прямой скролл
-          scrub: true,
-          pin: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-          // markers: true, // раскомментировать для отладки позиций
+    // Create timeline with optimized settings
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: "top top",
+        end: `+=${(cards.length - 1) * (isMobile ? 120 : 150)}vh`,
+        scrub: isMobile ? 0.5 : 1, // Reduced scrub on mobile for better performance
+        pin: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        fastScrollEnd: true, // Improve scroll performance
+        preventOverlaps: true,
+        // markers: false,
+      },
+      defaults: {
+        ease: "none",
+        duration: 1,
+        overwrite: "auto",
+      },
+    });
+
+    timelineRef.current = tl;
+
+    // Cascade animation with optimizations
+    for (let phase = 1; phase < cards.length; phase++) {
+      const group = cards.slice(phase);
+      
+      tl.to(
+        group,
+        {
+          y: `-=${DELTA}vh`,
+          ease: "none",
+          duration: 1,
+          modifiers: {
+            y: (y) => {
+              // Clamp values to prevent visual glitches
+              const numY = parseFloat(y);
+              const maxY = (cards.length - 1) * INITIAL_GAP;
+              return `${Math.min(Math.max(numY, 0), maxY)}vh`;
+            }
+          }
         },
-      });
+        phase - 1
+      );
+    }
 
-      // === 3. CASCADE АНИМАЦИЯ: в каждой фазе двигается ГРУППА (ведущая + все ниже) ===
-      // Это сохраняет равные зазоры внутри группы до остановки ведущей карточки
-      for (let phase = 1; phase < cards.length; phase++) {
-        const group = cards.slice(phase); // ведущая + все ниже
+    // Refresh ScrollTrigger on resize with debounce
+    let resizeTimeout: NodeJS.Timeout;
+    const handleResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 150);
+    };
 
-        tl.to(
-          group,
-          {
-            y: `-=${DELTA_VH}vh`,   // все в группе сдвигаются НА ОДНО И ТО ЖЕ расстояние
-            ease: "none",           // линейно = 100% контроль скролла
-            duration: 1,            // 1 единица таймлайна = 100vh скролла
-          },
-          phase - 1                 // фазы идут строго последовательно (без пересечения)
-        );
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup function
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      clearTimeout(resizeTimeout);
+      if (timelineRef.current) {
+        timelineRef.current.kill();
       }
-    }, sectionRef);
-
-    return () => ctx.revert();
+      ScrollTrigger.getAll().forEach(st => {
+        if (st.vars.trigger === sectionRef.current) st.kill();
+      });
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   const setCardRef = (el: HTMLDivElement | null, index: number) => {
@@ -134,20 +188,26 @@ export default function ShippingMethodsPage() {
 
   return (
     <section
-    
-  
-  // остальные классы
       ref={sectionRef}
-      className="relative  text-white overflow-hidden"
+      className="relative text-white overflow-hidden"
+      style={{
+        touchAction: "pan-y", // Improve touch scrolling
+        WebkitOverflowScrolling: "touch", // Smooth scrolling on iOS
+      }}
     >
-      
       <div className="max-w-6xl px-4 mx-auto h-screen flex items-center justify-center">
         <div className="relative w-full h-[550px]">
           {shippingMethods.map((method, index) => (
             <div
               key={method.id}
               ref={(el) => setCardRef(el, index)}
-              className="absolute w-full will-change-transform left-0 top-0"
+              className="absolute w-full left-0 top-0"
+              style={{
+                willChange: "transform",
+                transform: "translateZ(0)", // Force hardware acceleration
+                backfaceVisibility: "hidden",
+                WebkitBackfaceVisibility: "hidden",
+              }}
             >
               <DeliveryMethodCard
                 {...method}
@@ -156,17 +216,10 @@ export default function ShippingMethodsPage() {
             </div>
           ))}
         </div>
-       
-     
-        
       </div>
-     
-     
     </section>
   );
 }
-
-
 const shippingMethods = [
   {
     id: 1,
@@ -216,4 +269,17 @@ const shippingMethods = [
     features: ["Низкая стоимость", "Большие объёмы", "Международные", "Контейнеры"],
     imageSrc: "/images/cargo.jpg",
   },
+];
+const gradients = [
+  // 1. Авиаперевозки — лёгкий, воздушный (blue-indigo-cyan)
+  "bg-[radial-gradient(circle_at_25%_75%,rgba(103,232,249,0.18)_0%,transparent_45%),radial-gradient(circle_at_75%_25%,rgba(165,243,252,0.22)_0%,transparent_55%),radial-gradient(ellipse_at_center,rgba(15,23,42,0.95)_0%,#0a0a0f_70%)]",
+
+  // 2. Железнодорожные — спокойный teal-cyan-industrial
+  "bg-[radial-gradient(circle_at_20%_80%,rgba(45,212,191,0.20)_0%,transparent_50%),radial-gradient(circle_at_80%_20%,rgba(103,232,249,0.25)_0%,transparent_60%),radial-gradient(ellipse_at_center,rgba(15,23,42,0.96)_0%,#0a0a0f_72%)]",
+
+  // 3. Автомобильные — тёплый purple-rose + холодный оттенок
+  "bg-[radial-gradient(circle_at_28%_78%,rgba(192,132,252,0.18)_0%,transparent_48%),radial-gradient(circle_at_72%_22%,rgba(236,72,153,0.20)_0%,transparent_55%),radial-gradient(ellipse_at_center,rgba(15,23,42,0.95)_0%,#0a0a0f_70%)]",
+
+  // 4. Морские — глубокий violet-purple с magenta/fuchsia акцентом
+  "bg-[radial-gradient(circle_at_22%_82%,rgba(192,38,211,0.22)_0%,transparent_50%),radial-gradient(circle_at_78%_18%,rgba(168,85,247,0.25)_0%,transparent_58%),radial-gradient(ellipse_at_center,rgba(15,23,42,0.96)_0%,#0a0a0f_71%)]",
 ];

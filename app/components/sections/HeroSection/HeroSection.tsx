@@ -128,7 +128,7 @@ export default function NorthernFoxHeroAnimated() {
   // ----------------------------------------------------------------------
 
   return (
-    <div className="flex flex-col md:flex-row items-stretch pb-10 lg:pt-10 bg-white min-h-[80vh]">
+    <div className="flex flex-col md:flex-row items-stretch pb-6 lg:pt-10 bg-white min-h-[80vh]">
       
       {/* IMAGE COLUMN (бывшее видео) */}
 

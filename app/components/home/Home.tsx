@@ -169,9 +169,10 @@ function Home() {
      <NeonSection>
      
       <ServiceQAPage />
+      </NeonSection>
       <ShippingMethodsPage   />
       <WhyUs />
-      </NeonSection>
+     
 
      
         {/* <ServicesSection /> */}

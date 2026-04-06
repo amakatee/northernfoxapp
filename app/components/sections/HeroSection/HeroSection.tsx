@@ -128,13 +128,13 @@ export default function NorthernFoxHeroAnimated() {
   // ----------------------------------------------------------------------
 
   return (
-    <div className="flex flex-col md:flex-row items-stretch bg-white min-h-[70vh]">
+    <div className="flex flex-col md:flex-row items-stretch lg:pt-10 bg-white min-h-[80vh]">
       
       {/* IMAGE COLUMN (бывшее видео) */}
 
       <div
         ref={videoContainerRef}
-        className="relative w-full md:w-1/2 h-[30vh] md:h-[70vh] overflow-hidden bg-gray-100"
+        className="relative w-full md:w-1/2 h-[30vh] md:h-[80vh] overflow-hidden bg-gray-100"
       >
         <Image
           src="/images/video-poster.jpg"
@@ -172,7 +172,7 @@ export default function NorthernFoxHeroAnimated() {
 
       {/* TEXT COLUMN */}
 
-      <div className="w-full md:w-1/2 bg-white z-10 md:h-[70vh] p-8 md:p-12 flex items-end">
+      <div className="w-full md:w-1/2 bg-white z-10 md:h-[80vh] p-8 md:p-12 flex items-end">
         <div className="max-w-lg pr-4 md:pr-6">
 
           {/* heading */}

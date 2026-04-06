@@ -49,12 +49,12 @@ export default function NeonSection({ children }: { children: React.ReactNode })
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden ">
+    <section ref={sectionRef} className="relative overflow-hidden w-[95vw] m-auto ">
       {/* Base gradient layer (no solid background needed, it's covered by the gradient div) */}
-      <div className="absolute  rounded-t-3xl inset-0 bg-gradient-to-b from-[#020617] via-[#020617] to-black" />
+      <div className="absolute  rounded-3xl inset-0 bg-gradient-to-b from-[#020617] via-[#020617] to-black" />
 
       {/* CYAN GLOW */}
-      <div
+      {/* <div
         ref={glowRef1}
         className="
           pointer-events-none
@@ -66,7 +66,7 @@ export default function NeonSection({ children }: { children: React.ReactNode })
           blur-[120px]
           will-change-transform
         "
-      />
+      /> */}
 
       {/* TEAL GLOW */}
       <div
@@ -99,7 +99,7 @@ export default function NeonSection({ children }: { children: React.ReactNode })
       />
 
       {/* LIGHT BEAM */}
-      <div className="
+      {/* <div className="
         pointer-events-none
         absolute 
         top-0 right-[25%] 
@@ -108,7 +108,7 @@ export default function NeonSection({ children }: { children: React.ReactNode })
         from-cyan-300/40 
         via-transparent 
         to-transparent
-      " />
+      " /> */}
 
       {/* CONTENT */}
       <div className="relative z-10 container mx-auto  ">

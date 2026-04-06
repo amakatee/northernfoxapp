@@ -88,8 +88,8 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen pt-20 px-4 flex flex-col items-center">
-      <div className="text-center w-full px-2 pb-25 ">
+    <main className="min-h-screen pt-30 px-4 flex flex-col items-center">
+      {/* <div className="text-center w-full px-2 pb-25 ">
         <h1
           
           className="text-3xl text-white md:text-4xl font-light text-start leading-8 tracking-wide mb-4"
@@ -99,8 +99,8 @@ export default function Home() {
         <p className="text-white/85 text-[.9rem] max-w-2xl text-start font-light tracking-wide leading-5 mx-auto">
           Полный спектр услуг по логистике, таможенному оформлению и налоговой оптимизации
         </p>
-      </div>
-      <div className="max-w-5xl w-full">
+      </div> */}
+      <div className="max-w-5xl w-full px-3">
         <div className="flex flex-col gap-3 md:gap-6">
           {qaItems.map((item, index) => (
             <div

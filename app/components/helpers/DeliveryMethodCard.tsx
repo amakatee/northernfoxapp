@@ -29,7 +29,7 @@ const DeliveryMethodCard: FC<DeliveryMethodCardProps> = ({
   features,
   imageSrc,
   onCalculate,
-  bgGradient = "",
+  bgGradient = "bg-black",
 }) => {
   const costStyles = {
     Низкая: "text-emerald-400/90",
@@ -42,6 +42,7 @@ const DeliveryMethodCard: FC<DeliveryMethodCardProps> = ({
       className={`
         group relative h-auto min-h-[260px] w-full
         ${bgGradient}
+        bg-black
         backdrop-blur-2xl bg-opacity-65
         rounded-2xl md:rounded-3xl
         overflow-hidden

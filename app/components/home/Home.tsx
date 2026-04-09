@@ -9,7 +9,41 @@ import LogisticsSteps from '../sections/delievery/LogisticsSteps'
 import ServiceQAPage from '../sections/ServiceQAPage'
 import NeonSection from '../helpers/NeonSection'
 import WhyUs from '../sections/WhyUs'
+import IndustriesStackSection from '../helpers/DelieveryContainer'
+interface CardData {
+  id: string;
+  title: string;
+  description: string;
+  className?: string; // optional extra Tailwind classes per card
+}
 
+const cards = [
+  {
+    id: '1',
+    title: 'Early Discovery',
+    description: 'We begin by deeply understanding your industry and the problems that matter most.',
+  },
+  {
+    id: '2',
+    title: 'Solution Mapping',
+    description: 'Every possibility is explored and mapped against real-world constraints.',
+  },
+  {
+    id: '3',
+    title: 'Rapid Prototyping',
+    description: 'Ideas turn into testable prototypes in days, not months.',
+  },
+  {
+    id: '4',
+    title: 'Scaled Impact',
+    description: 'From pilot to enterprise deployment — we stay with you every step.',
+  },
+  {
+    id: '5',
+    title: 'Scaled Impact',
+    description: 'From pilot to enterprise deployment — we stay with you every step.',
+  },
+];
 // const slides =[
 //   {
 //     id:1,
@@ -162,15 +196,18 @@ function Home() {
        
     
        
-        
-
+     
+      <IndustriesStackSection  cards={cards} />
+      
+    
         {/* <WhyChooseUs /> */}
-
+     
      <NeonSection>
      
       <ServiceQAPage />
       </NeonSection>
-      <ShippingMethodsPage   />
+      {/* <ShippingMethodsPage /> */}
+    
       <WhyUs />
      
 
@@ -199,3 +236,13 @@ export default Home
   //   `,
   // }}
   
+  function Card({ title }: { title: string }) {
+    return (
+      <div className="rounded-3xl bg-neutral-900 text-white p-16 text-4xl font-semibold shadow-xl">
+        {title}
+        <p className="mt-6 text-lg text-neutral-400">
+          Dynamic height content. This can be anything.
+        </p>
+      </div>
+    )
+  }

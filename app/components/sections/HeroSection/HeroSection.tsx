@@ -27,7 +27,7 @@ export default function NorthernFoxHeroAnimated() {
 
   // ----------------------------------------------------------------------
 
-  const overlayText = 'Northern Fox Co.';
+  const overlayText = '北狐 Northern Fox Co.';
   const overlayWords = useMemo(() => overlayText.split(' '), []);
 
   const headingText = 'Ваш надежный мост между Китаем и Россией.';

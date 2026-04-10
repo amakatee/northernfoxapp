@@ -10,6 +10,7 @@ import ServiceQAPage from '../sections/ServiceQAPage'
 import NeonSection from '../helpers/NeonSection'
 import WhyUs from '../sections/WhyUs'
 import IndustriesStackSection from '../helpers/DelieveryContainer'
+import StackingCards from '../helpers/Cards'
 interface CardData {
   id: string;
   title: string;
@@ -37,12 +38,8 @@ const cards = [
     id: '4',
     title: 'Scaled Impact',
     description: 'From pilot to enterprise deployment — we stay with you every step.',
-  },
-  {
-    id: '5',
-    title: 'Scaled Impact',
-    description: 'From pilot to enterprise deployment — we stay with you every step.',
-  },
+  }
+  
 ];
 // const slides =[
 //   {
@@ -81,7 +78,28 @@ const cards = [
 //     altText: "Dsfsdf"
 //   },
 // ]
-
+const industries = [
+  {
+    title: 'Healthcare',
+    description:
+      'We understand the critical role technology plays in revolutionizing healthcare. That’s why we’re dedicated to supporting the MedTech industry with healthcare software development solutions that enhance patient care, streamline operations, and drive positive health outcomes.',
+  },
+  {
+    title: 'FinTech',
+    description:
+      'Technology is the key to unlocking the future of finance. We’re passionate about empowering FinTech businesses with custom software development solutions that drive innovation, enhance security, and streamline financial processes.',
+  },
+  {
+    title: 'Manufacturing',
+    description:
+      'The complexities of modern manufacturing are comprehensive. That’s why we are dedicated to empowering manufacturers with solutions that optimize operations, boost efficiency, and drive growth.',
+  },
+  {
+    title: 'SaaS',
+    description:
+      'Embrace the power of SaaS with Darly Solutions, your trusted partner for custom software engineering and development. We bring your SaaS ideas to life, crafting scalable, secure, and user-centric applications that drive business growth.',
+  },
+];
 
 const slides = [
   {
@@ -196,7 +214,7 @@ function Home() {
        
     
        
-     
+      {/* <StackingCards  cards={industries} /> */}
       <IndustriesStackSection  cards={cards} />
       
     
@@ -206,7 +224,7 @@ function Home() {
      
       <ServiceQAPage />
       </NeonSection>
-      {/* <ShippingMethodsPage /> */}
+      {/* <ShippingMethodsPage  cards={industries}/> */}
     
       <WhyUs />
      

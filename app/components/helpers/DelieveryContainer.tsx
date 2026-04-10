@@ -16,11 +16,15 @@ interface StackingCardsProps {
   className?: string;
 }
 
-export default function StackingCards({ cards, className = '' }: StackingCardsProps) {
+export default function StackingCards({
+  cards,
+  className = '',
+}: StackingCardsProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<HTMLDivElement[]>([]);
   const ctxRef = useRef<gsap.Context | null>(null);
 
+  // Register GSAP plugins
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
   }, []);
@@ -29,28 +33,29 @@ export default function StackingCards({ cards, className = '' }: StackingCardsPr
     const container = containerRef.current;
     if (!container || cardRefs.current.length === 0) return;
 
+    // Revert previous context if exists
     if (ctxRef.current) ctxRef.current.revert();
 
     const cardElements = cardRefs.current.filter(Boolean) as HTMLDivElement[];
 
-    // ── Phase 0: Measure while cards are regular blocks in normal document flow ──
-    const heights: number[] = [];
-    const naturalTops: number[] = [];
+    // Measure layout
     const containerRect = container.getBoundingClientRect();
-
-    cardElements.forEach((card) => {
+    const heights = cardElements.map((card) => {
       const rect = card.getBoundingClientRect();
-      heights.push(rect.height);
-      naturalTops.push(rect.top - containerRect.top);
+      return rect.height;
+    });
+    const naturalTops = cardElements.map((card) => {
+      const rect = card.getBoundingClientRect();
+      return rect.top - containerRect.top;
     });
 
     const vh = window.innerHeight;
     const isMobile = window.innerWidth < 768;
-    const revealRatio = isMobile ? 0.18 : 0.1; // exactly as specified
-    const topOffset = 0.2 * vh; // T = 20vh
+    const revealRatio = isMobile ? 0.18 : 0.1;
+    const topOffset = 0.2 * vh;
 
-    // ── Compute final stacked positions Yi (pure math, no layout changes) ──
-    const finalYs: number[] = [];
+    // Final stacked Y positions
+    const finalYs = [];
     let accum = topOffset;
     for (let i = 0; i < cards.length; i++) {
       finalYs[i] = accum;
@@ -59,84 +64,116 @@ export default function StackingCards({ cards, className = '' }: StackingCardsPr
       }
     }
 
-    // Target translateY for each card (Ni - Yi)
-    const targetYs = naturalTops.map((n, i) => finalYs[i] - n);
-    const moveAmounts = targetYs.map(Math.abs); // positive distances each card travels upward
-    const maxMove = Math.max(...moveAmounts, 200); // safety floor
+    // Target translateY
+    const targetYs = finalYs.map((y, i) => y - naturalTops[i]);
+    const moveAmounts = targetYs.map((y) => -y);
+    const maxMove = Math.max(...moveAmounts);
+    const pinDistance = Math.max(100, maxMove);
 
+    // Set absolute positioning
+    const naturalContainerHeight = container.offsetHeight;
+
+    cardElements.forEach((card, i) => {
+      Object.assign(card.style, {
+        position: 'absolute',
+        top: `${naturalTops[i]}px`,
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: '90%',
+        maxWidth: '640px',
+        zIndex: String(i + 1),
+        willChange: 'transform',
+      });
+    });
+    container.style.height = `${naturalContainerHeight}px`;
+
+    // Create ScrollTrigger + timeline
     ctxRef.current = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: container,
           start: 'top top',
-          end: `+=${maxMove}`,
+          end: `+=${pinDistance}`,
           pin: true,
           scrub: 1,
           anticipatePin: 1,
           invalidateOnRefresh: true,
-          // No onEnter / onLeaveBack hacks — pure pin + transforms only
+          onEnter: () => {
+            container.style.height = '100vh';
+            container.style.overflow = 'hidden';
+          },
+          onLeaveBack: () => {
+            container.style.height = `${naturalContainerHeight}px`;
+            container.style.overflow = 'visible';
+          },
         },
       });
 
-      // Animate every card from time 0 with proportional duration → identical velocity
       cardElements.forEach((card, i) => {
+        const targetY = targetYs[i];
+        const moveAmount = moveAmounts[i];
+        const durationFraction = moveAmount / maxMove;
+
         tl.to(
           card,
           {
-            y: targetYs[i],
-            ease: 'none',
-            duration: moveAmounts[i] / maxMove,
-            onUpdate: function () {
-              // Boost z-index exactly when card reaches its final Yi (Phase 3-5)
-              if (this.progress() >= 0.95) {
+            y: targetY,
+            ease: 'power1.inOut', // smoother easing
+            duration: durationFraction,
+            onUpdate: () => {
+              if (tl.progress() >= 0.98) {
                 card.style.zIndex = String(20 + i);
               }
             },
           },
-          0 // all cards start moving together the instant pinning begins
+          0
         );
       });
     }, container);
   };
 
+  // Initial and resize effect
   useLayoutEffect(() => {
     const timer = setTimeout(() => {
       createAnimation();
       ScrollTrigger.refresh();
-    }, 100);
-
+    }, 50);
     return () => {
       clearTimeout(timer);
       if (ctxRef.current) ctxRef.current.revert();
+      ScrollTrigger.getAll().forEach((st) => {
+        if (st.vars.trigger === containerRef.current) st.kill();
+      });
     };
   }, [cards]);
 
   useEffect(() => {
-    const handleResize = () => createAnimation();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    const onResize = () => {
+      createAnimation();
+    };
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
   }, [cards]);
 
   return (
     <section className={`relative py-12 ${className}`}>
-      {/* This is the pinned parent — cards stay in normal document flow forever */}
       <div
         ref={containerRef}
-        className="relative mx-auto max-w-7xl px-6 flex flex-col gap-10 md:gap-12"
+        className="relative mx-auto max-w-7xl flex flex-col gap-10 px-6"
       >
-        {cards.map((card, index) => (
+        {cards.map((card, i) => (
           <div
             key={card.id}
             ref={(el) => {
-              cardRefs.current[index] = el!;
+              cardRefs.current[i] = el!;
             }}
             className={`rounded-3xl p-10 shadow-2xl text-white flex flex-col transition-shadow duration-300 ${
               card.className ||
-              (index === 0
+              (i === 0
                 ? 'bg-[#ff5e5e]'
-                : index === 1
+                : i === 1
                   ? 'bg-[#5eff9e]'
-                  : index === 2
+                  : i === 2
                     ? 'bg-[#5eb8ff]'
                     : 'bg-[#ffe45e]')
             }`}

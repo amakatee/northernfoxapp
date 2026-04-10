@@ -38,7 +38,12 @@ const cards = [
     id: '4',
     title: 'Scaled Impact',
     description: 'From pilot to enterprise deployment — we stay with you every step.',
-  }
+  },
+  {
+    id: '5',
+    title: 'Rapid Prototyping',
+    description: 'Ideas turn into testable prototypes in days, not months.',
+  },
   
 ];
 // const slides =[

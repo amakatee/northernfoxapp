@@ -24,7 +24,7 @@ export default function StackingCards({
   const cardRefs = useRef<HTMLDivElement[]>([]);
   const ctxRef = useRef<gsap.Context | null>(null);
 
-  // Register GSAP plugins
+  // Register GSAP plugin
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
   }, []);
@@ -33,34 +33,36 @@ export default function StackingCards({
     const container = containerRef.current;
     if (!container || cardRefs.current.length === 0) return;
 
-    // Revert previous context if exists
     if (ctxRef.current) ctxRef.current.revert();
 
     const cardElements = cardRefs.current.filter(Boolean) as HTMLDivElement[];
 
-    // Measure layout
     const containerRect = container.getBoundingClientRect();
-    const heights = cardElements.map((card) => {
+    const heights: number[] = [];
+    const naturalTops: number[] = [];
+
+    cardElements.forEach((card) => {
       const rect = card.getBoundingClientRect();
-      return rect.height;
-    });
-    const naturalTops = cardElements.map((card) => {
-      const rect = card.getBoundingClientRect();
-      return rect.top - containerRect.top;
+      heights.push(rect.height);
+      naturalTops.push(rect.top - containerRect.top);
     });
 
     const vh = window.innerHeight;
     const isMobile = window.innerWidth < 768;
     const revealRatio = isMobile ? 0.18 : 0.1;
-    const topOffset = 0.2 * vh;
+    const topOffset = 0.15 * vh;
 
-    // Final stacked Y positions
-    const finalYs = [];
+    // Define the gap between all cards
+    const gap = 35; // adjust as needed
+
+    // Compute final Ys with equal gaps
+    const finalYs: number[] = [];
     let accum = topOffset;
     for (let i = 0; i < cards.length; i++) {
       finalYs[i] = accum;
       if (i < cards.length - 1) {
-        accum += heights[i] * revealRatio;
+        // Add height * revealRatio + gap for next card
+        accum += heights[i] * revealRatio + gap;
       }
     }
 
@@ -72,7 +74,6 @@ export default function StackingCards({
 
     // Set absolute positioning
     const naturalContainerHeight = container.offsetHeight;
-
     cardElements.forEach((card, i) => {
       Object.assign(card.style, {
         position: 'absolute',
@@ -118,7 +119,7 @@ export default function StackingCards({
           card,
           {
             y: targetY,
-            ease: 'power1.inOut', // smoother easing
+            ease: 'power1.inOut',
             duration: durationFraction,
             onUpdate: () => {
               if (tl.progress() >= 0.98) {
@@ -132,12 +133,13 @@ export default function StackingCards({
     }, container);
   };
 
-  // Initial and resize effect
+  // Initial setup + refresh
   useLayoutEffect(() => {
     const timer = setTimeout(() => {
       createAnimation();
       ScrollTrigger.refresh();
     }, 50);
+
     return () => {
       clearTimeout(timer);
       if (ctxRef.current) ctxRef.current.revert();
@@ -147,6 +149,7 @@ export default function StackingCards({
     };
   }, [cards]);
 
+  // Responsive rebuild
   useEffect(() => {
     const onResize = () => {
       createAnimation();
@@ -156,10 +159,10 @@ export default function StackingCards({
   }, [cards]);
 
   return (
-    <section className={`relative py-12 ${className}`}>
+    <section className={`relative  ${className}`}>
       <div
         ref={containerRef}
-        className="relative mx-auto max-w-7xl flex flex-col gap-10 px-6"
+        className="relative mx-auto max-w-7xl flex flex-col gap-8 px-6"
       >
         {cards.map((card, i) => (
           <div

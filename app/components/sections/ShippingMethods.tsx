@@ -1,181 +1,114 @@
-'use client';
+// app/components/StackingCardsSection.tsx
+"use client";
 
-import React, { useRef, useLayoutEffect, useEffect } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React, { useEffect, useRef, useState } from "react";
 
-interface CardData {
-  id: string;
-  title: string;
-  description: string;
-  className?: string;
-}
+const cards = [
+  {
+    title: "Fintech & Payments",
+    description: "High‑load systems, real‑time processing, and bulletproof security for financial products.",
+  },
+  {
+    title: "SaaS Platforms",
+    description: "Multi‑tenant architectures, subscription billing, and scalable dashboards for B2B and B2C.",
+  },
+  {
+    title: "E‑commerce",
+    description: "Conversion‑driven storefronts, custom checkouts, and integrations with modern payment providers.",
+  },
+  {
+    title: "Internal Tools",
+    description: "Admin panels, analytics, and automation that actually match your internal workflows.",
+  },
+];
 
-interface StackingCardsProps {
-  cards: CardData[];
-  className?: string;
-}
+export const StackingCardsSection: React.FC = () => {
+  const firstCardRef = useRef<HTMLDivElement | null>(null);
+  const [cardHeight, setCardHeight] = useState<number | null>(null);
 
-export default function StackingCards({
-  cards,
-  className = '',
-}: StackingCardsProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const cardRefs = useRef<HTMLDivElement[]>([]);
-  const ctxRef = useRef<gsap.Context | null>(null);
+  const cardsCount = cards.length;
+  const gap = 10; // px
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+    const measure = () => {
+      if (!firstCardRef.current) return;
+      const rect = firstCardRef.current.getBoundingClientRect();
+      setCardHeight(rect.height);
+    };
+
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
   }, []);
 
-  const createAnimation = () => {
-    const container = containerRef.current;
-    if (!container || cardRefs.current.length === 0) return;
+  const wrapperHeight =
+    cardHeight !== null
+      ? cardsCount * cardHeight +
+        (cardsCount - 1) * gap +
+        cardsCount * (cardHeight * 0.9)
+      : undefined;
 
-    if (ctxRef.current) ctxRef.current.revert();
-
-    const cardElements = cardRefs.current.filter(Boolean) as HTMLDivElement[];
-
-    // ── 1. Measure natural positions & heights ──
-    const heights: number[] = [];
-    const naturalTops: number[] = [];
-
-    cardElements.forEach((card) => {
-      const rect = card.getBoundingClientRect();
-      heights.push(rect.height);
-      naturalTops.push(rect.top + window.scrollY); // document space
-    });
-
-    const vh = window.innerHeight;
-    const revealRatio = window.innerWidth < 768 ? 0.18 : 0.10;
-    const topOffset = 0.2 * vh;
-
-    // ── 2. Final stacked positions (viewport space) ──
-    const finalYs: number[] = [];
-    let accum = topOffset;
-    for (let i = 0; i < cards.length; i++) {
-      finalYs[i] = accum;
-      if (i < cards.length - 1) accum += heights[i] * revealRatio;
-    }
-
-    const distances = naturalTops.map((n, i) => n - finalYs[i]);
-
-    // ── 3. Prepare container & cards for animation ──
-    const originalContainerHeight = container.offsetHeight;
-
-    cardElements.forEach((card, i) => {
-      card.style.position = 'absolute';
-      card.style.top = `${naturalTops[i] - naturalTops[0]}px`; // relative to first card
-      card.style.left = '50%';
-      card.style.transform = 'translateX(-50%)';
-      card.style.width = '90%';
-      card.style.maxWidth = '640px';
-      card.style.willChange = 'transform';
-    });
-
-    container.style.height = `${originalContainerHeight}px`;
-    container.style.position = 'relative';
-
-    // ── 4. GSAP Context + Timeline ──
-    ctxRef.current = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: container,
-          start: 'top top',
-          end: () => `+=${distances.reduce((sum, d) => sum + d, 0)}`,
-          pin: true,
-          scrub: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-        },
-      });
-
-      let startTime = 0;
-
-      cardElements.forEach((card, i) => {
-        const distance = distances[i];
-
-        // Sequential start: each card starts only after previous one finished
-        tl.to(
-          card,
-          {
-            y: -distance,
-            ease: 'none',
-            onStart: () => {
-              // Optional: visual feedback when card starts moving
-            },
-          },
-          startTime
-        );
-
-        startTime += distance;
-      });
-
-      // Correct Z-index: First card (top of final stack) has highest z-index
-      cardElements.forEach((card, i) => {
-        gsap.set(card, { zIndex: cards.length - i }); // Card 0 = highest z-index
-      });
-    }, container);
-  };
-
-  useLayoutEffect(() => {
-    const timer = setTimeout(() => {
-      createAnimation();
-      ScrollTrigger.refresh();
-    }, 100);
-
-    return () => {
-      clearTimeout(timer);
-      if (ctxRef.current) ctxRef.current.revert();
-    };
-  }, [cards]);
-
-  useEffect(() => {
-    const onResize = () => {
-      createAnimation();
-      ScrollTrigger.refresh();
-    };
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, [cards]);
+  const visiblePart = cardHeight ? cardHeight * 0.1 : 0;
 
   return (
-    <section className={`relative py-12 ${className}`}>
-      <div
-        ref={containerRef}
-        className="relative mx-auto max-w-7xl flex flex-col gap-10 px-6"
-      >
-        {cards.map((card, i) => (
-          <div
-            key={card.id}
-            ref={(el) => {
-              if (el) cardRefs.current[i] = el;
-            }}
-            className={`rounded-3xl p-10 shadow-2xl text-white flex flex-col transition-shadow duration-300 ${
-              card.className ||
-              (i === 0
-                ? 'bg-[#ff5e5e]'
-                : i === 1
-                ? 'bg-[#5eff9e]'
-                : i === 2
-                ? 'bg-[#5eb8ff]'
-                : 'bg-[#ffe45e]')
-            }`}
-            role="article"
-            aria-labelledby={`title-${card.id}`}
-          >
-            <h2
-              id={`title-${card.id}`}
-              className="text-4xl md:text-5xl font-bold tracking-tight mb-6"
+    <section className="w-full bg-black text-white px-6 py-24 md:px-10 lg:px-20">
+      <div className="max-w-5xl  mx-auto">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight">
+          Industries we build for
+        </h2>
+        <p className="mt-4 max-w-2xl pb-4 text-neutral-300">
+          From complex fintech products to high‑growth SaaS, we design and ship systems that stay fast,
+          stable, and easy to evolve.
+        </p>
+
+        {/* --- FIX #1: SCROLL SPACER --- */}
+        {wrapperHeight && (
+          <div style={{ height: wrapperHeight }} />
+        )}
+
+        {/* --- FIX #1: REAL CARDS FLOW WITH NEGATIVE MARGIN --- */}
+        <div
+          className="relative  flex flex-col gap-[10px]"
+          style={{
+            marginTop: wrapperHeight ? `-${wrapperHeight}px` : undefined,
+          }}
+        >
+          {cards.map((card, index) => (
+            <div
+              key={card.title}
+              ref={index === 0 ? firstCardRef : undefined}
+              className="
+              border-white border-2
+                sticky
+                w-full
+                rounded-2xl
+                p-10
+                bg-neutral-900
+              "
+              style={{
+                zIndex: index + 1,
+
+                // --- FIX #2: progressive sticky top ---
+                top: cardHeight
+                  ? `calc(15vh + ${visiblePart * index}px)`
+                  : "15vh",
+              }}
             >
-              {card.title}
-            </h2>
-            <p className="text-lg md:text-xl opacity-90 leading-relaxed">
-              {card.description}
-            </p>
-          </div>
-        ))}
+              <h3 className="text-xl md:text-2xl font-semibold">
+                {card.title}
+              </h3>
+              <p className="mt-3 text-neutral-300">
+                {card.description}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* CTA now appears immediately after the last card */}
+        <button className="mt-10 inline-flex items-center rounded-full border border-neutral-700 px-6 py-3 text-sm font-medium text-white hover:bg-neutral-900 transition">
+          Book a discovery call
+        </button>
       </div>
     </section>
   );
-}
+};

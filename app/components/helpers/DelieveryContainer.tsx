@@ -162,7 +162,7 @@ export default function StackingCards({
     <section className={`relative  ${className}`}>
       <div
         ref={containerRef}
-        className="relative mx-auto max-w-7xl flex flex-col gap-8 px-6"
+        className="relative mx-auto max-w-7xl flex flex-col gap-8 px-5 "
       >
         {cards.map((card, i) => (
           <div
@@ -173,19 +173,25 @@ export default function StackingCards({
             className={`rounded-3xl p-10 shadow-2xl text-white flex flex-col transition-shadow duration-300 ${
               card.className ||
               (i === 0
-                ? 'bg-[#ff5e5e]'
+                ? 'bg-white'
                 : i === 1
                   ? 'bg-[#5eff9e]'
                   : i === 2
                     ? 'bg-[#5eb8ff]'
-                    : 'bg-[#ffe45e]')
+                    : i === 3 
+                     ? 'bg-[#ffe45e]'
+                     :  'bg-[#ff5e5e]'
+                     
+                    )
+                      
+                      
             }`}
             role="article"
             aria-labelledby={`title-${card.id}`}
           >
             <h2
               id={`title-${card.id}`}
-              className="text-4xl md:text-5xl font-bold tracking-tight mb-6"
+              className="text-4xl text-black md:text-5xl font-bold tracking-tight mb-6"
             >
               {card.title}
             </h2>

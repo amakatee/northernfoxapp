@@ -3,7 +3,7 @@ import WhyChooseUs from '../sections/WhyChooseUs'
 import {Slider} from  "../slider"
 import ServicesSection from '../ServicesPage'
 import HeroSection from "../sections/HeroSection/HeroSection"
-import ShippingMethodsPage from '../sections/ShippingMethods'
+import {StackingCardsSection} from '../sections/ShippingMethods'
 import DeliveryForm from '../sections/DelieveryForm'
 import LogisticsSteps from '../sections/delievery/LogisticsSteps'
 import ServiceQAPage from '../sections/ServiceQAPage'
@@ -220,7 +220,7 @@ function Home() {
     
        
       {/* <StackingCards  cards={industries} /> */}
-      <IndustriesStackSection  cards={cards} />
+      {/* <IndustriesStackSection  cards={cards} /> */}
       
     
         {/* <WhyChooseUs /> */}
@@ -229,7 +229,7 @@ function Home() {
      
       <ServiceQAPage />
       </NeonSection>
-      {/* <ShippingMethodsPage  cards={industries}/> */}
+      <StackingCardsSection  />
     
       <WhyUs />
      

@@ -11,6 +11,7 @@ import NeonSection from '../helpers/NeonSection'
 import WhyUs from '../sections/WhyUs'
 import IndustriesStackSection from '../helpers/DelieveryContainer'
 import StackingCards from '../helpers/Cards'
+import HireUs from '../helpers/Animated'
 interface CardData {
   id: string;
   title: string;
@@ -215,6 +216,7 @@ function Home() {
 {/*       
        <NorthernFoxNavbar /> */}
         <HeroSection />
+
         {/* <Slider slides={slides} /> */}
        
     
@@ -226,8 +228,10 @@ function Home() {
         {/* <WhyChooseUs /> */}
      
      <NeonSection>
+
      
       <ServiceQAPage />
+      {/* <HireUs /> */}
       </NeonSection>
       <StackingCardsSection  />
     

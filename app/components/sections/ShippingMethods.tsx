@@ -51,12 +51,12 @@ export const StackingCardsSection: React.FC = () => {
   const visiblePart = cardHeight ? cardHeight * 0.1 : 0;
 
   return (
-    <section className="w-full bg-black text-white px-6 py-24 md:px-10 lg:px-20">
+    <section className="w-full bg-white text-white px-6 py-24 md:px-10 lg:px-20">
       <div className="max-w-5xl  mx-auto">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight">
+        <h2 className="text-3xl md:text-4xl text-black lg:text-5xl font-semibold tracking-tight">
           Industries we build for
         </h2>
-        <p className="mt-4 max-w-2xl pb-4 text-neutral-300">
+        <p className="mt-4 max-w-2xl pb-7 text-neutral-500">
           From complex fintech products to high‑growth SaaS, we design and ship systems that stay fast,
           stable, and easy to evolve.
         </p>
@@ -78,7 +78,7 @@ export const StackingCardsSection: React.FC = () => {
               key={card.title}
               ref={index === 0 ? firstCardRef : undefined}
               className="
-              border-white border-2
+ 
                 sticky
                 w-full
                 rounded-2xl
@@ -105,7 +105,7 @@ export const StackingCardsSection: React.FC = () => {
         </div>
 
         {/* CTA now appears immediately after the last card */}
-        <button className="mt-10 inline-flex items-center rounded-full border border-neutral-700 px-6 py-3 text-sm font-medium text-white hover:bg-neutral-900 transition">
+        <button className="mt-10 inline-flex items-center rounded-full border border-neutral-900 px-6 py-3 text-sm font-medium text-black hover:bg-neutral-900 transition">
           Book a discovery call
         </button>
       </div>

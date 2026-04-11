@@ -84,7 +84,7 @@ export default function NeonSection({ children }: { children: React.ReactNode })
       />
 
       {/* RED ACCENT */}
-      <div
+      {/* <div
         ref={glowRef3}
         className="
           pointer-events-none
@@ -96,7 +96,7 @@ export default function NeonSection({ children }: { children: React.ReactNode })
           blur-[80px]
           will-change-transform
         "
-      />
+      /> */}
 
       {/* LIGHT BEAM */}
       {/* <div className="

@@ -2,7 +2,10 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ProblemSolutionCard from "../helpers/SolutionCard";
+
+gsap.registerPlugin(ScrollTrigger);
 
 // ---------- Types ----------
 interface QAItem {
@@ -31,82 +34,46 @@ const qaItems: QAItem[] = [
 ];
 
 export default function Home() {
-  const rowsRef = useRef<HTMLDivElement[]>([]);
-  const headingRef = useRef<HTMLHeadingElement>(null);
-
-  const addToRefs = (el: HTMLDivElement | null) => {
-    if (el && !rowsRef.current.includes(el)) {
-      rowsRef.current.push(el);
-    }
-  };
+  const sectionRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (rowsRef.current.length === 0) return;
+    if (!sectionRef.current) return;
 
-    gsap.set(rowsRef.current, { y: 40 });
-    gsap.to(rowsRef.current, {
-      y: 0,
-      duration: 1,
-      stagger: 0.2,
-      ease: "power3.out",
-      delay: 0.3,
-    });
-  }, []);
+    const ctx = gsap.context(() => {
+      const rows = gsap.utils.toArray<HTMLDivElement>(".qa-row");
 
-  useEffect(() => {
-    if (!headingRef.current) return;
+      rows.forEach((row) => {
+        gsap.fromTo(
+          row,
+          { y: 40 },
+          {
+            y: -40,
+            ease: "none",
+            scrollTrigger: {
+              trigger: row,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          }
+        );
+      });
+    }, sectionRef);
 
-    const heading = headingRef.current;
-    const originalText = heading.innerText;
-    const chars = originalText.split('');
-
-    heading.innerHTML = '';
-    const spans: HTMLSpanElement[] = [];
-
-    chars.forEach((char) => {
-      const span = document.createElement('span');
-      span.style.display = 'inline-block';
-      span.style.opacity = '0';
-      if (char === ' ') {
-        span.innerHTML = '&nbsp;';
-        span.style.minWidth = '0.3em';
-      } else {
-        span.textContent = char;
-      }
-      heading.appendChild(span);
-      spans.push(span);
-    });
-
-    const tl = gsap.timeline();
-    spans.forEach((span, index) => {
-      tl.to(span, {
-        opacity: 1,
-        duration: 0.05,
-        ease: "none",
-      }, index * 0.05);
-    });
+    return () => ctx.revert();
   }, []);
 
   return (
-    <main className="min-h-screen pt-30 px-4 flex flex-col items-center">
-      {/* <div className="text-center w-full px-2 pb-25 ">
-        <h1
-          
-          className="text-3xl text-white md:text-4xl font-light text-start leading-8 tracking-wide mb-4"
-        >
-          Комплексные решения для вашего бизнеса
-        </h1>
-        <p className="text-white/85 text-[.9rem] max-w-2xl text-start font-light tracking-wide leading-5 mx-auto">
-          Полный спектр услуг по логистике, таможенному оформлению и налоговой оптимизации
-        </p>
-      </div> */}
+    <main
+      ref={sectionRef}
+      className="min-h-screen pt-30 px-4 flex flex-col items-center"
+    >
       <div className="max-w-5xl w-full px-3">
         <div className="flex flex-col gap-3 md:gap-6">
           {qaItems.map((item, index) => (
             <div
               key={index}
-              ref={addToRefs}
-              className="grid grid-cols-2 gap-4 md:gap-6"
+              className="qa-row grid grid-cols-2 gap-4 md:gap-6"
               style={{ minHeight: "25vh" }}
             >
               <ProblemSolutionCard

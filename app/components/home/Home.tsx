@@ -226,14 +226,15 @@ function Home() {
       
     
         {/* <WhyChooseUs /> */}
-     
+       
      <NeonSection>
 
-     
+    
       <ServiceQAPage />
       {/* <HireUs /> */}
       </NeonSection>
       <StackingCardsSection  />
+     
     
       <WhyUs />
      

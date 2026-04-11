@@ -45,9 +45,9 @@ export default function Home() {
       rows.forEach((row) => {
         gsap.fromTo(
           row,
-          { y: 40 },
+          { y: 20 },
           {
-            y: -40,
+            y: -20,
             ease: "none",
             scrollTrigger: {
               trigger: row,

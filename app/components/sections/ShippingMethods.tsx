@@ -11,20 +11,20 @@ const cardBackgrounds = [
 const bg = "bg-[#05080b]"
 const cards = [
   {
-    title: "Fintech & Payments",
-    description: "High‑load systems, real‑time processing, and bulletproof security for financial products.",
+    title: "Авиа доставка",
+    description: "Быстрая авиадоставка. Срок 5–9 дней. Для срочных, дорогих и чувствительных к времени грузов: электроника, одежда премиум-класса, образцы и запчасти.",
   },
   {
-    title: "SaaS Platforms",
-    description: "Multi‑tenant architectures, subscription billing, and scalable dashboards for B2B and B2C.",
+    title: "Ж/Д доставка",
+    description: "Надёжная и выгодная перевозка за 12–18 дней. Лучший выбор для регулярных поставок одежды, обуви, товаров для дома и среднего бизнеса.",
   },
   {
-    title: "E‑commerce",
-    description: "Conversion‑driven storefronts, custom checkouts, and integrations with modern payment providers.",
+    title: "Автодоставка",
+    description: "Прямая доставка от двери поставщика до вашего склада за 18–25 дней. Максимальная гибкость и удобство для сборных грузов.",
   },
   {
-    title: "Internal Tools",
-    description: "Admin panels, analytics, and automation that actually match your internal workflows.",
+    title: "Комбинированная доставка",
+    description: "Оптимальное решение для крупных объёмов. Лучшая цена при сроке 25–35 дней. Идеально для больших партий и сезонных товаров.",
   },
 ];
 
@@ -33,7 +33,7 @@ export const StackingCardsSection: React.FC = () => {
   const [cardHeight, setCardHeight] = useState<number | null>(null);
 
   const cardsCount = cards.length;
-  const gap = 20; // px
+  const gap = 50; // px
 
   useEffect(() => {
     const measure = () => {
@@ -58,16 +58,15 @@ export const StackingCardsSection: React.FC = () => {
 
   return (
     <section className={`"w-full text-white px-5 py-24 md:px-10 
-    lg:px-20
+    lg:px-20 
      ${bg}`}
   >
       <div className="max-w-5xl  mx-auto">
         <h2 className="text-3xl md:text-4xl text-white lg:text-5xl font-semibold tracking-tight">
-          Industries we build for
+        Комплексные решения для вашего бизнеса
         </h2>
         <p className="mt-4 max-w-2xl pb-9 text-neutral-300">
-          From complex fintech products to high‑growth SaaS, we design and ship systems that stay fast,
-          stable, and easy to evolve.
+        Полный спектр услуг по логистике, таможенному оформлению и налоговой оптимизации.
         </p>
 
         {/* --- FIX #1: SCROLL SPACER --- */}
@@ -77,7 +76,7 @@ export const StackingCardsSection: React.FC = () => {
 
         {/* --- FIX #1: REAL CARDS FLOW WITH NEGATIVE MARGIN --- */}
         <div
-          className="relative  flex flex-col gap-[20px]"
+          className="relative  flex flex-col gap-[50px]"
           style={{
             marginTop: wrapperHeight ? `-${wrapperHeight}px` : undefined,
           }}

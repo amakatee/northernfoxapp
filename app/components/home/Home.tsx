@@ -226,7 +226,7 @@ function Home() {
       
     
         {/* <WhyChooseUs /> */}
-       
+        
      <NeonSection>
 
     
@@ -234,6 +234,7 @@ function Home() {
       {/* <HireUs /> */}
       </NeonSection>
       <StackingCardsSection  />
+     
      
     
       <WhyUs />

@@ -38,30 +38,31 @@ export default function Home() {
 
   useEffect(() => {
     if (!sectionRef.current) return;
-
+  
     const ctx = gsap.context(() => {
       const rows = gsap.utils.toArray<HTMLDivElement>(".qa-row");
-
+  
       rows.forEach((row) => {
         gsap.fromTo(
           row,
-          { y: 20 },
+          { yPercent: 5 },
           {
-            y: -20,
+            yPercent: -5,
             ease: "none",
             scrollTrigger: {
               trigger: row,
               start: "top bottom",
               end: "bottom top",
-              scrub: true,
+              scrub: 0.5, // плавнее
             },
           }
         );
       });
     }, sectionRef);
-
+  
     return () => ctx.revert();
   }, []);
+  
 
   return (
     <main

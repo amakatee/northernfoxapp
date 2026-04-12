@@ -19,7 +19,7 @@ const WhyWhiteLogistics: React.FC = () => {
       { bold: "Непрозрачные логисты", text: "скрывают реальные комиссии и риски, оставляя вас один на один с таможней." },
       { bold: "Мелкий шрифт в договорах", text: "штрафы за хранение, «непредвиденные» сборы, отсутствие чеков." },
     ],
-    conclusion: "Серая логистика экономит копейки, но стоит миллионов. Белое партнёрство — это предсказуемость, безопасность и долгосрочный успех." 
+    conclusion: "Белое партнёрство — это предсказуемость, безопасность и долгосрочный успех." 
   };
 
   useEffect(() => {
@@ -58,7 +58,7 @@ const WhyWhiteLogistics: React.FC = () => {
             <h2 className="h4-size text-4xl px-3 md:text-[42px] leading-[1.15] font-semibold text-white">
               {/* {data.title} */}
               <br />
-              <strong className="text-black">
+              <strong className="text-[#0b2249]">
                 <i>{data.highlight}</i>
               </strong>
             </h2>
@@ -74,8 +74,8 @@ const WhyWhiteLogistics: React.FC = () => {
           </div>
 
           {/* Bottom Conclusion */}
-          <div className="hire-us--left-content-bottom border-t border-[#4a2b8f]/60 pt-10">
-            <p className="text-lg px-2 md:text-[17.5px] leading-relaxed text-gray-700 max-w-3xl">
+          <div className=" border-t border-[#0b2249]/60 pt-10">
+            <p className="text-[1rem] px-1 md:text-[17.5px] leading-relaxed text-[#0b2249] max-w-3xl">
               {data.conclusion}
             </p>
           </div>

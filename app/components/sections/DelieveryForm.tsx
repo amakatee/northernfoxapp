@@ -100,11 +100,11 @@ export default function LogisticsFormSection() {
       ref={sectionRef}
       className="bg-white w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 rounded-3xl shadow-lg"
     >
-      <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900">
+      <h2 className="text-2xl sm:text-3xl font-semibold text-[#0b2249]">
         Есть идея? <span className="font-bold">Мы доставим решение.</span>
       </h2>
 
-      <p className="text-gray-500 mt-2 mb-6 text-sm sm:text-base">
+      <p className="text-[#0b2249] mt-2 mb-6 text-sm sm:text-base">
         Расскажите нам о вашем грузе и задаче
       </p>
 

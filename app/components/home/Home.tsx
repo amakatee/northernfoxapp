@@ -8,8 +8,6 @@ import DeliveryForm from '../sections/DelieveryForm'
 import LogisticsSteps from '../sections/delievery/LogisticsSteps'
 import ServiceQAPage from '../sections/ServiceQAPage'
 import NeonSection from '../helpers/NeonSection'
-import WhyUs from '../sections/WhyUs'
-import IndustriesStackSection from '../helpers/DelieveryContainer'
 import StackingCards from '../helpers/Cards'
 import HireUs from '../helpers/Animated'
 import WorkProcess from '../sections/WorkProcess'
@@ -91,24 +89,12 @@ function Home() {
         {/* <WhyChooseUs /> */}
         
      <NeonSection>
-
-    
       <ServiceQAPage />
       {/* <HireUs /> */}
       </NeonSection>
       <StackingCardsSection  />
       <WorkProcess work_process={data.workProcess} />
-     
-     
-    
-      <WhyUs />
-     
-
-     
-        {/* <ServicesSection /> */}
-     
-        {/* <LogisticsSteps /> */}
-        <DeliveryForm />
+      <DeliveryForm />
        
        
        

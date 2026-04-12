@@ -65,12 +65,12 @@ export default function WorkProcess({ work_process }: WorkProcessComponentProps)
       <div ref={containerRef} className="max-w-4xl w-full">
 
         {/* Title */}
-        <h2 className="wp-title text-black text-4xl px-8 sm:text-5xl font-semibold mb-4">
+        <h2 className="wp-title text-[#0b2249] text-4xl px-8 sm:text-5xl font-semibold mb-4">
           {work_process.title}
         </h2>
 
         {/* Subtitle */}
-        <p className="wp-subtitle px-8 text-black/70 text-lg sm:text-xl max-w-2xl mb-14 leading-relaxed">
+        <p className="wp-subtitle px-8 text-[#0b2249]/70 text-lg sm:text-xl max-w-2xl mb-14 leading-relaxed">
           {work_process.subtitle}
         </p>
 
@@ -111,7 +111,7 @@ export default function WorkProcess({ work_process }: WorkProcessComponentProps)
 
                   {/* Text */}
                   <div>
-                    <h3 className="text-[#d4f2ff] text-xl font-semibold mb-1">
+                    <h3 className="text-[#d4f2ff] text-xl font-semibold mb-3">
                       {step.name}
                     </h3>
                     <p className="text-[#d4f2ff]/70 leading-relaxed">

@@ -11,6 +11,7 @@ import NeonSection from '../helpers/NeonSection'
 import StackingCards from '../helpers/Cards'
 import HireUs from '../helpers/Animated'
 import WorkProcess from '../sections/WorkProcess'
+import WhyWhiteLogisticsSection  from '../sections/WhyWhite'
 const data = {
   workProcess: {
     title: "Процесс работы",
@@ -94,6 +95,7 @@ function Home() {
       </NeonSection>
       <StackingCardsSection  />
       <WorkProcess work_process={data.workProcess} />
+      <WhyWhiteLogisticsSection />
       <DeliveryForm />
        
        

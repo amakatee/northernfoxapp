@@ -78,10 +78,10 @@ export const StackingCardsSection: React.FC = () => {
      ${bg}`}
   >
       <div className="max-w-5xl  mx-auto">
-        <h2 className="text-3xl md:text-4xl px-4 text-neutral-900 lg:text-5xl font-semibold tracking-tight">
+        <h2 className="text-3xl md:text-4xl px-4 text-[#0b2249] lg:text-5xl font-semibold tracking-tight">
         Комплексные решения для вашего бизнеса
         </h2>
-        <p className="mt-4 max-w-2xl pb-9 px-4 text-neutral-700">
+        <p className="mt-4 max-w-2xl pb-9 px-4 text-[#0b2249]/90">
         Полный спектр услуг по логистике, таможенному оформлению и налоговой оптимизации.
         </p>
 

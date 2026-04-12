@@ -37,93 +37,112 @@ export default function NorthernFoxHeroAnimated() {
   // GSAP animations
 
   useLayoutEffect(() => {
+    const mm = gsap.matchMedia();
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        defaults: { ease: 'power3.out' }
-      });
-
-      // image container (бывшее видео)
-      tl.fromTo(
-        videoContainerRef.current,
-        { y: 200, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1.6 },
-        0
-      );
-
-      // overlay words
-      if (overlayWordsRef.current) {
-        const words =
-          overlayWordsRef.current.querySelectorAll('.overlay-word');
-
-        tl.fromTo(
-          words,
-          { x: '-100%', opacity: 0 },
-          {
-            x: '0%',
-            opacity: 1,
-            duration: 0.8,
-            stagger: 0.1
-          },
-          0.4
-        );
-      }
-
-      // heading words
-      if (headingRef.current) {
-        const words =
-          headingRef.current.querySelectorAll('.heading-word');
-
-        tl.fromTo(
-          words,
-          { y: '100%', opacity: 0 },
-          {
-            y: '0%',
-            opacity: 1,
-            duration: 0.7,
-            stagger: 0.05
-          },
-          0.9
-        );
-      }
-
-      // paragraph
-      tl.fromTo(
-        paragraphRef.current,
-        { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1 },
-        1.2
-      );
-
-      // button
-      const btn = buttonRef.current?.querySelector('button');
-
-      if (btn) {
-        tl.fromTo(
-          btn,
-          { x: -20, opacity: 0 },
-          { x: 0, opacity: 1, duration: 0.8 },
-          1.4
-        );
-      }
-
-      // ------------------------------------------------------------------
-      // Параллакс-эффект для оверлейного текста "Northern Fox Co."
-      if (overlayContainerRef.current) {
-        gsap.to(overlayContainerRef.current, {
-          y: 30,                   // смещение вверх при скролле
-          ease: 'none',
-          scrollTrigger: {
-            trigger: overlayContainerRef.current,
-            start: 'top bottom',   // начинаем движение, когда верх элемента достигает низа вьюпорта
-            end: 'bottom top',     // заканчиваем, когда низ элемента достигает верха вьюпорта
-            scrub: 0.5,            // плавное следование за скроллом
-          }
+      mm.add("(min-width: 0px)", () => {
+        const tl = gsap.timeline({
+          defaults: { ease: "power4.out" }
         });
-      }
+  
+        // IMAGE FADE + LIFT
+        tl.fromTo(
+          videoContainerRef.current,
+          { y: 80, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1.6 },
+          0
+        );
+  
+        // OVERLAY TEXT (premium slide-in)
+        if (overlayWordsRef.current) {
+          const words = overlayWordsRef.current.querySelectorAll(".overlay-word");
+  
+          tl.fromTo(
+            words,
+            { yPercent: 120, opacity: 0 },
+            {
+              yPercent: 0,
+              opacity: 1,
+              duration: 1.1,
+              stagger: 0.08,
+              ease: "expo.out"
+            },
+            0.4
+          );
+        }
+  
+        // HEADING WORDS (smooth cinematic rise)
+        if (headingRef.current) {
+          const words = headingRef.current.querySelectorAll(".heading-word");
+  
+          tl.fromTo(
+            words,
+            { yPercent: 120, opacity: 0 },
+            {
+              yPercent: 0,
+              opacity: 1,
+              duration: 1,
+              stagger: 0.05,
+              ease: "power4.out"
+            },
+            0.9
+          );
+        }
+  
+        // PARAGRAPH
+        tl.fromTo(
+          paragraphRef.current,
+          { y: 20, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1.1 },
+          1.3
+        );
+  
+        // BUTTON
+        const btn = buttonRef.current?.querySelector("button");
+        if (btn) {
+          tl.fromTo(
+            btn,
+            { y: 20, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.9 },
+            1.5
+          );
+        }
+  
+        // PREMIUM PARALLAX FOR OVERLAY TEXT
+        if (overlayContainerRef.current) {
+          gsap.to(overlayContainerRef.current, {
+            yPercent: -8,
+            ease: "none",
+            scrollTrigger: {
+              trigger: overlayContainerRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 0.6
+            }
+          });
+        }
+  
+        // LIGHT PARALLAX FOR HEADING
+        if (headingRef.current) {
+          gsap.to(headingRef.current, {
+            yPercent: -5,
+            ease: "none",
+            scrollTrigger: {
+              trigger: headingRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 0.5
+            }
+          });
+        }
+      });
     });
-
-    return () => ctx.revert();
+  
+    return () => {
+      ctx.revert();
+      mm.revert();
+    };
   }, []);
+  
 
   // ----------------------------------------------------------------------
 

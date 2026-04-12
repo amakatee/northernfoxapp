@@ -3,10 +3,10 @@
 
 import React, { useEffect, useRef, useState } from "react";
 const cardBackgrounds = [
-  "bg-[radial-gradient(circle_at_-90%_-15%,rgba(0,200,180,0.36)_3%,rgba(0,200,180,0.20)_2%,rgba(10,28,30,0.95)_70%,rgba(12,32,34,1)_85%)]",
-  "bg-[radial-gradient(circle_at_170%_95%,rgba(255,40,40,0.38)_2%,rgba(255,40,40,0.22)_2%,rgba(28,8,10,0.92)_70%,rgba(32,10,12,1)_85%)]",
-  "bg-[radial-gradient(circle_at_170%_-15%,rgba(0,255,235,0.38)_2%,rgba(0,255,235,0.22)_2%,rgba(8,28,32,0.92)_70%,rgba(10,32,36,1)_85%)]  ",
-  "bg-[radial-gradient(circle_at_-40%_15%,rgba(0,140,255,0.42)_2%,rgba(0,140,255,0.18)_2%,rgba(0,15,35,0.9)_60%,#050608_85%)]",
+  "bg-[linear-gradient(90deg,#180628,#0f0a29_55%,#0c132f_85%,#050d22)]",
+ "bg-[#180d04] bg-[radial-gradient(circle_at_22%_18%,rgba(255,40,40,0.18)_0%,transparent_52%),radial-gradient(circle_at_82%_78%,rgba(255,40,40,0.09)_10%,transparent_99%)]",
+ "bg-[#030e10] bg-[radial-gradient(circle_at_8%_18%,rgba(0,255,235,0.19)_0%,transparent_52%),radial-gradient(circle_at_92%_80%,rgba(0,255,235,0.20)_0%,transparent_64%)]",
+  "bg-[#071123] bg-[radial-gradient(circle_at_8%_18%,rgba(0,140,255,0.20)_0%,transparent_50%),radial-gradient(circle_at_82%_80%,rgba(0,140,255,0.21)_0%,transparent_63%)]",
 ];
 const bg = "bg-[#05080b]"
 const cards = [
@@ -106,8 +106,9 @@ export const StackingCardsSection: React.FC = () => {
     w-full
     rounded-2xl
     px-5
-    py-6
-    backdrop-blur-2xl bg-opacity-99
+    pb-6
+    pt-4
+    backdrop-blur-xl bg-opacity-90
     ${textColor[index]}
     ${cardBackgrounds[index]}
   `}

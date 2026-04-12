@@ -13,25 +13,25 @@ const cards = [
   {
     id:0,
     title: "Авиа доставка",
-    description: "Быстрая авиадоставка. Срок 5–9 дней. Для срочных, дорогих и чувствительных к времени грузов: электроника, одежда премиум-класса, образцы и запчасти.",
+    description: "Экспресс-перевозка для срочных и высоколиквидных грузов. Срок: 5–9 дней. Идеально для электроники, образцов, запчастей и товаров премиум-сегмента. Полный контроль температуры и таможенное сопровождение.",
     icon: "🛫"
   },
   {
     id:1,
     title: "Ж/Д доставка",
-    description: "Надёжная и выгодная перевозка за 12–18 дней. Лучший выбор для регулярных поставок одежды, обуви, товаров для дома и среднего бизнеса.",
+    description: "Оптимальный баланс цены и надёжности. Срок: 12–18 дней. Лучшее решение для регулярных поставок одежды, обуви, товаров для дома и FMCG. Регулярные контейнерные поезда с фиксированным расписанием.",
     icon: "🚇"
   },
   {
     id:2,
     title: "Автодоставка",
-    description: "Прямая доставка от двери поставщика до вашего склада за 18–25 дней. Максимальная гибкость и удобство для сборных грузов.",
+    description: "Гибкая перевозка «от двери до двери». Срок: 18–25 дней. Идеально для сборных грузов и средних партий. Полный контроль маршрута, отслеживание в реальном времени, прямая подача под загрузку.",
     icon:"🚛"
   },
   {
     id:3,
     title: "Комбинированная доставка",
-    description: "Оптимальное решение для крупных объёмов. Лучшая цена при сроке 25–35 дней. Идеально для больших партий и сезонных товаров.",
+    description: "Максимальная экономия при больших объёмах. Срок: 25–35 дней. Оптимально для сезонных товаров, крупных партий и продукции с низкой срочностью. Морской + Ж/Д или авто — подберём лучший маршрут.",
     icon:"🚢"
   },
 ];
@@ -120,11 +120,11 @@ export const StackingCardsSection: React.FC = () => {
                   : "15vh",
               }}
             >  
-            <p className="mb-14" style={{ fontSize: '1.6rem' }}> {card.icon}</p>
+            <p className="mb-13" style={{ fontSize: '1.6rem' }}> {card.icon}</p>
               <h3 className="text-[1.3rem] md:text-2xl font-semibold">
                 {card.title}
               </h3>
-              <p className={`mt-3 text-[1rem] font-normal `}>
+              <p className={`mt-3 text-[.9rem] font-normal `}>
                 {card.description}
               </p>
             </div>
@@ -132,7 +132,11 @@ export const StackingCardsSection: React.FC = () => {
         </div>
 
         {/* CTA now appears immediately after the last card */}
-        <button className="mt-10 inline-flex items-center rounded-full border border-neutral-900 px-6 py-3 text-sm font-medium text-black hover:bg-neutral-900 transition">
+        <button className="mt-10 inline-flex items-center rounded-full px-6 py-3 text-sm font-medium  transition bg-[#0b2249] text-white px-4 py-2 rounded-3xl text-sm font-medium border border-[#0b2249]
+              shadow-md hover:shadow-lg
+              transition-all duration-300
+              whitespace-nowrap
+              inline-flex items-center tracking-wide font-normal  justify-cente ml-2">
         Рассчитать цену
         </button>
       </div>

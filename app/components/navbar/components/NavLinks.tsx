@@ -86,7 +86,7 @@ const NavLinks: React.FC<NavLinksProps> = ({
           </Link>
 
           {/* Dropdown Menu */}
-          {item.dropdown && (
+          {/* {item.dropdown && (
             <div className={cn(
               "absolute top-full left-0 mt-2 w-64",
               "bg-white rounded-lg shadow-xl border border-gray-100",
@@ -130,7 +130,7 @@ const NavLinks: React.FC<NavLinksProps> = ({
                 ))}
               </div>
             </div>
-          )}
+          )} */}
         </li>
       ))}
     </ul>

@@ -20,6 +20,7 @@ export default function LogisticsFormSection() {
   })
 
   const [files, setFiles] = useState<File[]>([])
+  const [agreed, setAgreed] = useState(false) // Added checkbox state
 
   useEffect(() => {
     // Optional entrance animation – you can also replace with a scroll-triggered animation
@@ -91,6 +92,11 @@ export default function LogisticsFormSection() {
       return
     }
 
+    if (!agreed) {
+      alert("Пожалуйста, примите условия пользовательского соглашения")
+      return
+    }
+
     console.log(form, files)
     // Here you would send data to your API
   }
@@ -98,7 +104,7 @@ export default function LogisticsFormSection() {
   return (
     <section
       ref={sectionRef}
-      className="bg-white w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 rounded-3xl shadow-lg"
+      className="bg-white w-full max-w-4xl mx-auto px-7 sm:px-6 lg:px-8 py-12 md:py-16 rounded-3xl shadow-lg"
     >
       <h2 className="text-2xl sm:text-3xl font-semibold text-[#0b2249]">
         Есть идея? <span className="font-bold">Мы доставим решение.</span>
@@ -185,7 +191,7 @@ export default function LogisticsFormSection() {
           className="w-full border-b border-gray-300 py-3 outline-none resize-none focus:border-blue-500 transition text-base"
         />
 
-        <div className="border-2 border-dashed border-gray-300 rounded-xl p-4 sm:p-6 text-center hover:border-blue-400 transition">
+        {/* <div className="border-2 border-dashed border-gray-300 rounded-xl p-4 sm:p-6 text-center hover:border-blue-400 transition">
           <p className="text-gray-500 mb-3 text-sm sm:text-base">
             Прикрепить файлы (инвойсы, фото, документы)
           </p>
@@ -200,7 +206,26 @@ export default function LogisticsFormSection() {
               Файлов выбрано: {files.length}
             </p>
           )}
+        </div> */}
+
+        {/* Added checkbox for user agreement */}
+        <div className="flex items-start gap-3">
+          <input
+            type="checkbox"
+            id="userAgreement"
+            checked={agreed}
+            onChange={(e) => setAgreed(e.target.checked)}
+            className="mt-1 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+            required
+          />
+          <label htmlFor="userAgreement" className="text-sm text-gray-600">
+            Принимаю условия{" "}
+            <a href="/user-agreement" className="text-blue-600 hover:underline" target="_blank">
+              пользовательского соглашения
+            </a>
+          </label>
         </div>
+
         <LetsTalkButton children="ОТПРАВИТЬ ЗАЯВКУ" />
         {/* <button
           type="submit"

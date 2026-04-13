@@ -84,15 +84,15 @@ const WhyWhiteLogistics: React.FC = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="pt-10  md:py-28 px-3">
+    <section ref={sectionRef} className="pt-10  md:py-28 px-3 ">
       <div className="max-w-4xl mx-auto">
         <div className="relative">
-        <h2 className="text-[#0b2249] text-3xl px-4 sm:text-5xl font-semibold mb-4">
+        <h2 className="text-[#0b2249] text-3xl px-3 sm:text-5xl font-semibold mb-4">
           {data.title}
         </h2>
 
         {/* Subtitle */}
-        <p className="wp-subtitle px-4 text-[#0b2249]/90 text-[1.1rem] sm:text-xl max-w-2xl mb-8 leading-relaxed">
+        <p className="wp-subtitle px-3 text-[#0b2249]/90 text-[1.1rem] sm:text-xl max-w-2xl mb-8 leading-relaxed">
           {data.highlight}
         </p>
 
@@ -109,7 +109,7 @@ const WhyWhiteLogistics: React.FC = () => {
           </div> */}
 
           {/* Problems Content */}
-          <div ref={contentRef} className="hire-us--left-content-top border-[#5b3bcc]/50 bg-[#0f0b1f] space-y-8 px-10 py-10 rounded-3xl mb-16">
+          <div ref={contentRef} className=" border-[#5b3bcc]/50 bg-[linear-gradient(90deg,#180628,#0f0a29_55%,#0c132f_85%,#050d22)] space-y-8 px-7 py-10 rounded-3xl mb-16">
             {data.problems.map((item, index) => (
               <p key={index} className="problem-item body text-[1.1rem] md:text-[17.5px] leading-relaxed text-[#d4f2ff]/80">
                 <strong className="text-white">{item.bold}</strong> {item.text}

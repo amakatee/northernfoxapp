@@ -91,7 +91,7 @@ export default function Footer() {
             北狐 Northern Fox Co.
           </h3>
 
-          <p className="text-[#a7e8f6]/80 text-[17.5px] leading-relaxed max-w-xs">
+          <p className="text-[#a7e8f6]/80 text-[16.5px] leading-relaxed max-w-xs">
             7 лет доставки из Китая в Россию. <br />
             Прямые связи на складах Китая → оптимальные цены. <br />
             Минимум переговоров, максимум результата. <br />

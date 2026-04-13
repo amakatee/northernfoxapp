@@ -58,7 +58,7 @@ const NavActions: React.FC<NavActionsProps> = ({
               "transition-all duration-200"
             )}
           >
-            Sign in
+            {/* Sign in */}
           </Link>
         )}
         {showDemo && (
@@ -89,7 +89,7 @@ const NavActions: React.FC<NavActionsProps> = ({
   // Desktop version remains the same
   return (
     <div className="flex items-center gap-4">
-      {showSignIn && (
+      {/* {showSignIn && (
         <Link
           href={signInHref}
           onClick={handleSignIn}
@@ -101,7 +101,7 @@ const NavActions: React.FC<NavActionsProps> = ({
         >
           Cвязаться
         </Link>
-      )}
+      )} */}
       
       {showDemo && (
         <Link

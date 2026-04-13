@@ -161,13 +161,13 @@ const MobileMenu = React.forwardRef<HTMLDivElement, MobileMenuProps>(
                     if (el) navItemsRef.current[index] = el;
                   }}
                   href={item.href}
-                  className="flex items-center justify-between py-3 text-2xl font-medium text-gray-900 hover:text-gray-600 transition-colors border-b border-gray-100 last:border-0 group"
+                  className="flex items-center justify-between py-3 text-2xl font-medium text-[#0b2249] hover:text-gray-600 transition-colors border-b border-gray-100 last:border-0 group"
                   onClick={onClose}
                   target={item.target}
                 >
                   <span>{item.label}</span>
                   {item.badge && (
-                    <span className="text-xs bg-[#b7a99a] text-white px-2 py-1 rounded-full">
+                    <span className="text-xs bg-[#b7a99a] text-text-[#0b2249] px-2 py-1 rounded-full">
                       {item.badge}
                     </span>
                   )}
@@ -188,10 +188,10 @@ const MobileMenu = React.forwardRef<HTMLDivElement, MobileMenuProps>(
               <div>
                 <a 
                   href="mailto:northernfox@mail.ru" 
-                  className="text-lg text-gray-600 hover:text-gray-900 transition-colors inline-block contact-link"
+                  className="text-lg text-[#0b2249]/70 hover:text-[#0b2249]/90 transition-colors inline-block contact-link"
                   onClick={onClose}
                 >
-                  northernfox@mail.ru
+                  beihunorthernfox@yandex.ru
                 </a>
               </div>
               <div>
@@ -213,47 +213,31 @@ const MobileMenu = React.forwardRef<HTMLDivElement, MobileMenuProps>(
                   className="text-gray-600 hover:text-gray-900 transition-colors text-lg font-medium social-link"
                   onClick={onClose}
                 >
-                  Be
+                  Telegram
                 </a>
                 <a 
                   href="#" 
                   className="text-gray-600 hover:text-gray-900 transition-colors text-lg font-medium social-link"
                   onClick={onClose}
                 >
-                  in
+                  Wechat
                 </a>
-                <a 
-                  href="#" 
-                  className="text-gray-600 hover:text-gray-900 transition-colors text-lg font-medium social-link"
-                  onClick={onClose}
-                >
-                  X
-                </a>
-                <a 
-                  href="#" 
-                  className="text-gray-600 hover:text-gray-900 transition-colors text-lg font-medium social-link"
-                  onClick={onClose}
-                >
-                  f
-                </a>
+                
               </div>
             </div>
 
             {/* Footer Links */}
             <div ref={footerRef} className="pt-4 border-t border-gray-200">
               <div className="flex flex-wrap gap-6 text-sm text-gray-500">
-                <a href="#" className="hover:text-gray-900 transition-colors" onClick={onClose}>
-                  Privacy
+                <a href="/privacy" className="hover:text-gray-900 transition-colors" onClick={onClose}>
+                 Политика конфиденциальности
                 </a>
-                <a href="#" className="hover:text-gray-900 transition-colors" onClick={onClose}>
-                  Terms
-                </a>
-                <a href="#" className="hover:text-gray-900 transition-colors" onClick={onClose}>
-                  Sitemap
+                <a href="/terms" className="hover:text-gray-900 transition-colors" onClick={onClose}>
+                Условия предоставления услуг
                 </a>
               </div>
               <div className="mt-4 text-sm text-gray-400">
-                Northern Fox
+               北狐 Northern Fox
               </div>
             </div>
           </div>

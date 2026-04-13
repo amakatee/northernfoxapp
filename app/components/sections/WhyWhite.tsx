@@ -11,7 +11,7 @@ const WhyWhiteLogistics: React.FC = () => {
   const contentRef = useRef<HTMLDivElement>(null);
 
   const data = {
-    title: "Работать в белую, а не в серую",
+    title: "Прозрачность или риск",
     highlight: "Почему прозрачное партнёрство важнее «гибких» схем",
     problems: [
       { bold: "Серые схемы", text: "дают кажущуюся выгоду, но ведут к блокировкам, штрафам и потере товара." },
@@ -24,45 +24,89 @@ const WhyWhiteLogistics: React.FC = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(".title", 
-        { opacity: 0, y: 30 }, 
-        { opacity: 1, y: 0, duration: 1.1, ease: "power3.out" }
-      );
-
-      gsap.fromTo(".problem-item", 
-        { opacity: 0, x: -30 }, 
-        { 
-          opacity: 1, 
-          x: 0, 
-          duration: 0.9, 
-          stagger: 0.2,
-          ease: "power2.out",
+      // Title reveal
+      gsap.from(".wwl-title", {
+        yPercent: 120,
+        duration: 1.1,
+        ease: "power4.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+        },
+      });
+  
+      // Card depth entrance
+      gsap.from(".wwl-card", {
+        scale: 0.96,
+        opacity: 0,
+        duration: 1.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: contentRef.current,
+          start: "top 75%",
+        },
+      });
+  
+      // Problem lines premium reveal
+      const items = gsap.utils.toArray<HTMLElement>(".problem-item");
+  
+      items.forEach((el, i) => {
+        const tl = gsap.timeline({
           scrollTrigger: {
-            trigger: contentRef.current,
-            start: "top 75%",
-          }
-        }
-      );
+            trigger: el,
+            start: "top 85%",
+          },
+        });
+  
+        tl.from(el, {
+          x: -60,
+          y: 20,
+          opacity: 0,
+          duration: 1,
+          ease: "power3.out",
+        });
+      });
+  
+      // Conclusion emphasis
+      gsap.from(".wwl-conclusion", {
+        y: 40,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".wwl-conclusion",
+          start: "top 90%",
+        },
+      });
     }, sectionRef);
-
+  
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={sectionRef} className="]  md:py-28 px-3">
+    <section ref={sectionRef} className="pt-10  md:py-28 px-3">
       <div className="max-w-4xl mx-auto">
         <div className="relative">
+        <h2 className="text-[#0b2249] text-3xl px-4 sm:text-5xl font-semibold mb-4">
+          {data.title}
+        </h2>
+
+        {/* Subtitle */}
+        <p className="wp-subtitle px-4 text-[#0b2249]/90 text-[1.1rem] sm:text-xl max-w-2xl mb-8 leading-relaxed">
+          {data.highlight}
+        </p>
+
           
           {/* Main Heading */}
-          <div className="title mb-12">
-            <h2 className="h4-size text-4xl px-3 md:text-[42px] leading-[1.15] font-semibold text-white">
-              {/* {data.title} */}
+          {/* <div className="title mb-12">
+            <h2 className="h4-size text-4xl px-3 md:text-[42px] leading-[1.15] font-semibold text-black">
+            
               <br />
-              <strong className="text-[#0b2249]">
-                <i>{data.highlight}</i>
+              <strong className="text-[#0b2249]  text-xl">
+                <p>{data.highlight}</p>
               </strong>
             </h2>
-          </div>
+          </div> */}
 
           {/* Problems Content */}
           <div ref={contentRef} className="hire-us--left-content-top border-[#5b3bcc]/50 bg-[#0f0b1f] space-y-8 px-10 py-10 rounded-3xl mb-16">
@@ -71,14 +115,14 @@ const WhyWhiteLogistics: React.FC = () => {
                 <strong className="text-white">{item.bold}</strong> {item.text}
               </p>
             ))}
-          </div>
-
-          {/* Bottom Conclusion */}
-          <div className=" border-t border-[#0b2249]/60 pt-10">
-            <p className="text-[1rem] px-1 md:text-[17.5px] leading-relaxed text-[#0b2249] max-w-3xl">
+            <div className=" border-t border-white/60 pt-10">
+            <p className="text-[1.3rem] px-1 md:text-[17.5px] leading-relaxed text-white max-w-3xl">
               {data.conclusion}
             </p>
           </div>
+          </div>
+
+        
 
         </div>
       </div>

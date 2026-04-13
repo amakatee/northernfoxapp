@@ -6,6 +6,7 @@ import Navbar from "./components/navbar";
 import UpperNavbar from "./components/navbar/UpperNavbar";
 import "./globals.css";
 import { Manrope } from "next/font/google";
+import Footer from "./components/Footer";
 
 export const manrope = Manrope({
   subsets: ["latin","cyrillic"],
@@ -60,7 +61,7 @@ export default function RootLayout({
 }>) {
 
   return (
-    <html lang="en">
+    <html lang="en" className="bg-white">
       <body
         className={`${manrope.className} ${geistMono.variable} antialiased`}
       >
@@ -72,6 +73,7 @@ export default function RootLayout({
         />
         <AIWidgetIcon />
         {children}
+        <Footer />
       </body>
     </html>
   );

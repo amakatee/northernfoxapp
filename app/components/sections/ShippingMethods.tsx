@@ -78,10 +78,10 @@ export const StackingCardsSection: React.FC = () => {
      ${bg}`}
   >
       <div className="max-w-5xl  mx-auto">
-        <h2 className="text-3xl md:text-4xl px-4 text-[#0b2249] lg:text-5xl font-semibold tracking-tight">
+        <h2 className="text-3xl md:text-4xl px-1 text-[#0b2249] lg:text-5xl font-semibold tracking-normal">
         Комплексные решения для вашего бизнеса
         </h2>
-        <p className="mt-4 max-w-2xl pb-9 px-4 text-[#0b2249]/90">
+        <p className="mt-4 text-[1.1rem] max-w-2xl pb-9 px-1 text-[#0b2249]/90">
         Полный спектр услуг по логистике, таможенному оформлению и налоговой оптимизации.
         </p>
 
@@ -105,7 +105,7 @@ export const StackingCardsSection: React.FC = () => {
     sticky
     w-full
     rounded-2xl
-    px-5
+    px-4
     pb-6
     pt-4
     backdrop-blur-xl bg-opacity-90
@@ -121,7 +121,7 @@ export const StackingCardsSection: React.FC = () => {
                   : "15vh",
               }}
             >  
-            <p className="mb-13" style={{ fontSize: '1.6rem' }}> {card.icon}</p>
+            <p className="mb-13 px-1" style={{ fontSize: '1.6rem' }}> {card.icon}</p>
               <h3 className="text-[1.3rem] md:text-2xl font-semibold">
                 {card.title}
               </h3>

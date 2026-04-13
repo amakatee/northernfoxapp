@@ -10,14 +10,10 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Footer() {
   const footerRef = useRef<HTMLDivElement>(null);
 
-  const WechatIcon = ({ size = 18 }: { size?: number }) => (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="currentColor"
-    >
-      <path d="M8.5 3C4.36 3 1 5.69 1 9c0 1.77 1.02 3.38 2.73 4.55L3 17l3.06-1.53c.47.08.96.13 1.44.13 4.14 0 7.5-2.69 7.5-6S12.64 3 8.5 3zm-2 5.25a1 1 0 110 2 1 1 0 010-2zm4 0a1 1 0 110 2 1 1 0 010-2zm8.5 1.75c0-2.76-2.91-5-6.5-5-.34 0-.67.02-1 .06 2.1 1.2 3.5 3.16 3.5 5.44 0 3.31-3.36 6-7.5 6-.17 0-.33 0-.5-.02C7.97 18.34 10.33 20 13.5 20c.48 0 .97-.05 1.44-.13L18 21l-.73-3.45C18.98 16.38 20 14.77 20 13c0-.34-.03-.67-.1-1zM12 12.25a1 1 0 110 2 1 1 0 010-2zm4 0a1 1 0 110 2 1 1 0 010-2z" />
+  // WeChat icon
+  const WechatIcon = ({ size = 20 }: { size?: number }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="#a7e8f6">
+      <path d="M9.5 4C5.36 4 2 6.69 2 10c0 1.7.9 3.24 2.43 4.38L4 18l3.3-1.7c.36.06.73.1 1.1.1 4.14 0 7.5-2.69 7.5-6S13.64 4 9.5 4zm-2 5a1 1 0 110 2 1 1 0 010-2zm4 0a1 1 0 110 2 1 1 0 010-2zM14.5 11c-3.03 0-5.5 1.94-5.5 4.33 0 .25.03.5.08.74C9.9 17.3 11.53 18 13.5 18c.37 0 .74-.04 1.1-.1L18 19l-.43-2.3C19.1 15.57 20 14.04 20 12.33 20 11.05 17.76 11 14.5 11zm-1.5 2.5a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"/>
     </svg>
   );
 
@@ -58,7 +54,7 @@ export default function Footer() {
           "-=0.85"
         )
         .from(
-          ".footer-social a",
+          ".footer-icon",
           {
             y: 20,
             opacity: 0,
@@ -88,9 +84,10 @@ export default function Footer() {
       className="w-full rounded-t-3xl bg-[#071123] bg-[radial-gradient(circle_at_8%_18%,rgba(0,140,255,0.20)_0%,transparent_50%),radial-gradient(circle_at_82%_80%,rgba(0,140,255,0.21)_0%,transparent_63%)] text-white px-6 pt-16 pb-10"
     >
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between gap-10">
+        
         {/* Left */}
         <div className="flex-1 space-y-6 footer-left">
-          <h3 className="text-2xl text-[#a7e8f6] font-bold tracking-normal">
+          <h3 className="text-2xl text-[#a7e8f6] font-bold">
             北狐 Northern Fox Co.
           </h3>
 
@@ -102,29 +99,29 @@ export default function Footer() {
           </p>
 
           {/* Social */}
-          <div className="flex gap-4 pt-2 footer-social">
+          {/* <div className="flex gap-4 pt-2 footer-social">
             <a
               href="https://t.me/yourtelegram"
               target="_blank"
-              className="w-10 h-10 flex text-[#a7e8f6] items-center justify-center rounded-full border border-[#a7e8f6]/20 hover:border-white hover:bg-white/10 transition"
+              className="footer-icon w-11 h-11 flex items-center justify-center rounded-full border border-[#a7e8f6]/30 text-[#a7e8f6] hover:bg-white/10 transition"
             >
-              <Send size={18} />
+              <Send size={20} />
             </a>
 
             <a
               href="#"
-              className="w-10 h-10 text-[#a7e8f6] flex items-center justify-center rounded-full border border-white/20 hover:border-white hover:bg-white/10 transition"
+              className="footer-icon w-11 h-11 flex items-center justify-center rounded-full border border-[#a7e8f6]/30 hover:bg-white/10 transition"
             >
               <WechatIcon />
             </a>
 
             <a
               href="mailto:info@northernfox-logistics.com"
-              className="w-10 h-10 text-[#a7e8f6] flex items-center justify-center rounded-full border border-white/20 hover:border-white hover:bg-white/10 transition"
+              className="footer-icon w-11 h-11 flex items-center justify-center rounded-full border border-[#a7e8f6]/30 text-[#a7e8f6] hover:bg-white/10 transition"
             >
-              <Mail size={18} />
+              <Mail size={20} />
             </a>
-          </div>
+          </div> */}
         </div>
 
         {/* Right */}
@@ -134,7 +131,8 @@ export default function Footer() {
           </h4>
           <p className="text-[#a7e8f6]/80 text-[15px] leading-relaxed">
             Email: beihunorthernfox.yandex.ru <br />
-            Адрес: Guangzhou, Tian he qu
+            Адрес: Guangzhou, Tian he qu <br />
+            
           </p>
         </div>
       </div>

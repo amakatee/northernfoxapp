@@ -111,12 +111,12 @@ const WhyWhiteLogistics: React.FC = () => {
           {/* Problems Content */}
           <div ref={contentRef} className="hire-us--left-content-top border-[#5b3bcc]/50 bg-[#0f0b1f] space-y-8 px-10 py-10 rounded-3xl mb-16">
             {data.problems.map((item, index) => (
-              <p key={index} className="problem-item body text-lg md:text-[17.5px] leading-relaxed text-gray-300">
+              <p key={index} className="problem-item body text-[1.1rem] md:text-[17.5px] leading-relaxed text-[#d4f2ff]/80">
                 <strong className="text-white">{item.bold}</strong> {item.text}
               </p>
             ))}
             <div className=" border-t border-white/60 pt-10">
-            <p className="text-[1.3rem] px-1 md:text-[17.5px] leading-relaxed text-white max-w-3xl">
+            <p className="text-[1.3rem] px-1 md:text-[17.5px] leading-relaxed text-[#d4f2ff] max-w-3xl">
               {data.conclusion}
             </p>
           </div>

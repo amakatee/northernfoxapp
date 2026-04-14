@@ -12,6 +12,7 @@ import StackingCards from '../helpers/Cards'
 import HireUs from '../helpers/Animated'
 import WorkProcess from '../sections/WorkProcess'
 import WhyWhiteLogisticsSection  from '../sections/WhyWhite'
+import LogisticsFormSection from '../helpers/DelieveryForm'
 const data = {
   workProcess: {
     title: "Процесс работы",
@@ -96,7 +97,8 @@ function Home() {
       <StackingCardsSection  />
       <WorkProcess work_process={data.workProcess} />
       <WhyWhiteLogisticsSection />
-      <DeliveryForm />
+      {/* <DeliveryForm /> */}
+      <LogisticsFormSection />
        
        
        

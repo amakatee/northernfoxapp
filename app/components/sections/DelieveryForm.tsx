@@ -2,13 +2,44 @@
 
 import { useRef, useEffect, useState } from "react"
 import gsap from "gsap"
-import { Button } from "../helpers/LetsTalkButton"
 import LetsTalkButton from "../helpers/MainButton"
+
+interface FormData {
+  name: string
+  phone: string // digits only: 79XXXXXXXXX
+  email: string
+  weight: string
+  length: string
+  width: string
+  height: string
+  message: string
+}
+
+const MAX_FILES = 5
+const MAX_FILE_SIZE = 10 * 1024 * 1024 // 10MB
+
+const formatPhone = (digits: string) => {
+  const d = digits.replace(/\D/g, "").slice(0, 11)
+
+  if (d.length === 0) return ""
+  if (d.length < 2) return "+7"
+
+  let result = "+7"
+
+  if (d.length >= 2) result += ` (${d.slice(1, 4)}`
+  if (d.length >= 5) result += `) ${d.slice(4, 7)}`
+  if (d.length >= 8) result += ` ${d.slice(7, 9)}`
+  if (d.length >= 10) result += ` ${d.slice(9, 11)}`
+
+  return result
+}
+
+const extractDigits = (value: string) => value.replace(/\D/g, "")
 
 export default function LogisticsFormSection() {
   const sectionRef = useRef<HTMLElement>(null)
 
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<FormData>({
     name: "",
     phone: "",
     email: "",
@@ -20,10 +51,12 @@ export default function LogisticsFormSection() {
   })
 
   const [files, setFiles] = useState<File[]>([])
-  const [agreed, setAgreed] = useState(false) // Added checkbox state
+  const [agreed, setAgreed] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
+  const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({})
 
   useEffect(() => {
-    // Optional entrance animation – you can also replace with a scroll-triggered animation
     gsap.fromTo(
       sectionRef.current,
       { y: 30, opacity: 0 },
@@ -31,75 +64,125 @@ export default function LogisticsFormSection() {
     )
   }, [])
 
-  // Name: only letters, spaces, hyphens
+  // ==================== HANDLERS ====================
+
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(/[^a-zA-Zа-яА-ЯёЁ\s-]/g, '')
-    setForm({ ...form, name: value })
+    const value = e.target.value.replace(/[^a-zA-Zа-яА-ЯёЁ\s-]/g, "")
+    setForm(prev => ({ ...prev, name: value }))
+    if (errors.name) setErrors(prev => ({ ...prev, name: "" }))
   }
 
-  // Generic text change for email, message
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let digits = extractDigits(e.target.value)
+
+    if (!digits.startsWith("7")) {
+      digits = "7" + digits
+    }
+
+    digits = digits.slice(0, 11)
+
+    setForm(prev => ({ ...prev, phone: digits }))
+    if (errors.phone) setErrors(prev => ({ ...prev, phone: "" }))
+  }
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value })
+    const { name, value } = e.target
+    setForm(prev => ({ ...prev, [name]: value }))
+    if (errors[name as keyof FormData]) {
+      setErrors(prev => ({ ...prev, [name]: "" }))
+    }
   }
 
-  // Restrict to digits only for numeric fields
   const handleNumericChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     const digits = value.replace(/\D/g, "")
-    setForm({ ...form, [name]: digits })
-  }
-
-  // Phone formatter: +7 (XXX) XXX XX XX (10 digits after +7)
-  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value.replace(/\D/g, "")
-    if (value.length > 0) {
-      // Ensure starts with 7, and limit to 11 digits total (7 + 10)
-      if (!value.startsWith("7")) value = "7" + value.slice(0, 10)
-      value = value.slice(0, 11)
-
-      // Format: +7 (XXX) XXX XX XX
-      let formatted = "+7"
-      if (value.length > 1) {
-        formatted += " (" + value.slice(1, 4)
-      }
-      if (value.length >= 4) {
-        formatted += ") " + value.slice(4, 7)
-      }
-      if (value.length >= 7) {
-        formatted += " " + value.slice(7, 9)
-      }
-      if (value.length >= 9) {
-        formatted += " " + value.slice(9, 11)
-      }
-      setForm({ ...form, phone: formatted })
-    } else {
-      setForm({ ...form, phone: "" })
-    }
+    setForm(prev => ({ ...prev, [name]: digits }))
   }
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return
-    setFiles([...files, ...Array.from(e.target.files)])
+
+    const incoming = Array.from(e.target.files)
+
+    const validFiles = incoming.filter(file => file.size <= MAX_FILE_SIZE)
+
+    setFiles(prev => [...prev, ...validFiles].slice(0, MAX_FILES))
   }
 
-  const submit = (e: React.FormEvent) => {
+  const removeFile = (index: number) => {
+    setFiles(prev => prev.filter((_, i) => i !== index))
+  }
+
+  // ==================== VALIDATION ====================
+
+  const validateForm = (): boolean => {
+    const newErrors: Partial<Record<keyof FormData, string>> = {}
+
+    if (!form.name.trim()) newErrors.name = "Введите ваше имя"
+
+    if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      newErrors.email = "Введите корректный email"
+    }
+
+    if (form.phone.length !== 11) {
+      newErrors.phone = "Введите корректный номер телефона"
+    }
+
+    if (!agreed) return false
+
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
+
+  // ==================== SUBMIT ====================
+
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (!validateForm()) return
 
-    const phoneRegex = /^\+7 \(\d{3}\) \d{3} \d{2} \d{2}$/
+    setIsSubmitting(true)
+    setSubmitStatus("idle")
 
-    if (!phoneRegex.test(form.phone)) {
-      alert("Введите номер в формате +7 (XXX) XXX XX XX")
-      return
+    try {
+      const formData = new FormData()
+
+      Object.entries(form).forEach(([key, value]) => {
+        formData.append(key, value)
+      })
+
+      files.forEach(file => {
+        formData.append("files", file)
+      })
+
+      const response = await fetch("/api/send-logistics", {
+        method: "POST",
+        body: formData,
+      })
+
+      if (!response.ok) throw new Error("Failed")
+
+      setSubmitStatus("success")
+      setForm({
+        name: "",
+        phone: "",
+        email: "",
+        weight: "",
+        length: "",
+        width: "",
+        height: "",
+        message: "",
+      })
+      setFiles([])
+      setAgreed(false)
+      setErrors({})
+    } catch {
+      setSubmitStatus("error")
+    } finally {
+      setIsSubmitting(false)
     }
-
-    if (!agreed) {
-      alert("Пожалуйста, примите условия пользовательского соглашения")
-      return
-    }
-
-    console.log(form, files)
-    // Here you would send data to your API
   }
+
+  // ==================== UI ====================
 
   return (
     <section
@@ -110,29 +193,33 @@ export default function LogisticsFormSection() {
         Есть идея? <span className="font-bold">Мы доставим решение.</span>
       </h2>
 
-      <p className="text-[#0b2249] mt-2 mb-6 text-sm sm:text-base">
+      <p className="text-[#0b2249] mt-2 mb-8 text-sm sm:text-base">
         Расскажите нам о вашем грузе и задаче
       </p>
 
-      <form onSubmit={submit} className="space-y-5 sm:space-y-6">
+      <form onSubmit={submit} className="space-y-6" noValidate aria-busy={isSubmitting}>
         <input
           name="name"
           placeholder="Ваше имя"
           value={form.name}
           onChange={handleNameChange}
-          className="w-full border-b border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base"
-          required
+          autoComplete="name"
+          disabled={isSubmitting}
+          className="w-full border-b border-gray-300 py-3 outline-none focus:border-blue-500"
         />
+        {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
 
         <input
           name="phone"
           type="tel"
           placeholder="+7 (___) ___ __ __"
-          value={form.phone}
+          value={formatPhone(form.phone)}
           onChange={handlePhoneChange}
-          className="w-full border-b border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base"
-          required
+          autoComplete="tel"
+          disabled={isSubmitting}
+          className="w-full border-b border-gray-300 py-3 outline-none focus:border-blue-500"
         />
+        {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
 
         <input
           name="email"
@@ -140,99 +227,51 @@ export default function LogisticsFormSection() {
           placeholder="Ваш email"
           value={form.email}
           onChange={handleChange}
-          className="w-full border-b border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base"
-          required
+          autoComplete="email"
+          disabled={isSubmitting}
+          className="w-full border-b border-gray-300 py-3 outline-none focus:border-blue-500"
         />
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <input
-            name="weight"
-            placeholder="Вес (кг)"
-            value={form.weight}
-            onChange={handleNumericChange}
-            inputMode="numeric"
-            className="w-full border-b border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base"
-          />
-
-          <div className="grid grid-cols-3 gap-2">
-            <input
-              name="length"
-              placeholder="Длина"
-              value={form.length}
-              onChange={handleNumericChange}
-              inputMode="numeric"
-              className="border-b border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base"
-            />
-            <input
-              name="width"
-              placeholder="Ширина"
-              value={form.width}
-              onChange={handleNumericChange}
-              inputMode="numeric"
-              className="border-b border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base"
-            />
-            <input
-              name="height"
-              placeholder="Высота"
-              value={form.height}
-              onChange={handleNumericChange}
-              inputMode="numeric"
-              className="border-b border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base"
-            />
-          </div>
-        </div>
+        {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
 
         <textarea
           name="message"
           placeholder="Опишите ваш груз или задачу..."
-          rows={3}
           value={form.message}
           onChange={handleChange}
-          className="w-full border-b border-gray-300 py-3 outline-none resize-none focus:border-blue-500 transition text-base"
+          disabled={isSubmitting}
+          className="w-full border-b border-gray-300 py-3 outline-none resize-none focus:border-blue-500"
         />
 
-        {/* <div className="border-2 border-dashed border-gray-300 rounded-xl p-4 sm:p-6 text-center hover:border-blue-400 transition">
-          <p className="text-gray-500 mb-3 text-sm sm:text-base">
-            Прикрепить файлы (инвойсы, фото, документы)
-          </p>
-          <input
-            type="file"
-            multiple
-            onChange={handleFile}
-            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-          />
-          {files.length > 0 && (
-            <p className="text-sm mt-2 text-gray-600">
-              Файлов выбрано: {files.length}
-            </p>
-          )}
-        </div> */}
+        <input type="file" multiple onChange={handleFile} disabled={isSubmitting} />
 
-        {/* Added checkbox for user agreement */}
-        <div className="flex items-start gap-3">
+        {files.map((file, i) => (
+          <div key={i} className="flex justify-between text-sm">
+            <span>{file.name}</span>
+            <button type="button" onClick={() => removeFile(i)}>×</button>
+          </div>
+        ))}
+
+        <label className="flex gap-2 text-sm">
           <input
             type="checkbox"
-            id="userAgreement"
             checked={agreed}
-            onChange={(e) => setAgreed(e.target.checked)}
-            className="mt-1 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
-            required
+            onChange={e => setAgreed(e.target.checked)}
+            disabled={isSubmitting}
           />
-          <label htmlFor="userAgreement" className="text-sm text-gray-600">
-            Принимаю условия{" "}
-            <a href="/user-agreement" className="text-blue-600 hover:underline" target="_blank">
-              пользовательского соглашения
-            </a>
-          </label>
-        </div>
+          Принимаю условия пользовательского соглашения
+        </label>
 
-        <LetsTalkButton children="ОТПРАВИТЬ ЗАЯВКУ" />
-        {/* <button
-          type="submit"
-          className="w-full py-4 rounded-full text-white font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 transition text-base"
-        >
-          ОТПРАВИТЬ ЗАЯВКУ
-        </button> */}
+        <LetsTalkButton
+          children={isSubmitting ? "ОТПРАВЛЯЕМ..." : "ОТПРАВИТЬ ЗАЯВКУ"}
+          disabled={isSubmitting}
+        />
+
+        {submitStatus === "success" && (
+          <p className="text-green-600 text-sm">Заявка успешно отправлена!</p>
+        )}
+        {submitStatus === "error" && (
+          <p className="text-red-600 text-sm">Ошибка отправки. Попробуйте позже.</p>
+        )}
       </form>
     </section>
   )

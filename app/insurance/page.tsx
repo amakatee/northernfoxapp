@@ -90,7 +90,7 @@ export default function InsurancePage() {
         <div className="bg-[#0b2249] p-6 rounded-lg text-center">
           <h2 className="text-xl font-bold text-white mb-2">Застраховать груз</h2>
           <p className="text-blue-100 mb-4">Получите расчет страховки за 15 минут</p>
-          <Link href="/contact" className="inline-block bg-white text-[#0b2249] px-6 py-2 rounded-full hover:bg-gray-100 transition">
+          <Link href="/contact" className="inline-block text-white  px-6 py-2 rounded-full hover:bg-gray-100 transition">
             Оставить заявку
           </Link>
         </div>

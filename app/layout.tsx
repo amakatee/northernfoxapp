@@ -67,15 +67,17 @@ export default function RootLayout({
         className={`${manrope.className} ${geistMono.variable} antialiased`}
       >
         <ModalProvider>
-        <Navbar 
-          logoText="Northern Fox"
-          showSignIn={true}
-          showDemo={true}
-          demoHref="/contact" 
-        />
-        <AIWidgetIcon />
-        {children}
-        <Footer />
+          <Navbar 
+            logoText="Northern Fox"
+            showSignIn={true}
+            showDemo={true}
+            demoHref="/contact" 
+          />
+          <AIWidgetIcon />
+          <main className="flex-grow">
+            {children}
+          </main>
+          <Footer />
         </ModalProvider>
       </body>
     </html>

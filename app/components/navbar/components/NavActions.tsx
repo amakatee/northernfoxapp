@@ -12,7 +12,7 @@ const NavActions: React.FC<NavActionsProps> = ({
   showSignIn = true,
   showDemo = true,
   signInHref = "/signin",
-  demoHref = "/demo",
+  demoHref = "/contact",
   onSignInClick,
   onDemoClick,
   isMobile = false,
@@ -40,7 +40,7 @@ const NavActions: React.FC<NavActionsProps> = ({
     if (onDemoClick) {
       onDemoClick();
     } else {
-      router.push(demoHref);
+      router.push(demoHref); // Use demoHref prop here
     }
   };
 
@@ -64,7 +64,7 @@ const NavActions: React.FC<NavActionsProps> = ({
         {showDemo && (
           <Link
             ref={demoButtonRef}
-            href={demoHref}
+            href={demoHref} // Use demoHref prop instead of hardcoded '/contact'
             onClick={handleDemo}
             onMouseEnter={() => handleDemoHover(true)}
             onMouseLeave={() => handleDemoHover(false)}
@@ -75,38 +75,24 @@ const NavActions: React.FC<NavActionsProps> = ({
               "shadow-md hover:shadow-lg",
               "transition-all duration-300",
               "whitespace-nowrap",
-              "inline-flex items-center tracking-wide font-normal  justify-center",
-              "ml-2" // Added margin to separate from hamburger
+              "inline-flex items-center tracking-wide font-normal justify-center",
+              "ml-2"
             )}
           >
-             Cвязаться
+            Cвязаться
           </Link>
         )}
       </div>
     );
   }
 
-  // Desktop version remains the same
+  // Desktop version
   return (
     <div className="flex items-center gap-4">
-      {/* {showSignIn && (
-        <Link
-          href={signInHref}
-          onClick={handleSignIn}
-          className={cn(
-            "text-[#0b2249] font-medium text-sm",
-            "hover:text-[] transition-colors duration-200",
-            "hidden sm:inline-block"
-          )}
-        >
-          Cвязаться
-        </Link>
-      )} */}
-      
       {showDemo && (
         <Link
           ref={demoButtonRef}
-          href={demoHref}
+          href={demoHref} // Use demoHref prop instead of hardcoded '/contact'
           onClick={handleDemo}
           onMouseEnter={() => handleDemoHover(true)}
           onMouseLeave={() => handleDemoHover(false)}

@@ -2,6 +2,8 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import LogisticsFormModal from "../helpers/LogisticFormModal";
+import {useLogisticsModal} from '../providers/ModalProvider'
 const cardBackgrounds = [
   "bg-[linear-gradient(90deg,#180628,#0f0a29_55%,#0c132f_85%,#050d22)]",
  "bg-[#180d04] bg-[radial-gradient(circle_at_22%_18%,rgba(255,40,40,0.18)_0%,transparent_52%),radial-gradient(circle_at_82%_78%,rgba(255,40,40,0.09)_10%,transparent_99%)]",
@@ -47,7 +49,7 @@ const textColor= [
 export const StackingCardsSection: React.FC = () => {
   const firstCardRef = useRef<HTMLDivElement | null>(null);
   const [cardHeight, setCardHeight] = useState<number | null>(null);
-
+  const { openLogisticsModal } = useLogisticsModal();
   const cardsCount = cards.length;
   const gap = 50; // px
 
@@ -133,7 +135,7 @@ export const StackingCardsSection: React.FC = () => {
         </div>
 
         {/* CTA now appears immediately after the last card */}
-        <button className="mt-10 inline-flex items-center rounded-full px-6 py-3 text-sm font-medium  transition bg-[#0b2249] text-white px-4 py-2 rounded-3xl text-sm font-medium border border-[#0b2249]
+        <button onClick={openLogisticsModal} className="mt-10 inline-flex items-center rounded-full px-6 py-3 text-sm font-medium  transition bg-[#0b2249] text-white px-4 py-2 rounded-3xl text-sm font-medium border border-[#0b2249]
               shadow-md hover:shadow-lg
               transition-all duration-300
               whitespace-nowrap
@@ -141,6 +143,7 @@ export const StackingCardsSection: React.FC = () => {
         Рассчитать цену
         </button>
       </div>
+     
     </section>
   );
 };

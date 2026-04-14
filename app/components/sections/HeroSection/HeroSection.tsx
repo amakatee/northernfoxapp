@@ -3,14 +3,16 @@
 import {
   useRef,
   useLayoutEffect,
-  useMemo
+  useMemo,
+  useState
 } from 'react';
 
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
 import LetsTalkButton from '../../helpers/MainButton';
-
+import LogisticsFormModal from '../../helpers/LogisticFormModal'
+import { useLogisticsModal } from "../../providers/ModalProvider";
 // Регистрируем плагин ScrollTrigger для работы с параллаксом
 gsap.registerPlugin(ScrollTrigger);
 
@@ -32,7 +34,7 @@ export default function NorthernFoxHeroAnimated() {
 
   const headingText = 'Ваш надежный мост между Китаем и Россией.';
   const headingWords = useMemo(() => headingText.split(' '), []);
-
+  const { openLogisticsModal } = useLogisticsModal();
   // ----------------------------------------------------------------------
   // GSAP animations
 
@@ -148,8 +150,7 @@ export default function NorthernFoxHeroAnimated() {
 
   return (
     <div className="flex flex-col md:flex-row items-stretch pb-6 lg:pt-10 bg-white min-h-[80vh]">
-      
-      {/* IMAGE COLUMN (бывшее видео) */}
+  
 
       <div
         ref={videoContainerRef}
@@ -240,13 +241,18 @@ export default function NorthernFoxHeroAnimated() {
           {/* button */}
 
           <div ref={buttonRef} className="mt-10 mb-5">
-            <LetsTalkButton>
-              Получить консультацию
-            </LetsTalkButton>
-          </div>
+              <LetsTalkButton onClick={openLogisticsModal}>
+                Получить консультацию
+              </LetsTalkButton>
+            </div>
 
         </div>
       </div>
+      {/* Modal */}
+      {/* <LogisticsFormModal 
+        isOpen={isFormOpen} 
+        onClose={() => setIsFormOpen(false)} 
+      /> */}
     </div>
   );
 }

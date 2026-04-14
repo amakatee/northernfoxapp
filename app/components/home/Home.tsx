@@ -98,7 +98,10 @@ function Home() {
       <WorkProcess work_process={data.workProcess} />
       <WhyWhiteLogisticsSection />
       {/* <DeliveryForm /> */}
+      <section className='bg-white w-full max-w-4xl mx-auto px-7 sm:px-6 lg:px-8 py-12 md:py-16 rounded-3xl shadow-lg'>
       <LogisticsFormSection />
+      </section>
+     
        
        
        

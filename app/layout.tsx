@@ -7,6 +7,7 @@ import UpperNavbar from "./components/navbar/UpperNavbar";
 import "./globals.css";
 import { Manrope } from "next/font/google";
 import Footer from "./components/Footer";
+import { ModalProvider } from "./components/providers/ModalProvider";
 
 export const manrope = Manrope({
   subsets: ["latin","cyrillic"],
@@ -65,15 +66,17 @@ export default function RootLayout({
       <body
         className={`${manrope.className} ${geistMono.variable} antialiased`}
       >
-        {/* <UpperNavbar /> */}
+        <ModalProvider>
         <Navbar 
           logoText="Northern Fox"
           showSignIn={true}
           showDemo={true}
+          demoHref="/contact" 
         />
         <AIWidgetIcon />
         {children}
         <Footer />
+        </ModalProvider>
       </body>
     </html>
   );

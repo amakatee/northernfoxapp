@@ -234,11 +234,11 @@ export default function LogisticsFormSection() {
 
   // Get formatted phone for display
   const displayPhone = formatPhone(form.phone)
-
+  // bg-white w-full max-w-4xl mx-auto px-7 sm:px-6 lg:px-8 py-12 md:py-16 rounded-3xl shadow-lg
   return (
     <section
       ref={sectionRef}
-      className="bg-white w-full max-w-4xl mx-auto px-7 sm:px-6 lg:px-8 py-12 md:py-16 rounded-3xl shadow-lg"
+      className="bg-white w-full py-6"
     >
       <h2 className="text-2xl sm:text-3xl font-semibold text-[#0b2249]">
         Есть идея? <span className="font-bold">Мы доставим решение.</span>
@@ -257,7 +257,7 @@ export default function LogisticsFormSection() {
             value={form.name}
             onChange={handleNameChange}
             disabled={isSubmitting}
-            className="w-full border-b border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base disabled:bg-gray-50"
+            className="w-full border-b  text-black border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base disabled:bg-gray-50"
             required
           />
           {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
@@ -272,7 +272,7 @@ export default function LogisticsFormSection() {
             value={displayPhone}
             onChange={handlePhoneChange}
             disabled={isSubmitting}
-            className="w-full border-b border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base disabled:bg-gray-50"
+            className="w-full text-black border-b border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base disabled:bg-gray-50"
             required
           />
           {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
@@ -287,7 +287,7 @@ export default function LogisticsFormSection() {
             value={form.email}
             onChange={handleChange}
             disabled={isSubmitting}
-            className="w-full border-b border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base disabled:bg-gray-50"
+            className="w-full border-b text-black border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base disabled:bg-gray-50"
             required
           />
           {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
@@ -303,37 +303,37 @@ export default function LogisticsFormSection() {
               onChange={handleNumericChange}
               inputMode="numeric"
               disabled={isSubmitting}
-              className="w-full border-b border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base disabled:bg-gray-50"
+              className="w-full text-black border-b border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base disabled:bg-gray-50"
             />
           </div>
 
           <div className="grid grid-cols-3 gap-2">
             <input
               name="length"
-              placeholder="Длина"
+              placeholder="Длина (см)"
               value={form.length}
               onChange={handleNumericChange}
               inputMode="numeric"
               disabled={isSubmitting}
-              className="border-b border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base disabled:bg-gray-50"
+              className="border-b text-black border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base disabled:bg-gray-50"
             />
             <input
               name="width"
-              placeholder="Ширина"
+              placeholder="Ширина (см)"
               value={form.width}
               onChange={handleNumericChange}
               inputMode="numeric"
               disabled={isSubmitting}
-              className="border-b border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base disabled:bg-gray-50"
+              className="border-b text-black border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base disabled:bg-gray-50"
             />
             <input
               name="height"
-              placeholder="Высота"
+              placeholder="Высота (см)"
               value={form.height}
               onChange={handleNumericChange}
               inputMode="numeric"
               disabled={isSubmitting}
-              className="border-b border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base disabled:bg-gray-50"
+              className="border-b text-black border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base disabled:bg-gray-50"
             />
           </div>
         </div>
@@ -346,11 +346,11 @@ export default function LogisticsFormSection() {
           value={form.message}
           onChange={handleChange}
           disabled={isSubmitting}
-          className="w-full border-b border-gray-300 py-3 outline-none resize-none focus:border-blue-500 transition text-base disabled:bg-gray-50"
+          className="w-full text-black border-b border-gray-300 py-3 outline-none resize-none focus:border-blue-500 transition text-base disabled:bg-gray-50"
         />
 
         {/* File Upload */}
-        <div className="border-2 border-dashed border-gray-300 rounded-xl p-4 sm:p-6 text-center hover:border-blue-400 transition">
+        {/* <div className="border-2 border-dashed border-gray-300 rounded-xl p-4 sm:p-6 text-center hover:border-blue-400 transition">
           <p className="text-gray-500 mb-3 text-sm sm:text-base">
             Прикрепить файлы (инвойсы, фото, документы) - макс. {MAX_FILES} файлов, до 10MB каждый
           </p>
@@ -362,7 +362,7 @@ export default function LogisticsFormSection() {
             className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 disabled:opacity-50"
           />
           
-          {/* File List */}
+        
           {files.length > 0 && (
             <div className="mt-3 text-left space-y-1">
               {files.map((file, index) => (
@@ -383,7 +383,7 @@ export default function LogisticsFormSection() {
               ))}
             </div>
           )}
-        </div>
+        </div> */}
 
         {/* Agreement Checkbox */}
         <div className="flex items-start gap-3">

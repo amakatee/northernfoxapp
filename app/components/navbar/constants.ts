@@ -4,7 +4,7 @@ import { NavItem } from "./types";
 export const DEFAULT_NAV_ITEMS: NavItem[] = [
   { 
     label: "Поиск поставщиков", 
-    href: "/services/suppliers",
+    href: "/suppliers",
     dropdown: [
       {
         label: "Features",
@@ -26,7 +26,7 @@ export const DEFAULT_NAV_ITEMS: NavItem[] = [
   },
   { 
     label: "Страхование груза", 
-    href: "/services/insurance",
+    href: "/insurance",
     dropdown: [
       {
         label: "For Sales Teams",
@@ -47,7 +47,7 @@ export const DEFAULT_NAV_ITEMS: NavItem[] = [
   },
   { 
     label: "Таможенное оформление", 
-    href: "/services/customs",
+    href: "/customs",
     dropdown: [
       {
         label: "Blog",

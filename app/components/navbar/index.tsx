@@ -22,7 +22,7 @@ const Navbar: React.FC<NavbarProps> = ({
   showSignIn = true,
   showDemo = true,
   signInHref = "/contact",
-  demoHref = "/demo",
+  demoHref = "/contact",
   className,
   sticky = true,
   transparent = false,

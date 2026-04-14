@@ -228,7 +228,7 @@ const MobileMenu = React.forwardRef<HTMLDivElement, MobileMenuProps>(
 
             {/* Footer Links */}
             <div ref={footerRef} className="pt-4 border-t border-gray-200">
-              <div className="flex flex-wrap gap-6 text-sm text-gray-500">
+              <div className="flex flex-wrap gap-2 text-sm text-gray-500">
                 <a href="/privacy" className="hover:text-gray-900 transition-colors" onClick={onClose}>
                  Политика конфиденциальности
                 </a>

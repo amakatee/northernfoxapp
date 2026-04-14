@@ -151,7 +151,7 @@ const MobileMenu = React.forwardRef<HTMLDivElement, MobileMenuProps>(
             opacity: 0
           }}
         >
-          <div className="px-6 py-8 max-h-[calc(100vh-4rem)] overflow-y-auto">
+          <div className="px-6 py-8 max-h-[calc(100vh-4rem)] text-[#0b2249] overflow-y-auto">
             {/* Navigation Items */}
             <nav className="space-y-1 mb-8">
               {items.map((item, index) => (
@@ -161,13 +161,13 @@ const MobileMenu = React.forwardRef<HTMLDivElement, MobileMenuProps>(
                     if (el) navItemsRef.current[index] = el;
                   }}
                   href={item.href}
-                  className="flex items-center justify-between py-3 text-2xl font-medium text-[#0b2249] hover:text-gray-600 transition-colors border-b border-gray-100 last:border-0 group"
+                  className="flex items-center justify-between  py-3 text-2xl font-medium text-[#0b2249] hover:text-gray-600 transition-colors border-b border-gray-100 last:border-0 group"
                   onClick={onClose}
                   target={item.target}
                 >
                   <span>{item.label}</span>
                   {item.badge && (
-                    <span className="text-xs bg-[#b7a99a] text-text-[#0b2249] px-2 py-1 rounded-full">
+                    <span className="text-xs bg-[#b7a99a] text-[#0b2249] px-2 py-1 rounded-full">
                       {item.badge}
                     </span>
                   )}

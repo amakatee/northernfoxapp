@@ -112,15 +112,15 @@ export default function WorkProcess({ work_process }: WorkProcessComponentProps)
   }, []);
 
   return (
-    <section className="w-full bg-white pt-0 pb-10 flex justify-center">
-      <div ref={containerRef} className="max-w-4xl w-full">
+    <section className="w-full bg-white pt-0 pb-10   flex justify-center">
+      <div ref={containerRef} className=" w-full ">
         {/* Title */}
-        <h2 className="text-[#0b2249] text-3xl px-4 sm:text-5xl font-semibold mb-4">
+        <h2 className="text-[#0b2249] md:px-11 text-3xl px-4 sm:text-5xl font-semibold mb-4">
           {work_process.title}
         </h2>
 
         {/* Subtitle */}
-        <p className="wp-subtitle px-4 text-[#0b2249]/70 text-[1.1rem] sm:text-xl max-w-2xl mb-14 leading-relaxed">
+        <p className="wp-subtitle px-4  md:px-11 text-[#0b2249]/70 text-[1.1rem] sm:text-xl max-w-2xl mb-14 leading-relaxed">
           {work_process.subtitle}
         </p>
 

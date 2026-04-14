@@ -4,7 +4,7 @@
 import React, { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { NavbarProps } from "./types";
-import { DEFAULT_NAV_ITEMS } from "./constants";
+// import { DEFAULT_NAV_ITEMS } from "./constants";
 import { useScrollEffect } from "./hooks/useScrollEffect";
 import { useMobileMenu } from "./hooks/useMobileMenu";
 import { navbarAnimations } from "./animations";
@@ -14,7 +14,27 @@ import NavActions from "./components/NavActions";
 import MobileMenu from "./components/MobileMenu";
 import HamburgerButton from "./components/HamburgerButton";
 import gsap from "gsap";
+import { NavItem } from "./types";
 
+
+export const DEFAULT_NAV_ITEMS: NavItem[] = [
+  { 
+    label: "Поиск поставщиков", 
+    href: "/suppliers",
+    
+  },
+  { 
+    label: "Страхование груза", 
+    href: "/insurance",
+    
+  },
+  { 
+    label: "Таможенное оформление", 
+    href: "/customs",
+    
+  },
+  
+];
 const Navbar: React.FC<NavbarProps> = ({
   logoText = "北狐 Northern Fox",
   logoHref = "/",

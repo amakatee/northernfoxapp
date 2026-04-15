@@ -65,7 +65,7 @@ export default function LogisticsFormModal({ isOpen, onClose }: Props) {
       {/* Backdrop */}
       <div
         ref={backdropRef}
-        className="absolute inset-0 bg-black/75 backdrop-blur-xl"
+        className="absolute inset-0 "
         onClick={onClose}
       />
 

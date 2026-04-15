@@ -238,7 +238,7 @@ export default function LogisticsFormSection() {
   return (
     <section
       ref={sectionRef}
-      className="bg-white w-full py-6"
+      className="bg-white w-full py-6 text-[#0b2249]"
     >
       <h2 className="text-2xl sm:text-3xl font-semibold text-[#0b2249]">
         Есть идея? <span className="font-bold">Мы доставим решение.</span>

@@ -194,7 +194,7 @@ const MobileMenu = React.forwardRef<HTMLDivElement, MobileMenuProps>(
                   beihunorthernfox@yandex.ru
                 </a>
               </div>
-              <div>
+              {/* <div>
                 <a 
                   href="tel:+79847738223" 
                   className="text-lg text-gray-600 hover:text-gray-900 transition-colors inline-block contact-link"
@@ -202,7 +202,7 @@ const MobileMenu = React.forwardRef<HTMLDivElement, MobileMenuProps>(
                 >
                   +79847738223
                 </a>
-              </div>
+              </div> */}
             </div>
 
             {/* Social Links */}

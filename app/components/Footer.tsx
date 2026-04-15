@@ -131,7 +131,7 @@ export default function Footer() {
           </h4>
           <p className="text-[#a7e8f6]/80 text-[15px] leading-relaxed">
             Email: beihunorthernfox.yandex.ru <br />
-            Адрес: Guangzhou, Tian he qu <br />
+            Адрес: A22, Building 2511, No. 37, Huanshi West Road, Liwan District, Guangzhou City <br />
             
           </p>
         </div>

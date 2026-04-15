@@ -1,15 +1,8 @@
 import React from 'react'
-import WhyChooseUs from '../sections/WhyChooseUs'
-import {Slider} from  "../slider"
-import ServicesSection from '../ServicesPage'
 import HeroSection from "../sections/HeroSection/HeroSection"
 import {StackingCardsSection} from '../sections/ShippingMethods'
-import DeliveryForm from '../sections/DelieveryForm'
-import LogisticsSteps from '../sections/delievery/LogisticsSteps'
 import ServiceQAPage from '../sections/ServiceQAPage'
 import NeonSection from '../helpers/NeonSection'
-import StackingCards from '../helpers/Cards'
-import HireUs from '../helpers/Animated'
 import WorkProcess from '../sections/WorkProcess'
 import WhyWhiteLogisticsSection  from '../sections/WhyWhite'
 import LogisticsFormSection from '../helpers/DelieveryForm'
@@ -73,39 +66,19 @@ const data = {
 function Home() {
   return (
     <div className=' antialiased font-feature-settings letter-spacing: -0.05em text-[#08162F]'>
-     
+     <HeroSection />
 
-      
-{/*       
-       <NorthernFoxNavbar /> */}
-        <HeroSection />
-
-        {/* <Slider slides={slides} /> */}
-       
-    
-       
-      {/* <StackingCards  cards={industries} /> */}
-      {/* <IndustriesStackSection  cards={cards} /> */}
-      
-    
-        {/* <WhyChooseUs /> */}
-        
      <NeonSection>
-      <ServiceQAPage />
-      {/* <HireUs /> */}
+     <ServiceQAPage />
       </NeonSection>
+
       <StackingCardsSection  />
       <WorkProcess work_process={data.workProcess} />
       <WhyWhiteLogisticsSection />
-      {/* <DeliveryForm /> */}
+      
       <section className='bg-white w-full max-w-4xl mx-auto px-7 sm:px-6 lg:px-8 py-12 md:py-16 rounded-3xl shadow-lg'>
       <LogisticsFormSection />
       </section>
-     
-       
-       
-       
-      
      </div>
   )
 }
@@ -113,22 +86,3 @@ function Home() {
 export default Home
 
 
-// style={{
-  //   background: `
-  //     radial-gradient(ellipse at top left, rgba(59, 130, 246, 0.09) 0%, transparent 50%),
-  //     radial-gradient(ellipse at bottom right, rgba(139, 92, 246, 0.07) 0%, transparent 60%),
-  //     radial-gradient(ellipse at 20% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 45%),
-  //     linear-gradient(to bottom, #0f172a 0%, #0b1425 100%)
-  //   `,
-  // }}
-  
-  function Card({ title }: { title: string }) {
-    return (
-      <div className="rounded-3xl bg-neutral-900 text-white p-16 text-4xl font-semibold shadow-xl">
-        {title}
-        <p className="mt-6 text-lg text-neutral-400">
-          Dynamic height content. This can be anything.
-        </p>
-      </div>
-    )
-  }

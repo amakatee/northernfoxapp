@@ -3,6 +3,7 @@
 import React, { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Link from 'next/link'
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -60,7 +61,10 @@ export default function Footer() {
             Связаться с нами
           </h4>
           <p className="text-[#a7e8f6]/80 text-[15px] leading-relaxed">
-            Email: beihunorthernfox@yandex.ru <br />
+          <Link href="mailto:logistics@beihunorthernfox.com">
+             Email: logistics@beihunorthernfox.com
+            </Link>
+             <br />
             Адрес: A22, Building 2511, No. 37, Huanshi West Road, Liwan District,
             Guangzhou City
           </p>

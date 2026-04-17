@@ -5,6 +5,9 @@ import AIWidgetIcon from "./components/helpers/AIWidgetIcon";
 import Navbar from "./components/navbar";
 import Footer from "./components/Footer";
 import { ModalProvider } from "./components/providers/ModalProvider";
+import AnalyticsLoader from "./components/AnalyticLoader";
+import CookieBanner from "./components/CookieBanner";
+import YandexMetrikaWrapper from './components/YandexMetrikaWrapper';
 
 import "./globals.css";
 
@@ -124,7 +127,11 @@ export default function RootLayout({
           </main>
           <Footer />
         </ModalProvider>
+        <CookieBanner />
+        <AnalyticsLoader />
+        <YandexMetrikaWrapper  counterId={108598299} />
       </body>
+     
     </html>
   );
 }

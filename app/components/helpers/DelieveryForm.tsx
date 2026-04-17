@@ -4,6 +4,13 @@ import { useRef, useEffect, useState } from "react"
 import gsap from "gsap"
 import LetsTalkButton from "../helpers/MainButton"
 
+// Добавляем тип для window.ym
+declare global {
+  interface Window {
+    ym: (counterId: number, action: string, ...args: unknown[]) => void;
+  }
+}
+
 interface FormData {
   name: string
   phone: string
@@ -17,6 +24,7 @@ interface FormData {
 
 const MAX_FILES = 5
 const MAX_FILE_SIZE = 10 * 1024 * 1024 // 10MB
+const YM_COUNTER_ID = 108598299 // 👈 ВАШ ID СЧЕТЧИКА
 
 // Phone formatter: +7 (XXX) XXX XX XX
 const formatPhone = (digits: string) => {
@@ -24,11 +32,9 @@ const formatPhone = (digits: string) => {
   
   if (value.length === 0) return ""
   
-  // Ensure starts with 7, and limit to 11 digits total (7 + 10)
   if (!value.startsWith("7")) value = "7" + value.slice(0, 10)
   value = value.slice(0, 11)
 
-  // Format: +7 (XXX) XXX XX XX
   let formatted = "+7"
   if (value.length > 1) {
     formatted += " (" + value.slice(1, 4)
@@ -50,6 +56,7 @@ const extractDigits = (value: string) => value.replace(/\D/g, "")
 
 export default function LogisticsFormSection() {
   const sectionRef = useRef<HTMLElement>(null)
+  const [clientId, setClientId] = useState<string>("") // 👈 Добавляем состояние для ClientID
 
   const [form, setForm] = useState<FormData>({
     name: "",
@@ -74,6 +81,14 @@ export default function LogisticsFormSection() {
       { y: 30, opacity: 0 },
       { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
     )
+    
+    // 👇 Получаем ClientID при загрузке компонента
+    if (typeof window !== 'undefined' && window.ym) {
+      window.ym(YM_COUNTER_ID, 'getClientID', (id: string) => {
+        console.log('Yandex Metrika ClientID:', id)
+        setClientId(id)
+      })
+    }
   }, [])
 
   // Name: only letters, spaces, hyphens
@@ -114,7 +129,6 @@ export default function LogisticsFormSection() {
     
     const incoming = Array.from(e.target.files)
     
-    // Check file sizes
     const validFiles = incoming.filter(file => file.size <= MAX_FILE_SIZE)
     const invalidFiles = incoming.filter(file => file.size > MAX_FILE_SIZE)
     
@@ -122,7 +136,6 @@ export default function LogisticsFormSection() {
       alert(`Некоторые файлы превышают лимит в 10MB и не были добавлены`)
     }
     
-    // Check total count
     const totalFiles = [...files, ...validFiles]
     if (totalFiles.length > MAX_FILES) {
       alert(`Максимум ${MAX_FILES} файлов`)
@@ -171,6 +184,14 @@ export default function LogisticsFormSection() {
       return
     }
 
+    // 👇 Отправляем цель в Яндекс.Метрику
+    if (typeof window !== 'undefined' && window.ym) {
+      window.ym(YM_COUNTER_ID, 'reachGoal', 'logistics_form_submit', {
+        form_name: 'logistics',
+        client_id: clientId
+      })
+    }
+
     setIsSubmitting(true)
     setSubmitStatus("idle")
 
@@ -186,6 +207,11 @@ export default function LogisticsFormSection() {
       const phoneDigits = extractDigits(form.phone)
       submitFormData.set("phone", phoneDigits)
       
+      // 👇 Добавляем ClientID в отправляемую форму
+      if (clientId) {
+        submitFormData.append("ym_client_id", clientId)
+      }
+      
       // Add files
       files.forEach(file => {
         submitFormData.append("files", file)
@@ -199,6 +225,13 @@ export default function LogisticsFormSection() {
       if (!response.ok) {
         const errorData = await response.json()
         throw new Error(errorData.error || "Failed to send")
+      }
+
+      // 👇 Отправляем цель успешной отправки
+      if (typeof window !== 'undefined' && window.ym) {
+        window.ym(YM_COUNTER_ID, 'reachGoal', 'logistics_form_success', {
+          client_id: clientId
+        })
       }
 
       setSubmitStatus("success")
@@ -218,28 +251,30 @@ export default function LogisticsFormSection() {
       setAgreed(false)
       setErrors({})
       
-      // Auto-hide success message after 5 seconds
       setTimeout(() => setSubmitStatus("idle"), 5000)
       
     } catch (error) {
       console.error("Submit error:", error)
       setSubmitStatus("error")
       
-      // Auto-hide error message after 5 seconds
       setTimeout(() => setSubmitStatus("idle"), 5000)
     } finally {
       setIsSubmitting(false)
     }
   }
 
-  // Get formatted phone for display
   const displayPhone = formatPhone(form.phone)
-  // bg-white w-full max-w-4xl mx-auto px-7 sm:px-6 lg:px-8 py-12 md:py-16 rounded-3xl shadow-lg
+
   return (
     <section
       ref={sectionRef}
       className="bg-white w-full py-6 text-[#0b2249]"
     >
+      {/* 👇 Скрытое поле для ClientID (опционально, для отладки) */}
+      {clientId && (
+        <input type="hidden" name="ym_client_id" value={clientId} />
+      )}
+      
       <h2 className="text-2xl sm:text-3xl font-semibold text-[#0b2249]">
         Есть идея? <span className="font-bold">Мы доставим решение.</span>
       </h2>
@@ -257,7 +292,7 @@ export default function LogisticsFormSection() {
             value={form.name}
             onChange={handleNameChange}
             disabled={isSubmitting}
-            className="w-full border-b  text-black border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base disabled:bg-gray-50"
+            className="w-full border-b text-black border-gray-300 py-3 outline-none focus:border-blue-500 transition text-base disabled:bg-gray-50"
             required
           />
           {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
@@ -349,42 +384,6 @@ export default function LogisticsFormSection() {
           className="w-full text-black border-b border-gray-300 py-3 outline-none resize-none focus:border-blue-500 transition text-base disabled:bg-gray-50"
         />
 
-        {/* File Upload */}
-        {/* <div className="border-2 border-dashed border-gray-300 rounded-xl p-4 sm:p-6 text-center hover:border-blue-400 transition">
-          <p className="text-gray-500 mb-3 text-sm sm:text-base">
-            Прикрепить файлы (инвойсы, фото, документы) - макс. {MAX_FILES} файлов, до 10MB каждый
-          </p>
-          <input
-            type="file"
-            multiple
-            onChange={handleFile}
-            disabled={isSubmitting || files.length >= MAX_FILES}
-            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 disabled:opacity-50"
-          />
-          
-        
-          {files.length > 0 && (
-            <div className="mt-3 text-left space-y-1">
-              {files.map((file, index) => (
-                <div key={index} className="flex justify-between items-center text-sm bg-gray-50 p-2 rounded">
-                  <span className="truncate flex-1">{file.name}</span>
-                  <span className="text-gray-500 text-xs mx-2">
-                    {(file.size / 1024 / 1024).toFixed(2)} MB
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => removeFile(index)}
-                    disabled={isSubmitting}
-                    className="text-red-500 hover:text-red-700 font-bold px-2"
-                  >
-                    ×
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
-        </div> */}
-
         {/* Agreement Checkbox */}
         <div className="flex items-start gap-3">
           <input
@@ -406,10 +405,10 @@ export default function LogisticsFormSection() {
 
         {/* Submit Button */}
         <LetsTalkButton 
-  type="submit"  // Add this
-  children={isSubmitting ? "ОТПРАВЛЯЕМ..." : "ОТПРАВИТЬ ЗАЯВКУ"}
-  disabled={isSubmitting}
-/>
+          type="submit"
+          children={isSubmitting ? "ОТПРАВЛЯЕМ..." : "ОТПРАВИТЬ ЗАЯВКУ"}
+          disabled={isSubmitting}
+        />
 
         {/* Status Messages */}
         {submitStatus === "success" && (

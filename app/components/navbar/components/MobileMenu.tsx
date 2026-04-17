@@ -187,11 +187,11 @@ const MobileMenu = React.forwardRef<HTMLDivElement, MobileMenuProps>(
             <div ref={contactRef} className="mb-6 space-y-4">
               <div>
                 <a 
-                  href="mailto:northernfox@mail.ru" 
+                  href="logistics@beihunorthernfox.com" 
                   className="text-lg text-[#0b2249]/70 hover:text-[#0b2249]/90 transition-colors inline-block contact-link"
                   onClick={onClose}
                 >
-                  beihunorthernfox@yandex.ru
+                  logistics@beihunorthernfox.com
                 </a>
               </div>
               {/* <div>
@@ -206,7 +206,7 @@ const MobileMenu = React.forwardRef<HTMLDivElement, MobileMenuProps>(
             </div>
 
             {/* Social Links */}
-            <div ref={socialRef} className="mb-8">
+            {/* <div ref={socialRef} className="mb-8">
               <div className="flex items-center gap-8">
                 <a 
                   href="#" 
@@ -224,7 +224,7 @@ const MobileMenu = React.forwardRef<HTMLDivElement, MobileMenuProps>(
                 </a>
                 
               </div>
-            </div>
+            </div> */}
 
             {/* Footer Links */}
             <div ref={footerRef} className="pt-4 border-t border-gray-200">

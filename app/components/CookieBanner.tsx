@@ -36,7 +36,6 @@ export default function CookieBanner() {
 
   useEffect(() => {
     if (visible) {
-      // Small delay to ensure DOM is ready
       const timeout = setTimeout(animateIn, 100);
       return () => clearTimeout(timeout);
     }
@@ -51,7 +50,6 @@ export default function CookieBanner() {
   const rejectCookies = () => {
     Cookies.set("nf_cookie_consent", "rejected", { expires: 365 });
     closeBanner();
-    // Optional: you can still allow essential cookies here
   };
 
   const closeBanner = () => {
@@ -82,29 +80,26 @@ export default function CookieBanner() {
       {/* Dark Backdrop with Blur */}
       <div
         ref={backdropRef}
-        className="fixed  inset-0 z-50"
+        className="fixed inset-0 z-50"
         style={{ willChange: "opacity" }}
       />
 
-      {/* Cookie Consent Card - Glassmorphism style */}
+      {/* Cookie Consent Card - Mobile First Design */}
       <div
         ref={bannerRef}
-        className="fixed bottom-6 left-1/2  -translate-x-1/2 w-full max-w-2xl z-[60]  px-6"
+        className="fixed bottom-0 left-0 right-0 z-[60] px-3 sm:px-4 md:px-6"
         style={{ willChange: "transform, opacity" }}
       >
-        <div className="rounded-3xl bg-[#0a1328]/80 backdrop-blur-xl shadow-2xl overflow-hidden">
-          {/* Subtle top glow accent using image palette */}
-
-          <div className="py-4 px-5 flex flex-col gap-3">
-            <div className="flex items-start gap-5">
-            
-
-              <div className="space-y-2">
-                <h3 className="text-white text-sm font-semibold tracking-tight">
+        <div className="rounded-t-2xl sm:rounded-2xl bg-[#0a1328]/80 backdrop-blur-xl shadow-2xl overflow-hidden mx-auto max-w-full sm:max-w-xl md:max-w-2xl sm:mb-6">
+          <div className="py-3 sm:py-4 px-4 sm:px-5 flex flex-col gap-2 sm:gap-3">
+            {/* Header and Text */}
+            <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-5">
+              <div className="space-y-1.5 sm:space-y-2 flex-1">
+                <h3 className="text-white text-xs sm:text-sm font-semibold tracking-tight">
                   Мы используем cookies
                 </h3>
-                <p className="text-slate-300 text-[12px] leading-relaxed">
-                  Мы используем файлы cookies для аналитики, персонализации и
+                <p className="text-slate-300 text-[11px] sm:text-[12px] leading-relaxed">
+                  Мы используем файлы cookies для аналитики и
                   улучшения вашего опыта на сайте. Продолжая использовать сайт,
                   вы соглашаетесь с нашей{" "}
                   <a
@@ -118,24 +113,25 @@ export default function CookieBanner() {
               </div>
             </div>
 
-            {/* Buttons */}
-            <div className="flex flex-col sm:flex-row gap-5  px-15 text-xs">
+            {/* Buttons - Smaller and responsive */}
+            <div className="flex flex-row gap-2 sm:gap-3 mt-1 sm:mt-2">
               <button
                 onClick={rejectCookies}
-                className="flex-1 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white font-medium py-2  px-4 rounded-2xl transition-all duration-200 active:scale-[0.985]"
+                className="flex-1 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white font-medium py-1.5 sm:py-2 px-2 sm:px-3 rounded-xl sm:rounded-2xl text-[11px] sm:text-xs transition-all duration-200 active:scale-[0.98]"
               >
                 Отклонить
               </button>
 
               <button
                 onClick={acceptCookies}
-                className="flex-1 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white font-medium py-2 px-4 rounded-2xl transition-all duration-200 active:scale-[0.985]"
+                className="flex-1 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white font-medium py-1.5 sm:py-2 px-2 sm:px-3 rounded-xl sm:rounded-2xl text-[11px] sm:text-xs transition-all duration-200 active:scale-[0.98]"
               >
                 Принять все
               </button>
             </div>
 
-            <p className="text-center text-xs text-slate-500">
+            {/* Footer text */}
+            <p className="text-center text-[5px] sm:text-xs text-slate-500 mt-1">
               Вы всегда можете изменить настройки в любое время
             </p>
           </div>

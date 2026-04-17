@@ -2,6 +2,41 @@ import React from 'react'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react' 
 import LogisticsFormSection from '../components/helpers/DelieveryForm'
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Контакты и расчет доставки",
+  description:
+    "Свяжитесь с Northern Fox для расчета доставки из Китая, таможенного оформления и поиска поставщиков. Бесплатная консультация.",
+
+  keywords: [
+    "доставка из Китая контакты",
+    "логистика Китай Россия",
+    "расчет доставки Китай",
+    "таможенное оформление контакты",
+    "карго Китай",
+    "карго доставка из Китая",
+    "груз из Китая",
+    "доставка груза Китай Россия",
+    "таможенное оформление Китай",
+    "поиск поставщиков Китай",
+    "проверка поставщика Китай",
+    "логистика Китай Россия",
+  ],
+
+  alternates: {
+    canonical: "https://beihunorthernfox.com/contact",
+  },
+
+  openGraph: {
+    title: "Контакты Northern Fox",
+    description:
+      "Оставьте заявку и получите расчет доставки и консультацию по логистике.",
+    url: "https://beihunorthernfox.com/contact",
+    siteName: "Northern Fox",
+    locale: "ru_RU",
+    type: "website",
+  },
+};
 
 const ContactPage = () => {
   return (

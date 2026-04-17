@@ -1,16 +1,13 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Manrope } from "next/font/google";
 import localFont from "next/font/local";
-
 import AIWidgetIcon from "./components/helpers/AIWidgetIcon";
 import Navbar from "./components/navbar";
-import UpperNavbar from "./components/navbar/UpperNavbar";
 import Footer from "./components/Footer";
 import { ModalProvider } from "./components/providers/ModalProvider";
 
 import "./globals.css";
 
-/* ================= Fonts (без изменений) ================= */
 
 export const manrope = Manrope({
   subsets: ["latin", "cyrillic"],
@@ -41,35 +38,44 @@ const helveticaNeue = localFont({
 /* ================= SEO Metadata ================= */
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://epolet5-mnfp.vercel.app"),
+  metadataBase: new URL("https://beihunorthernfox.com"),
 
   title: {
-    default: "Northern Fox — Грузоперевозки и логистические решения",
-    template: "%s | Northern Fox Logistics",
+    default: "Northern Fox — Карго и доставка грузов из Китая в Россию",
+    template: "%s | Northern Fox",
   },
 
   description:
-    "Northern Fox предоставляет профессиональные услуги грузоперевозок, складской логистики и управления цепями поставок для бизнеса.",
+    "Northern Fox — карго доставка грузов из Китая в Россию. Таможенное оформление, поиск поставщиков, проверка фабрик и логистика под ключ.",
+
+  keywords: [
+    "карго Китай",
+    "карго доставка из Китая",
+    "груз из Китая",
+    "доставка груза Китай Россия",
+    "таможенное оформление Китай",
+    "поиск поставщиков Китай",
+    "проверка поставщика Китай",
+    "логистика Китай Россия",
+  ],
 
   openGraph: {
     type: "website",
-    url: "https://epolet5-mnfp.vercel.app",
-    title: "Northern Fox — Надежные логистические услуги",
+    url: "https://beihunorthernfox.com",
+    title: "Northern Fox — Карго доставка из Китая",
     description:
-      "Комплексные решения в сфере грузоперевозок, складирования и транспортной логистики.",
-    siteName: "Northern Fox Co.",
+      "Карго, таможня, поиск поставщиков и доставка грузов из Китая в Россию.",
+    siteName: "Northern Fox",
     locale: "ru_RU",
     images: [
       {
         url: "/images/fox.png",
         width: 1200,
         height: 630,
-        alt: "Логистические услуги Northern Fox",
+        alt: "Northern Fox Cargo",
       },
     ],
   },
-
- 
 
   robots: {
     index: true,
@@ -78,8 +84,6 @@ export const metadata: Metadata = {
 
   icons: {
     icon: "/images/fox.png",
-    shortcut: "/images/fox.png",
-    apple: "/images/fox.png",
   },
 };
 

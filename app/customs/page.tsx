@@ -1,6 +1,61 @@
 // app/customs/page.tsx
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Таможенное оформление грузов из Китая в Россию",
+  description:
+    "Профессиональное таможенное оформление грузов из Китая в Россию: декларирование, расчет пошлин, сертификация, сопровождение ВЭД и срочный выпуск за 24 часа.",
+
+  keywords: [
+    "таможенное оформление Китай Россия",
+    "таможенный брокер",
+    "декларирование товаров",
+    "ВЭД консультации",
+    "расчет таможенных пошлин",
+    "сертификация товаров",
+    "СВХ хранение",
+    "карго Китай",
+    "карго доставка из Китая",
+    "груз из Китая",
+    "доставка груза Китай Россия",
+    "таможенное оформление Китай",
+    "поиск поставщиков Китай",
+    "проверка поставщика Китай",
+    "логистика Китай Россия",
+  ],
+
+  openGraph: {
+    title: "Таможенное оформление грузов — NorthernFox",
+    description:
+      "Полное таможенное сопровождение грузов из Китая в Россию. Минимальные сроки, отсутствие простоев.",
+    url: "https://beihunorthernfox.com/customs",
+    siteName: "Epolet Logistics",
+    locale: "ru_RU",
+    type: "article",
+    images: [
+      {
+        url: "/fox.png",
+        width: 1200,
+        height: 630,
+        alt: "Таможенное оформление грузов",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Таможенное оформление Китай → Россия",
+    description:
+      "Декларирование, пошлины, сертификация и сопровождение ВЭД.",
+    images: ["/fox.png"],
+  },
+
+  alternates: {
+    canonical: "https://beihunorthernfox.com/customs",
+  },
+};
 
 export default function CustomsPage() {
   return (

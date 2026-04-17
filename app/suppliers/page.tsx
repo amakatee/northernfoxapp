@@ -1,6 +1,59 @@
 // app/supplier-search/page.tsx
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Поиск и проверка поставщиков в Китае",
+  description:
+    "Northern Fox выполняет поиск, проверку и верификацию поставщиков в Китае. Инспекция фабрик, контроль качества и организация поставок в Россию под ключ.",
+
+  keywords: [
+    "поиск поставщиков Китай",
+    "проверка поставщика Китай",
+    "верификация фабрик Китай",
+    "контроль качества Китай",
+    "инспекция производства Китай",
+    "доставка из Китая в Россию",
+    "карго Китай",
+    "карго доставка из Китая",
+    "груз из Китая",
+    "доставка груза Китай Россия",
+    "таможенное оформление Китай",
+    "поиск поставщиков Китай",
+    "проверка поставщика Китай",
+    "логистика Китай Россия",
+  ],
+
+  openGraph: {
+    title: "Поиск и проверка поставщиков в Китае — Northern Fox",
+    description:
+      "Найдем надежных поставщиков, проверим фабрики и организуем поставки из Китая в Россию.",
+    url: "https://beihunorthernfox.com/supplier-search",
+    siteName: "Northern Fox",
+    locale: "ru_RU",
+    type: "article",
+    images: [
+      {
+        url: "/fox.png",
+        width: 1200,
+        height: 630,
+        alt: "Поиск поставщиков в Китае",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Поиск поставщиков в Китае",
+    description:
+      "Проверка фабрик, контроль качества и надежные поставки.",
+    images: ["/fox.png"],
+  },
+
+  alternates: {
+    canonical: "https://beihunorthernfox.com/supplier-search",
+  },
+};
 
 export default function SupplierSearchPage() {
   return (

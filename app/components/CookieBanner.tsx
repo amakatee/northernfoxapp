@@ -122,7 +122,7 @@ export default function CookieBanner() {
             <div className="flex flex-col sm:flex-row gap-5  px-15 text-xs">
               <button
                 onClick={rejectCookies}
-                className="flex-1 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white font-medium  px-4 rounded-2xl transition-all duration-200 active:scale-[0.985]"
+                className="flex-1 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white font-medium py-2  px-4 rounded-2xl transition-all duration-200 active:scale-[0.985]"
               >
                 Отклонить
               </button>

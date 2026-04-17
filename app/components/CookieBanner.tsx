@@ -90,7 +90,7 @@ export default function CookieBanner() {
         className="fixed bottom-0 left-0 right-0 z-[60] px-3 sm:px-4 md:px-6"
         style={{ willChange: "transform, opacity" }}
       >
-        <div className="rounded-t-2xl sm:rounded-2xl bg-[#0a1328]/80 backdrop-blur-xl shadow-2xl overflow-hidden mx-auto max-w-full sm:max-w-xl md:max-w-2xl sm:mb-6">
+        <div className="rounded-2xl sm:rounded-2xl bg-[#0a1328]/80 sm:backdrop-blur-xl shadow-2xl overflow-hidden mx-auto max-w-full sm:max-w-xl md:max-w-2xl sm:mb-6">
           <div className="py-3 sm:py-4 px-4 sm:px-5 flex flex-col gap-2 sm:gap-3">
             {/* Header and Text */}
             <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-5">
@@ -130,10 +130,7 @@ export default function CookieBanner() {
               </button>
             </div>
 
-            {/* Footer text */}
-            <p className="text-center text-[5px] sm:text-xs text-slate-500 mt-1">
-              Вы всегда можете изменить настройки в любое время
-            </p>
+           
           </div>
         </div>
       </div>
